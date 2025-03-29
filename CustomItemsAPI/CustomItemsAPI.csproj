@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <AssemblyName>CustomItemsAPI</AssemblyName>
+	  <RootNamespace>CustomItemsAPI</RootNamespace>
+	  <Copyright>SlejmUr</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Include="System.ComponentModel" />
+  </ItemGroup>
+
+</Project>

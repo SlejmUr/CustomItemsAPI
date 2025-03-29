@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <AssemblyName>CustomItemsAPI.TestItems</AssemblyName>
+	  <RootNamespace>CustomItemsAPI.TestItems</RootNamespace>
+	  <Copyright>SlejmUr</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CustomItemsAPI\CustomItemsAPI.csproj" />
+  </ItemGroup>
+
+</Project>
