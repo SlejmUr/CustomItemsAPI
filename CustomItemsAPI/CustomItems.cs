@@ -128,8 +128,8 @@ public static class CustomItems
     {
         if (serial == 0)
             return null;
-        if (SerialToCustomItem.TryGetValue(serial, out var customItem))
-            return (T?)customItem;
+        if (SerialToCustomItem.TryGetValue(serial, out var customItem) && customItem is T customItemType)
+            return customItemType;
         return null;
     }
     #endregion

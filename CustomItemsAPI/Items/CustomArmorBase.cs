@@ -7,20 +7,26 @@ namespace CustomItemsAPI.Items;
 public abstract class CustomArmorBase : CustomItemBase
 {
     /// <summary>
-    /// 
+    /// Currently not used ingame.
     /// </summary>
     [Description("Value must be between 0 and 100. -1 means do not change.")]
     public virtual int HelmetEfficacy { get; } = -1;
 
     /// <summary>
-    /// 
+    /// Used to alter efficacy for 939 Claw and Explosion Damage
     /// </summary>
     [Description("Value must be between 0 and 100. -1 means do not change.")]
     public virtual int VestEfficacy { get; } = -1;
 
+    /// <summary>
+    /// Use to alter stamina usage.
+    /// </summary>
     [Description("Value must be between 1f and 2f. NaN means do not change.")]
     public virtual float StaminaUseMultiplier { get; } = float.NaN;
 
+    /// <summary>
+    /// Use to alter movement speed.
+    /// </summary>
     [Description("Value must be between 0f and 1f. NaN means do not change.")]
     public virtual float MovementSpeedMultiplier { get; } = float.NaN;
 
@@ -36,7 +42,9 @@ public abstract class CustomArmorBase : CustomItemBase
     [Description("If null do not change any limit. Otherwise changes limits to it")]
     public virtual List<BodyArmor.ArmorCategoryLimitModifier> CategoryLimits { get; } = null;
 
-
+    /// <summary>
+    /// Should not drop the excess items. (Used when other items are dropeed.)
+    /// </summary>
     [Description("Should not drop the excess items.")]
     public virtual bool DontRemoveExcessOnDrop { get; } = false;
 
@@ -70,6 +78,4 @@ public abstract class CustomArmorBase : CustomItemBase
             body.Base.CategoryLimits = [.. CategoryLimits];
         body.Base.DontRemoveExcessOnDrop = DontRemoveExcessOnDrop;
     }
-
-    // TOOD: add picking/picked up armor.
 }

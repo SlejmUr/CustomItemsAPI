@@ -3,7 +3,7 @@ using Utils;
 
 namespace CustomItemsAPI.Commands;
 
-[CommandHandler(typeof(CI_Command))]
+[CommandHandler(typeof(CustomItemsCommandBase))]
 public sealed class GiveCommand : ICommand, IUsageProvider
 {
     public string Command => "give";

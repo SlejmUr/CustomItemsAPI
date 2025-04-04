@@ -41,37 +41,40 @@
 	<Reference Include="Assembly-CSharp" Publicize="true">
 		<Private>false</Private>
 	</Reference>
-        <Reference Include="Assembly-CSharp-firstpass">
+	<Reference Include="Assembly-CSharp-firstpass">
 		<Private>false</Private>
 	</Reference>
-        <Reference Include="CommandSystem.Core">
+    <Reference Include="CommandSystem.Core">
 		<Private>false</Private>
 	</Reference>
-        <Reference Include="Mirror">
+    <Reference Include="Mirror">
 		<Private>false</Private>
 	</Reference>
-        <Reference Include="Mirror.Components">
+    <Reference Include="Mirror.Components">
 		<Private>false</Private>
 	</Reference>
-        <Reference Include="Pooling">
+    <Reference Include="Pooling">
 		<Private>false</Private>
 	</Reference>
-        <Reference Include="LabAPI">
+    <Reference Include="LabAPI">
 		<Private>false</Private>
 	</Reference>
-        <Reference Include="Unity.TextMeshPro">
+    <Reference Include="Unity.TextMeshPro">
 		<Private>false</Private>
 	</Reference>
-        <Reference Include="UnityEngine">
+    <Reference Include="UnityEngine">
 		<Private>false</Private>
 	</Reference>
-        <Reference Include="UnityEngine.CoreModule">
+	<Reference Include="UnityEngine.AudioModule">
 		<Private>false</Private>
 	</Reference>
-        <Reference Include="UnityEngine.ParticleSystemModule">
+    <Reference Include="UnityEngine.CoreModule">
 		<Private>false</Private>
 	</Reference>
-        <Reference Include="UnityEngine.PhysicsModule">
+    <Reference Include="UnityEngine.ParticleSystemModule">
+		<Private>false</Private>
+	</Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
 		<Private>false</Private>
 	</Reference>
     </ItemGroup>

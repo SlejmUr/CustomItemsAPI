@@ -2,7 +2,7 @@
 
 namespace CustomItemsAPI.Commands;
 
-[CommandHandler(typeof(CI_Command))]
+[CommandHandler(typeof(CustomItemsCommandBase))]
 public sealed class ListCommand : ICommand
 {
     public string Command => "list";

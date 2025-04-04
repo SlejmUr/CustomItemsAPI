@@ -50,7 +50,7 @@ internal sealed class CommonItemHandler : CustomEventsHandler
     public override void OnPlayerPickedUpItem(PlayerPickedUpItemEventArgs ev)
     {
         var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.Item);
-        cur_item?.OnPicked(ev.Player);
+        cur_item?.OnPicked(ev.Player, ev.Item);
     }
     #endregion
     #region Throw

@@ -3,7 +3,7 @@
 namespace CustomItemsAPI.Commands;
 
 [CommandHandler(typeof(RemoteAdminCommandHandler))]
-public sealed class CI_Command : ParentCommand, IUsageProvider
+public sealed class CustomItemsCommandBase : ParentCommand, IUsageProvider
 {
     public override string Command => "lci";
 

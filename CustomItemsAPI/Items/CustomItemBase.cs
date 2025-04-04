@@ -109,6 +109,25 @@ public abstract class CustomItemBase : ICloneable
     /// </summary>
     /// <param name="player">Player who called this function</param>
     /// <param name="pickup"></param>
+    public virtual void OnSearching(Player player, Pickup pickup, TypeWrapper<bool> isAllowed)
+    {
+
+    }
+
+    /// <summary>
+    /// This <paramref name="player"/> who already picked up the Currect Custom Item.
+    /// </summary>
+    /// <param name="player">The Player who called this function</param>
+    public virtual void OnSearched(Player player)
+    {
+
+    }
+
+    /// <summary>
+    /// This <paramref name="player"/> who currently picking up the Currect Custom Item.
+    /// </summary>
+    /// <param name="player">Player who called this function</param>
+    /// <param name="pickup"></param>
     public virtual void OnPicking(Player player, Pickup pickup, TypeWrapper<bool> isAllowed)
     {
 
@@ -118,7 +137,7 @@ public abstract class CustomItemBase : ICloneable
     /// This <paramref name="player"/> who already picked up the Currect Custom Item.
     /// </summary>
     /// <param name="player">The Player who called this function</param>
-    public virtual void OnPicked(Player player)
+    public virtual void OnPicked(Player player, Item item)
     {
 
     }

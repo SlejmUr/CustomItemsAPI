@@ -4,6 +4,7 @@ using CustomItemsAPI.EventHandlers;
 using InventorySystem;
 using InventorySystem.Items.ThrowableProjectiles;
 using InventorySystem.Items.Firearms;
+using InventorySystem.Items.MicroHID.Modules;
 
 namespace CustomItemsAPI;
 
@@ -20,47 +21,49 @@ internal sealed class Main : Plugin
 
     public override Version RequiredApiVersion => LabApi.Features.LabApiProperties.CurrentVersion;
 
-    private CommonItemHandler CommonItemHandler;
-    private KeyCardItemHandler KeyCardItemHandler;
-    private NonItemRelatedHandler NonItemRelatedHandler;
-    private UsableItemHandler UsableItemHandler;
-    private ThrowableItemHandler ThrowableItemHandler;
+    private CommonItemHandler commonItemHandler;
+    private KeyCardItemHandler keyCardItemHandler;
+    private NonItemRelatedHandler nonItemRelatedHandler;
+    private UsableItemHandler usableItemHandler;
+    private ThrowableItemHandler throwableItemHandler;
 
     public override void Disable()
     {
         Instance = null;
-        CustomHandlersManager.UnregisterEventsHandler(CommonItemHandler);
-        CommonItemHandler = null;
-        CustomHandlersManager.UnregisterEventsHandler(KeyCardItemHandler);
-        KeyCardItemHandler = null;
-        CustomHandlersManager.UnregisterEventsHandler(NonItemRelatedHandler);
-        NonItemRelatedHandler = null;
-        CustomHandlersManager.UnregisterEventsHandler(UsableItemHandler);
-        UsableItemHandler = null;
-        CustomHandlersManager.UnregisterEventsHandler(ThrowableItemHandler);
-        ThrowableItemHandler = null;
+        CustomHandlersManager.UnregisterEventsHandler(commonItemHandler);
+        commonItemHandler = null;
+        CustomHandlersManager.UnregisterEventsHandler(keyCardItemHandler);
+        keyCardItemHandler = null;
+        CustomHandlersManager.UnregisterEventsHandler(nonItemRelatedHandler);
+        nonItemRelatedHandler = null;
+        CustomHandlersManager.UnregisterEventsHandler(usableItemHandler);
+        usableItemHandler = null;
+        CustomHandlersManager.UnregisterEventsHandler(throwableItemHandler);
+        throwableItemHandler = null;
         InventoryExtensions.OnItemRemoved -= Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned -= Subscribed.ProjectileSpawned;
+        CycleController.OnPhaseChanged -= Subscribed.PhaseChanged;
         CustomItems.UnRegisterAllCustomItems();
     }
 
     public override void Enable()
     {
         Instance = this;
-        CommonItemHandler = new();
-        CustomHandlersManager.RegisterEventsHandler(CommonItemHandler);
-        KeyCardItemHandler = new();
-        CustomHandlersManager.RegisterEventsHandler(KeyCardItemHandler);
-        NonItemRelatedHandler = new();
-        CustomHandlersManager.RegisterEventsHandler(NonItemRelatedHandler);
-        UsableItemHandler = new();
-        CustomHandlersManager.RegisterEventsHandler(UsableItemHandler);
-        ThrowableItemHandler = new();
-        CustomHandlersManager.RegisterEventsHandler(ThrowableItemHandler);
+        commonItemHandler = new();
+        CustomHandlersManager.RegisterEventsHandler(commonItemHandler);
+        keyCardItemHandler = new();
+        CustomHandlersManager.RegisterEventsHandler(keyCardItemHandler);
+        nonItemRelatedHandler = new();
+        CustomHandlersManager.RegisterEventsHandler(nonItemRelatedHandler);
+        usableItemHandler = new();
+        CustomHandlersManager.RegisterEventsHandler(usableItemHandler);
+        throwableItemHandler = new();
+        CustomHandlersManager.RegisterEventsHandler(throwableItemHandler);
         InventoryExtensions.OnItemRemoved += Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned += Subscribed.ProjectileSpawned;
+        CycleController.OnPhaseChanged += Subscribed.PhaseChanged;
         CustomItems.RegisterCustomItems();
-        
+#if DEBUG
         foreach (var item in InventoryItemLoader.AvailableItems)
         {
             CL.Info($"ItemType: {item.Key} Base type: {item.Value.GetType()}");
@@ -73,6 +76,6 @@ internal sealed class Main : Plugin
                 }
             }
         }
-        
+#endif
     }
 }

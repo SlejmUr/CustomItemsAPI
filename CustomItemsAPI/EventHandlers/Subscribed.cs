@@ -1,5 +1,6 @@
 ﻿using CustomItemsAPI.Items;
 using InventorySystem.Items;
+using InventorySystem.Items.MicroHID.Modules;
 using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
 using LabApi.Features.Wrappers;
@@ -20,5 +21,11 @@ internal sealed class Subscribed
     {
         var cur_item = CustomItems.GetCustomItem<CustomThrowableBase>(Pickup.Get(projectile));
         cur_item?.OnProjectileSpawned(projectile);
+    }
+
+    internal static void PhaseChanged(ushort Serial, MicroHidPhase phase)
+    {
+        var cur_item = CustomItems.GetCustomItem<CustomMicroHIDBase>(Serial);
+        cur_item?.OnPhaseChanged(phase);
     }
 }
