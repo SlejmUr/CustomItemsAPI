@@ -1,0 +1,244 @@
+ ItemType: GunCOM15 Base type: InventorySystem.Items.Firearms.Firearm
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AutomaticActionModule  UniqueComponentId: 89442
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimationTriggerReloaderModule  UniqueComponentId: 89514
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorSpectatorSyncModule  UniqueComponentId: -21910
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorStateSetterModule  UniqueComponentId: 89480
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AudioModule  UniqueComponentId: 89538
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventBasedEquipperModule  UniqueComponentId: 89534
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventManagerModule  UniqueComponentId: 89528
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.ImpactEffectsModule  UniqueComponentId: 214660
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.LinearAdsModule  UniqueComponentId: 89404
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MagazineModule  UniqueComponentId: 89484
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MovementInaccuracyModule  UniqueComponentId: 89518
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RecoilPatternModule  UniqueComponentId: 89424
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleInspectorModule  UniqueComponentId: 89526
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleTriggerModule  UniqueComponentId: 89434
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SingleBulletHitscan  UniqueComponentId: 89448
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SubsequentShotsInaccuracyModule  UniqueComponentId: 89468
+
+ ItemType: GunE11SR Base type: InventorySystem.Items.Firearms.Firearm
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AutomaticActionModule  UniqueComponentId: 88670
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimationTriggerReloaderModule  UniqueComponentId: 88572
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorSpectatorSyncModule  UniqueComponentId: -22174
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorStateSetterModule  UniqueComponentId: 88662
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AudioModule  UniqueComponentId: 88660
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventBasedEquipperModule  UniqueComponentId: 88582
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventManagerModule  UniqueComponentId: -359454
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.GripControllerModule  UniqueComponentId: -1458176
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.ImpactEffectsModule  UniqueComponentId: 551092
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.LinearAdsModule  UniqueComponentId: 88770
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MagazineModule  UniqueComponentId: 88668
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MovementInaccuracyModule  UniqueComponentId: 88714
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RecoilPatternModule  UniqueComponentId: 88664
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleInspectorModule  UniqueComponentId: 88640
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleTriggerModule  UniqueComponentId: 88738
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SingleBulletHitscan  UniqueComponentId: 88754
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SubsequentShotsInaccuracyModule  UniqueComponentId: 88638
+
+ ItemType: GunCrossvec Base type: InventorySystem.Items.Firearms.Firearm
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AutomaticActionModule  UniqueComponentId: 88670
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimationTriggerReloaderModule  UniqueComponentId: 88572
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorSpectatorSyncModule  UniqueComponentId: -22174
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorStateSetterModule  UniqueComponentId: 88662
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AudioModule  UniqueComponentId: 88660
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventBasedEquipperModule  UniqueComponentId: 88582
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventManagerModule  UniqueComponentId: 88622
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.GripControllerModule  UniqueComponentId: 88696
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.ImpactEffectsModule  UniqueComponentId: 551828
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.LinearAdsModule  UniqueComponentId: 88770
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MagazineModule  UniqueComponentId: 88668
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MovementInaccuracyModule  UniqueComponentId: 88714
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RecoilPatternModule  UniqueComponentId: 88664
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleInspectorModule  UniqueComponentId: 88640
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleTriggerModule  UniqueComponentId: 88738
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SingleBulletHitscan  UniqueComponentId: 88754
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SubsequentShotsInaccuracyModule  UniqueComponentId: 88638
+
+
+ ItemType: GunFSP9 Base type: InventorySystem.Items.Firearms.Firearm
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AutomaticActionModule  UniqueComponentId: -7928
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimationTriggerReloaderModule  UniqueComponentId: -7910
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorSpectatorSyncModule  UniqueComponentId: -7922
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorStateSetterModule  UniqueComponentId: -7682
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AudioModule  UniqueComponentId: 88660
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventBasedEquipperModule  UniqueComponentId: -7946
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventManagerModule  UniqueComponentId: -7700
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.GripControllerModule  UniqueComponentId: 81824
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.ImpactEffectsModule  UniqueComponentId: 421292
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.LinearAdsModule  UniqueComponentId: -7952
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MagazineModule  UniqueComponentId: -7958
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MovementInaccuracyModule  UniqueComponentId: -7838
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RecoilPatternModule  UniqueComponentId: 88664
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleInspectorModule  UniqueComponentId: -7850
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleTriggerModule  UniqueComponentId: -7970
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SingleBulletHitscan  UniqueComponentId: -7976
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SubsequentShotsInaccuracyModule  UniqueComponentId: -7898
+
+ ItemType: GunLogicer Base type: InventorySystem.Items.Firearms.Firearm
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AutomaticActionModule  UniqueComponentId: 91038
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimationTriggerReloaderModule  UniqueComponentId: 90930
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorSpectatorSyncModule  UniqueComponentId: -22500
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorStateSetterModule  UniqueComponentId: 91012
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AudioModule  UniqueComponentId: 91032
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventBasedEquipperModule  UniqueComponentId: 90912
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventManagerModule  UniqueComponentId: 103228
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.GripControllerModule  UniqueComponentId: 91048
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.ImpactEffectsModule  UniqueComponentId: 105666
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.LinearAdsModule  UniqueComponentId: 91000
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MagazineModule  UniqueComponentId: 91014
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MovementInaccuracyModule  UniqueComponentId: 91046
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RecoilPatternModule  UniqueComponentId: 91022
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleInspectorModule  UniqueComponentId: 91040
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleTriggerModule  UniqueComponentId: 90950
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SingleBulletHitscan  UniqueComponentId: 90948
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SubsequentShotsInaccuracyModule  UniqueComponentId: 91008
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.TemperatureTrackerModule  UniqueComponentId: -7088
+
+ ItemType: GunCOM18 Base type: InventorySystem.Items.Firearms.Firearm
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AutomaticActionModule  UniqueComponentId: 89442
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimationTriggerReloaderModule  UniqueComponentId: 89514
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorSpectatorSyncModule  UniqueComponentId: -21910
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorStateSetterModule  UniqueComponentId: 89480
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AudioModule  UniqueComponentId: 89538
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventBasedEquipperModule  UniqueComponentId: 89534
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventManagerModule  UniqueComponentId: -639828
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.ImpactEffectsModule  UniqueComponentId: 215148
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.LinearAdsModule  UniqueComponentId: 89404
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MagazineModule  UniqueComponentId: 89484
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MovementInaccuracyModule  UniqueComponentId: 89518
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RecoilPatternModule  UniqueComponentId: 89424
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleInspectorModule  UniqueComponentId: 89526
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleTriggerModule  UniqueComponentId: 89434
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SingleBulletHitscan  UniqueComponentId: 89448
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SubsequentShotsInaccuracyModule  UniqueComponentId: 89468
+
+ ItemType: GunRevolver Base type: InventorySystem.Items.Firearms.Firearm
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.DoubleActionModule  UniqueComponentId: -483538
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorSpectatorSyncModule  UniqueComponentId: -483544
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorStateSetterModule  UniqueComponentId: -86378
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AttachmentDependentHitreg  UniqueComponentId: -2153906
+ FireArmModule: IsSubmodule: True Type: InventorySystem.Items.Firearms.Modules.BuckshotHitreg  UniqueComponentId: 91622
+ FireArmModule: IsSubmodule: True Type: InventorySystem.Items.Firearms.Modules.SingleBulletHitscan  UniqueComponentId: 89448
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AudioModule  UniqueComponentId: -86384
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.CylinderAmmoModule  UniqueComponentId: -86342
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventBasedEquipperModule  UniqueComponentId: -86348
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventManagerModule  UniqueComponentId: -86390
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.ImpactEffectsModule  UniqueComponentId: 91514
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.LinearAdsModule  UniqueComponentId: -86354
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MovementInaccuracyModule  UniqueComponentId: -86408
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RecoilPatternModule  UniqueComponentId: 91538
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RevolverClipReloaderModule  UniqueComponentId: -483532
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RevolverRouletteModule  UniqueComponentId: -2697400
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleInspectorModule  UniqueComponentId: -86414
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleTriggerModule  UniqueComponentId: -86366
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SubsequentShotsInaccuracyModule  UniqueComponentId: -86420
+
+ ItemType: GunAK Base type: InventorySystem.Items.Firearms.Firearm
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AutomaticActionModule  UniqueComponentId: 89942
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimationTriggerReloaderModule  UniqueComponentId: 90002
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorSpectatorSyncModule  UniqueComponentId: -21516
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorStateSetterModule  UniqueComponentId: 89950
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AudioModule  UniqueComponentId: 90034
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventBasedEquipperModule  UniqueComponentId: 89914
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventManagerModule  UniqueComponentId: 89994
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.GripControllerModule  UniqueComponentId: 89976
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.ImpactEffectsModule  UniqueComponentId: 555052
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.LinearAdsModule  UniqueComponentId: 90030
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MagazineModule  UniqueComponentId: 90098
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MovementInaccuracyModule  UniqueComponentId: 90094
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RecoilPatternModule  UniqueComponentId: 89930
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleInspectorModule  UniqueComponentId: 90106
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleTriggerModule  UniqueComponentId: 90004
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SingleBulletHitscan  UniqueComponentId: 90020
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SubsequentShotsInaccuracyModule  UniqueComponentId: 89934
+
+ ItemType: GunShotgun Base type: InventorySystem.Items.Firearms.Firearm
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.PumpActionModule  UniqueComponentId: 91662
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimationToggleableReloaderModule  UniqueComponentId: 91666
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorSpectatorSyncModule  UniqueComponentId: -22836
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorStateSetterModule  UniqueComponentId: 91592
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AudioModule  UniqueComponentId: 91616
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.BuckshotHitreg  UniqueComponentId: 91622
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventBasedEquipperModule  UniqueComponentId: 91540
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventManagerModule  UniqueComponentId: 91576
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.ImpactEffectsModule  UniqueComponentId: 555758
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.LinearAdsModule  UniqueComponentId: 91660
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MagazineModule  UniqueComponentId: 91546
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MovementInaccuracyModule  UniqueComponentId: 91656
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RecoilPatternModule  UniqueComponentId: 91538
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleInspectorModule  UniqueComponentId: 91612
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleTriggerModule  UniqueComponentId: 91600
+
+
+ ItemType: ParticleDisruptor Base type: InventorySystem.Items.Firearms.ParticleDisruptor
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.DisruptorActionModule  UniqueComponentId: -1339832
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorSpectatorSyncModule  UniqueComponentId: -103620
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorStateSetterModule  UniqueComponentId: -29224
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.DisruptorAdsModule  UniqueComponentId: -1339844
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.DisruptorAudioModule  UniqueComponentId: -29230
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.DisruptorHitregModule  UniqueComponentId: 437582
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.DisruptorModeSelector  UniqueComponentId: 532986
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventBasedEquipperModule  UniqueComponentId: -106674
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventManagerModule  UniqueComponentId: -28850
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.ImpactEffectsModule  UniqueComponentId: -64974
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MagazineModule  UniqueComponentId: -1308000
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MovementInaccuracyModule  UniqueComponentId: -29236
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RecoilPatternModule  UniqueComponentId: 91538
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleInspectorModule  UniqueComponentId: -29242
+
+ ItemType: GunCom45 Base type: InventorySystem.Items.Firearms.Firearm
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AutomaticActionModule  UniqueComponentId: 89442
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimationTriggerReloaderModule  UniqueComponentId: -1154074
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorSpectatorSyncModule  UniqueComponentId: -1154368
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorStateSetterModule  UniqueComponentId: 89480
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AudioModule  UniqueComponentId: 89538
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventBasedEquipperModule  UniqueComponentId: 89534
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventManagerModule  UniqueComponentId: -1154676
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.ImpactEffectsModule  UniqueComponentId: 264884
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.LinearAdsModule  UniqueComponentId: 89404
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MagazineModule  UniqueComponentId: 89484
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MovementInaccuracyModule  UniqueComponentId: 89518
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MultiBarrelHitscan  UniqueComponentId: 89448
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RecoilPatternModule  UniqueComponentId: 89424
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleInspectorModule  UniqueComponentId: -1155004
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleTriggerModule  UniqueComponentId: 89434
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SubsequentShotsInaccuracyModule  UniqueComponentId: -1155010
+
+ ItemType: GunFRMG0 Base type: InventorySystem.Items.Firearms.Firearm
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AutomaticActionModule  UniqueComponentId: 91038
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimationTriggerReloaderModule  UniqueComponentId: 90930
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorSpectatorSyncModule  UniqueComponentId: -22500
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorStateSetterModule  UniqueComponentId: 91012
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AudioModule  UniqueComponentId: 91032
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventBasedEquipperModule  UniqueComponentId: 90912
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventManagerModule  UniqueComponentId: 90858
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.GripControllerModule  UniqueComponentId: 91048
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.ImpactEffectsModule  UniqueComponentId: 265484
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.LinearAdsModule  UniqueComponentId: 91000
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MagazineModule  UniqueComponentId: 91014
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MovementInaccuracyModule  UniqueComponentId: 91046
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RecoilPatternModule  UniqueComponentId: 91022
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleInspectorModule  UniqueComponentId: 91040
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleTriggerModule  UniqueComponentId: 90950
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SingleBulletHitscan  UniqueComponentId: 90948
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SubsequentShotsInaccuracyModule  UniqueComponentId: 91008
+
+ ItemType: GunA7 Base type: InventorySystem.Items.Firearms.Firearm
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AutomaticActionModule  UniqueComponentId: -1257900
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.A7BurnEffectModule  UniqueComponentId: 424768
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimationTriggerReloaderModule  UniqueComponentId: -1257888
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorSpectatorSyncModule  UniqueComponentId: -1257894
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AnimatorStateSetterModule  UniqueComponentId: -1257954
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.AudioModule  UniqueComponentId: -1257942
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventBasedEquipperModule  UniqueComponentId: 89534
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.EventManagerModule  UniqueComponentId: -1257948
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.ImpactEffectsModule  UniqueComponentId: -1257960
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.LinearAdsModule  UniqueComponentId: -1257912
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MagazineModule  UniqueComponentId: -1257918
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.MovementInaccuracyModule  UniqueComponentId: -1257966
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.RecoilPatternModule  UniqueComponentId: 89930
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleInspectorModule  UniqueComponentId: -1257972
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SimpleTriggerModule  UniqueComponentId: -1257930
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SingleBulletHitscan  UniqueComponentId: -1257936
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.Modules.SubsequentShotsInaccuracyModule  UniqueComponentId: -1257978
+ FireArmModule: IsSubmodule: False Type: InventorySystem.Items.Firearms.TemperatureTrackerModule  UniqueComponentId: 424748

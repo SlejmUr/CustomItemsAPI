@@ -1,36 +1,40 @@
 ﻿using CustomItemsAPI.Items;
-using CustomItemsAPI.TestItems.CustomModules;
-using InventorySystem.Items;
+using CustomItemsAPI.TestItems.Modules.MicroHID;
 using InventorySystem.Items.Autosync;
 using InventorySystem.Items.MicroHID.Modules;
 using LabApi.Features.Wrappers;
 
 namespace CustomItemsAPI.TestItems;
 
-class MicroTest : CustomMicroHIDBase
+public class MicroTest : CustomMicroHIDBase
 {
-    public override string CustomItemName => "MicroTest"; 
+    public override Dictionary<Type, Type> ReplaceModules => new()
+    {
+        { typeof(ChargeFireModeModule), typeof(CustomCharge) }
+    };
+    public override string CustomItemName => nameof(MicroTest); 
 
     public override string Description => "Testing micro";
 
     public override ItemType ItemType => ItemType.MicroHID;
 
-    private int firedTimes;
-
+    private int firedTimes; 
+    /*
     public override void Parse(Item item)
     {
         base.Parse(item);
+        foreach (var subcomponent in MicroItem.Base.AllSubcomponents)
+        {
+            CL.Info("MicroTest.subcomponent: " + subcomponent);
+        }
         List<SubcomponentBase> Bases = [];
         foreach (var subcomponent in MicroItem.Base.AllSubcomponents)
         {
-            if (subcomponent is ChargeFireModeModule chargeFireModeModule)
+            if (subcomponent is ChargeFireModeModule _)
             {
                 try
                 {
-                    var custom = new CustomChargeFireModeModule(chargeFireModeModule);
-                    var custom_base = (ChargeFireModeModule)custom;
-                    custom_base = chargeFireModeModule;
-                    Bases.Add(custom);
+                    Bases.Add(MicroItem.Base.gameObject.AddComponent(typeof(CustomCharge)) as SubcomponentBase);
                     continue;
                 }
                 catch (Exception ex)
@@ -41,8 +45,13 @@ class MicroTest : CustomMicroHIDBase
             Bases.Add(subcomponent);
         }
         MicroItem.Base.AllSubcomponents = [.. Bases];
+        foreach (var subcomponent in MicroItem.Base.AllSubcomponents)
+        {
+            CL.Info("MicroTest.subcomponent2: " + subcomponent);
+        }
         MicroItem.Base.OnAdded(null);
     }
+    */
 
     public override void OnChanged(Player player, bool changedToThisItem)
     {
@@ -53,16 +62,16 @@ class MicroTest : CustomMicroHIDBase
         CycleController.RecacheFiringModes(MicroItem.Base);
     }
 
-    public override void OnPicked(Player player, Item item)
-    {
-        Parse(item);
-    }
-
     public override void OnPhaseChanged(MicroHidPhase newPhase)
     {
         Energy = 100;
         if (AudioController._windupSource != null)
             AudioController._windupSource.maxDistance *= 2;
+
+        if (FiringModeController is CustomCharge module)
+        {
+            CL.Info(module);
+        }
 
         if (newPhase == MicroHidPhase.Firing)
         {

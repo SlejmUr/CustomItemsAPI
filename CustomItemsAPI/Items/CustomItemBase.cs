@@ -3,6 +3,8 @@ using InventorySystem.Items;
 using LabApi.Features.Wrappers;
 using UnityEngine;
 using CustomItemsAPI.Helpers;
+using CustomItemsAPI.Interfaces;
+using InventorySystem.Items.Autosync;
 
 namespace CustomItemsAPI.Items;
 
@@ -64,6 +66,13 @@ public abstract class CustomItemBase : ICloneable
     {
         Item = item;
         Pickup = Pickup.Get(item.Base.PickupDropModel);
+        CL.Info("this is IModuleChangable " + (this is IModuleChangable x && x != null));
+        CL.Info("item.Base is ModularAutosyncItem " + (item.Base is ModularAutosyncItem y && y != null));
+        if (this is IModuleChangable changable && changable != null && item.Base is ModularAutosyncItem modularAutosync && modularAutosync != null)
+        {
+            CL.Info("parsing and ApplyChange");
+            modularAutosync.ApplyChange(changable);
+        }
     }
 
     public virtual void Parse(Pickup pickup)
@@ -139,7 +148,7 @@ public abstract class CustomItemBase : ICloneable
     /// <param name="player">The Player who called this function</param>
     public virtual void OnPicked(Player player, Item item)
     {
-
+        Parse(item);
     }
 
     /// <summary>
