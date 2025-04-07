@@ -6,8 +6,4 @@
 	  <Copyright>SlejmUr</Copyright>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Using Include="System.ComponentModel" />
-  </ItemGroup>
-
 </Project>

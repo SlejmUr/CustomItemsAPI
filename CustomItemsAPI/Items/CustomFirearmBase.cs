@@ -1,4 +1,5 @@
-﻿using CustomItemsAPI.Interfaces;
+﻿using CustomItemsAPI.Helpers;
+using CustomItemsAPI.Interfaces;
 using InventorySystem.Items.Firearms;
 using LabApi.Features.Wrappers;
 
@@ -6,7 +7,7 @@ namespace CustomItemsAPI.Items;
 
 public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
 {
-    public virtual Dictionary<Type, Type> ReplaceModules { get; } = [];
+    public virtual Dictionary<ModuleChanger, Type> ReplaceModules { get; } = [];
     public FirearmItem Firearm => Item as FirearmItem;
 
     public override void Parse(Item item)

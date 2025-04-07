@@ -5,11 +5,11 @@ using InventorySystem.Items.MicroHID.Modules;
 
 namespace CustomItemsAPI.TestItems;
 
-public class FirearmTest : CustomFirearmBase
+public class GunShotgunTest : CustomFirearmBase
 {
-    public override string CustomItemName => nameof(FirearmTest);
+    public override string CustomItemName => nameof(GunShotgunTest);
 
-    public override string Description => nameof(FirearmTest);
+    public override string Description => nameof(GunShotgunTest);
 
     public override ItemType ItemType =>  ItemType.GunShotgun;
     /*

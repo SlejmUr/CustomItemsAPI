@@ -1,6 +1,8 @@
-﻿namespace CustomItemsAPI.Interfaces;
+﻿using CustomItemsAPI.Helpers;
+
+namespace CustomItemsAPI.Interfaces;
 
 public interface IModuleChangable
 {
-    public Dictionary<Type, Type> ReplaceModules { get; }
+    public Dictionary<ModuleChanger, Type> ReplaceModules { get; }
 }

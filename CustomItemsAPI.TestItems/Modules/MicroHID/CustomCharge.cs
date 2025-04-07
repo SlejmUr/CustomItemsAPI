@@ -95,9 +95,4 @@ public class CustomCharge : CustomFiringModeControllerModule
 
         return true;
     }
-
-    public override string ToString()
-    {
-        return "CustomCharge";
-    }
 }

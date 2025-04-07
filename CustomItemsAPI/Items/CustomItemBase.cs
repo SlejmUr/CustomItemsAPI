@@ -66,13 +66,12 @@ public abstract class CustomItemBase : ICloneable
     {
         Item = item;
         Pickup = Pickup.Get(item.Base.PickupDropModel);
-        CL.Info("this is IModuleChangable " + (this is IModuleChangable x && x != null));
-        CL.Info("item.Base is ModularAutosyncItem " + (item.Base is ModularAutosyncItem y && y != null));
+        CL.Info(item.Base.gameObject.PrintComponentTree());
         if (this is IModuleChangable changable && changable != null && item.Base is ModularAutosyncItem modularAutosync && modularAutosync != null)
         {
-            CL.Info("parsing and ApplyChange");
             modularAutosync.ApplyChange(changable);
         }
+        CL.Info(item.Base.gameObject.PrintComponentTree());
     }
 
     public virtual void Parse(Pickup pickup)

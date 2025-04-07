@@ -1,6 +1,7 @@
 ﻿using LabApi.Features.Wrappers;
 using CustomItemsAPI.Extensions;
 using InventorySystem.Items.Armor;
+using System.ComponentModel;
 
 namespace CustomItemsAPI.Items;
 

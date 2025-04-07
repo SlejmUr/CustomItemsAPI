@@ -1,4 +1,5 @@
-﻿using CustomItemsAPI.Interfaces;
+﻿using CustomItemsAPI.Helpers;
+using CustomItemsAPI.Interfaces;
 using InventorySystem.Items.MicroHID.Modules;
 using LabApi.Features.Wrappers;
 
@@ -6,7 +7,7 @@ namespace CustomItemsAPI.Items;
 
 public abstract class CustomMicroHIDBase : CustomItemBase, IModuleChangable
 {
-    public virtual Dictionary<Type, Type> ReplaceModules { get; } = [];
+    public virtual Dictionary<ModuleChanger, Type> ReplaceModules { get; } = [];
     public MicroHIDItem MicroItem => Item as MicroHIDItem;
     public float Energy 
     { 

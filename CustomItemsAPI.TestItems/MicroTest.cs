@@ -1,4 +1,5 @@
-﻿using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Helpers;
+using CustomItemsAPI.Items;
 using CustomItemsAPI.TestItems.Modules.MicroHID;
 using InventorySystem.Items.Autosync;
 using InventorySystem.Items.MicroHID.Modules;
@@ -8,9 +9,9 @@ namespace CustomItemsAPI.TestItems;
 
 public class MicroTest : CustomMicroHIDBase
 {
-    public override Dictionary<Type, Type> ReplaceModules => new()
+    public override Dictionary<ModuleChanger, Type> ReplaceModules => new()
     {
-        { typeof(ChargeFireModeModule), typeof(CustomCharge) }
+        { new(typeof(ChargeFireModeModule),0, "Firing Modes"), typeof(CustomCharge) }
     };
     public override string CustomItemName => nameof(MicroTest); 
 
