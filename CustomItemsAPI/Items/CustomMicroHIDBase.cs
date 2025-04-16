@@ -8,19 +8,24 @@ namespace CustomItemsAPI.Items;
 public abstract class CustomMicroHIDBase : CustomItemBase, IModuleChangable
 {
     public virtual Dictionary<ModuleChanger, Type> ReplaceModules { get; } = [];
+    public virtual List<ModuleChanger> AddModules { get; } = [];
     public MicroHIDItem MicroItem => Item as MicroHIDItem;
+    public override void Parse(Item item)
+    {
+        base.Parse(item);
+        if (item.Type != ItemType.MicroHID)
+            throw new ArgumentOutOfRangeException("Type", item.Type, "Invalid MicroHID type.");
+        if (Item is not MicroHIDItem)
+            throw new ArgumentException("MicroHIDItem must not be null!");
+    }
     public float Energy 
     { 
         get
         {
-            if (MicroItem == null)
-                return 0;
             return MicroItem.Base.EnergyManager.Energy;
         }
         set
         {
-            if (MicroItem == null)
-                return;
             MicroItem.Base.EnergyManager.ServerSetEnergy(Serial, value);
         }
     }
@@ -29,14 +34,10 @@ public abstract class CustomMicroHIDBase : CustomItemBase, IModuleChangable
     {
         get
         {
-            if (MicroItem == null)
-                return false;
             return MicroItem.Base.BrokenSync.Broken;
         }
         set
         {
-            if (MicroItem == null)
-                return;
             MicroItem.Base.BrokenSync.ServerSetBroken(Serial, value);
         }
     }
@@ -45,8 +46,6 @@ public abstract class CustomMicroHIDBase : CustomItemBase, IModuleChangable
     {
         get
         {
-            if (MicroItem == null)
-                return null;
             return MicroItem.Base.CycleController;
         }
     }
@@ -55,62 +54,49 @@ public abstract class CustomMicroHIDBase : CustomItemBase, IModuleChangable
     {
         get
         {
-            if (MicroItem == null)
-                return null;
             return AudioManagerModule.GetController(Serial);
         }
     }
 
-    public FiringModeControllerModule FiringModeController
+    public FiringModeControllerModule? FiringModeController
     {
         get
         {
-            if (MicroItem == null)
-                return null;
-            if (CycleController == null)
-                return null;
             FiringModeControllerModule ret = null;
             CycleController.TryGetLastFiringController(out ret);
             return ret;
         }
     }
 
+    /// <summary>
+    /// Get or Set the current <see cref="MicroHidFiringMode"/>
+    /// </summary>
     public MicroHidFiringMode FiringMode
     {
         get
         {
-            if (MicroItem == null)
-                return MicroHidFiringMode.PrimaryFire;
-            if (CycleController == null)
-                return MicroHidFiringMode.PrimaryFire;
             return CycleController.LastFiringMode;
         }
         set
         {
-            if (MicroItem == null)
-                return;
-            if (CycleController == null)
-                return;
             CycleController.LastFiringMode = value;
         }
     }
 
+    /// <summary>
+    /// Get or Set the current <see cref="MicroHidPhase"/>
+    /// </summary>
+    /// <remarks>
+    /// Set will result calling <see cref="OnPhaseChanged"/>!
+    /// </remarks>
     public MicroHidPhase Phase
     {
         get
         {
-            if (MicroItem == null)
-                return MicroHidPhase.Standby;
-            if (CycleController == null)
-                return MicroHidPhase.Standby;
             return CycleController.Phase;
         }
         set
         {
-            if (MicroItem == null)
-                return;
-            if (CycleController == null)
-                return;
             CycleController.Phase = value;
         }
     }

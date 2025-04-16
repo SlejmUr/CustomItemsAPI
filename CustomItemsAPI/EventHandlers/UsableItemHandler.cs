@@ -13,13 +13,13 @@ internal sealed class UsableItemHandler : CustomEventsHandler
     {
         TypeWrapper<bool> isAllowed = new(ev.IsAllowed);
         var cur_item = CustomItems.GetCustomItem<CustomUsableBase>(Item.Get(ev.Item));
-        cur_item?.OnCancellingUsing(ev.Player, isAllowed);
+        cur_item?.OnCancelling(ev.Player, isAllowed);
         ev.IsAllowed = isAllowed.Value;
     }
     public override void OnPlayerCancelledUsingItem(PlayerCancelledUsingItemEventArgs ev)
     {
         var cur_item = CustomItems.GetCustomItem<CustomUsableBase>(Item.Get(ev.Item));
-        cur_item?.OnCancellingUsed(ev.Player);
+        cur_item?.OnCancelled(ev.Player);
     }
     #endregion
     #region Use

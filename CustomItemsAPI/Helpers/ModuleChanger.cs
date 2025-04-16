@@ -2,8 +2,17 @@
 
 public class ModuleChanger
 {
+    /// <summary>
+    /// The Module Type to replace from.
+    /// </summary>
     public Type ModuleType;
+    /// <summary>
+    /// The Child Id that the Module is in.
+    /// </summary>
     public int ChildId = -1;
+    /// <summary>
+    /// The Child Name that the Module is in.
+    /// </summary>
     public string ChildName;
 
     public ModuleChanger()

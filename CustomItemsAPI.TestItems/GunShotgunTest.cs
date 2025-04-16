@@ -1,7 +1,6 @@
 ﻿using CustomItemsAPI.Items;
-using CustomItemsAPI.TestItems.Modules.MicroHID;
-using InventorySystem.Items.Firearms.Modules;
-using InventorySystem.Items.MicroHID.Modules;
+using LabApi.Features.Wrappers;
+using PlayerStatsSystem;
 
 namespace CustomItemsAPI.TestItems;
 
@@ -12,9 +11,11 @@ public class GunShotgunTest : CustomFirearmBase
     public override string Description => nameof(GunShotgunTest);
 
     public override ItemType ItemType =>  ItemType.GunShotgun;
-    /*
-    public override Dictionary<Type, Type> ReplaceModules => new()
+
+    public override float Damage => 50;
+
+    public override void OnHurt(Player target, Player attacker, FirearmDamageHandler firearmDamageHandler)
     {
-        { typeof(SingleBulletHitscan), typeof(BuckshotHitreg) }
-    };*/
+        target.SendHint($"You got hit by {attacker.DisplayName}!");
+    }
 }

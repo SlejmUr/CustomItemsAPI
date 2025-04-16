@@ -4,6 +4,9 @@ using LabApi.Features.Wrappers;
 
 namespace CustomItemsAPI.Items;
 
+/// <summary>
+/// Custom Item Base for <see cref="ItemCategory.Keycard"/>
+/// </summary>
 public abstract class CustomKeyCardBase : CustomItemBase
 {
     /// <summary>
@@ -11,6 +14,7 @@ public abstract class CustomKeyCardBase : CustomItemBase
     /// </summary>
     public abstract KeycardPermissions Permissions { get; }
 
+    /// <inheritdoc/>
     public override void Parse(Item item)
     {
         base.Parse(item);

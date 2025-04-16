@@ -5,6 +5,9 @@ using System.ComponentModel;
 
 namespace CustomItemsAPI.Items;
 
+/// <summary>
+/// Custom Armor Base for <see cref="ItemCategory.Armor"/>
+/// </summary>
 public abstract class CustomArmorBase : CustomItemBase
 {
     /// <summary>
@@ -44,7 +47,7 @@ public abstract class CustomArmorBase : CustomItemBase
     public virtual List<BodyArmor.ArmorCategoryLimitModifier> CategoryLimits { get; } = null;
 
     /// <summary>
-    /// Should not drop the excess items. (Used when other items are dropeed.)
+    /// Should not drop the excess items. (Used when other items are dropped.)
     /// </summary>
     [Description("Should not drop the excess items.")]
     public virtual bool DontRemoveExcessOnDrop { get; } = false;

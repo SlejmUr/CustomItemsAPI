@@ -1,5 +1,6 @@
 ﻿using CustomItemsAPI.Interfaces;
 using InventorySystem.Items.Autosync;
+using LabApi.Features.Wrappers;
 using UnityEngine;
 
 namespace CustomItemsAPI.Helpers;
@@ -16,11 +17,7 @@ public static class ModuleChangableHelper
             if (KVToReplace.Value != default)
             {
                 // Getting the child if exists (must be duh! otherwise use the main object)
-                GameObject child = item.gameObject;
-                if (KVToReplace.Key.ChildId != -1)
-                    child = item.gameObject.transform.GetChild(KVToReplace.Key.ChildId).gameObject;
-                if (!string.IsNullOrEmpty(KVToReplace.Key.ChildName))
-                    child = item.gameObject.transform.Find(KVToReplace.Key.ChildName).gameObject;
+                GameObject child = GetGameObjectChild(item.gameObject, KVToReplace.Key);
 
                 // Here we find it and remove it!
                 var realComponent = child.transform.Find(subcomponent.name);
@@ -37,6 +34,21 @@ public static class ModuleChangableHelper
             }
             else if(!subcomponents.Contains(subcomponent))
                 subcomponents.Add(subcomponent);
+
+            foreach (var moduleChanger in moduleChangable.AddModules)
+            {
+                // Getting the child if exists (must be duh! otherwise use the main object)
+                GameObject child = GetGameObjectChild(item.gameObject, moduleChanger);
+
+                // Creating new GameObject with the Components that we have
+                GameObject myObject = new GameObject(moduleChanger.ModuleType.Name, [moduleChanger.ModuleType]);
+                // Adding that to the child transform (re-parenting)
+                myObject.transform.SetParent(child.transform, false);
+                // getting the component and adding into the subcomponents.
+                SubcomponentBase new_component = myObject.GetComponent<SubcomponentBase>();
+                subcomponents.Add(new_component);
+            }
+
         }
         item.AllSubcomponents = [.. subcomponents];
         foreach (var subcomponentBase in item.AllSubcomponents)
@@ -44,5 +56,15 @@ public static class ModuleChangableHelper
             CL.Info($"subcomponentBase: {subcomponentBase}");
         }
         item.OnAdded(null);
+    }
+
+    public static GameObject GetGameObjectChild(this GameObject gameObject, ModuleChanger moduleChanger)
+    {
+        GameObject child = gameObject;
+        if (moduleChanger.ChildId != -1)
+            child = gameObject.transform.GetChild(moduleChanger.ChildId).gameObject;
+        if (!string.IsNullOrEmpty(moduleChanger.ChildName))
+            child = gameObject.transform.Find(moduleChanger.ChildName).gameObject;
+        return child;
     }
 }

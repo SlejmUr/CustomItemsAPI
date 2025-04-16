@@ -26,6 +26,8 @@ internal sealed class Main : Plugin
     private NonItemRelatedHandler nonItemRelatedHandler;
     private UsableItemHandler usableItemHandler;
     private ThrowableItemHandler throwableItemHandler;
+    private DamageHandler damageHandler;
+    private FirearmHandler firearmHandler;
 
     public override void Disable()
     {
@@ -40,6 +42,10 @@ internal sealed class Main : Plugin
         usableItemHandler = null;
         CustomHandlersManager.UnregisterEventsHandler(throwableItemHandler);
         throwableItemHandler = null;
+        CustomHandlersManager.UnregisterEventsHandler(damageHandler);
+        damageHandler = null;
+        CustomHandlersManager.UnregisterEventsHandler(firearmHandler);
+        firearmHandler = null;
         InventoryExtensions.OnItemRemoved -= Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned -= Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged -= Subscribed.PhaseChanged;
@@ -59,6 +65,10 @@ internal sealed class Main : Plugin
         CustomHandlersManager.RegisterEventsHandler(usableItemHandler);
         throwableItemHandler = new();
         CustomHandlersManager.RegisterEventsHandler(throwableItemHandler);
+        damageHandler = new();
+        CustomHandlersManager.RegisterEventsHandler(damageHandler);
+        firearmHandler = new();
+        CustomHandlersManager.RegisterEventsHandler(firearmHandler);
         InventoryExtensions.OnItemRemoved += Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned += Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged += Subscribed.PhaseChanged;
