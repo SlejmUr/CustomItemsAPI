@@ -13,20 +13,20 @@ internal sealed class FirearmHandler : CustomEventsHandler
     {
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
         var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnDryFiring(ev.Player, (FirearmItem)ev.Weapon, isAllowedHelper);
+        cur_item?.OnDryFiring(ev.Player, ev.Weapon, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerDryFiredWeapon(PlayerDryFiredWeaponEventArgs ev)
     {
         var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnDryFired(ev.Player, (FirearmItem)ev.Weapon);
+        cur_item?.OnDryFired(ev.Player, ev.Weapon);
     }
     #endregion
     #region Aim
     public override void OnPlayerAimedWeapon(PlayerAimedWeaponEventArgs ev)
     {
         var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnAim(ev.Player, (FirearmItem)ev.Weapon, ev.Aiming);
+        cur_item?.OnAim(ev.Player, ev.Weapon, ev.Aiming);
     }
     #endregion
     #region Reload
@@ -34,7 +34,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
     {
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
         var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnReloading(ev.Player, (FirearmItem)ev.Weapon, isAllowedHelper);
+        cur_item?.OnReloading(ev.Player, ev.Weapon, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerReloadedWeapon(PlayerReloadedWeaponEventArgs ev)
@@ -48,13 +48,13 @@ internal sealed class FirearmHandler : CustomEventsHandler
     {
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
         var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnShooting(ev.Player, (FirearmItem)ev.Weapon, isAllowedHelper);
+        cur_item?.OnShooting(ev.Player, ev.Weapon, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerShotWeapon(PlayerShotWeaponEventArgs ev)
     {
         var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnShot(ev.Player, (FirearmItem)ev.Weapon);
+        cur_item?.OnShot(ev.Player, ev.Weapon);
     }
     #endregion
     #region Unload
@@ -62,13 +62,13 @@ internal sealed class FirearmHandler : CustomEventsHandler
     {
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
         var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnUnloading(ev.Player, (FirearmItem)ev.Weapon, isAllowedHelper);
+        cur_item?.OnUnloading(ev.Player, ev.Weapon, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerUnloadedWeapon(PlayerUnloadedWeaponEventArgs ev)
     {
         var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnUnloaded(ev.Player, (FirearmItem)ev.Weapon);
+        cur_item?.OnUnloaded(ev.Player, ev.Weapon);
     }
     #endregion
     #region Toggle Flashlight
@@ -77,14 +77,14 @@ internal sealed class FirearmHandler : CustomEventsHandler
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
         TypeWrapper<bool> newState = new(ev.NewState);
         var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Item);
-        cur_item?.OnTogglingFlashlight(ev.Player, (FirearmItem)ev.Item, newState, isAllowedHelper);
+        cur_item?.OnTogglingFlashlight(ev.Player, ev.Item, newState, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
         ev.NewState = newState.Value;
     }
     public override void OnPlayerToggledWeaponFlashlight(PlayerToggledWeaponFlashlightEventArgs ev)
     {
         var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Item);
-        cur_item?.OnToggledFlashlight(ev.Player, (FirearmItem)ev.Item, ev.NewState);
+        cur_item?.OnToggledFlashlight(ev.Player, ev.Item, ev.NewState);
     }
     #endregion
 }

@@ -3,21 +3,20 @@ using LabApi.Events.CustomHandlers;
 using CustomItemsAPI.EventHandlers;
 using InventorySystem;
 using InventorySystem.Items.ThrowableProjectiles;
-using InventorySystem.Items.Firearms;
 using InventorySystem.Items.MicroHID.Modules;
 
 namespace CustomItemsAPI;
 
-internal sealed class Main : Plugin
+internal sealed class Main : Plugin<Config>
 {
-    public Main Instance;
+    public static Main Instance;
     public override string Name => "CustomItemsAPI";
 
     public override string Description => "Enabling creating custom items";
 
     public override string Author => "SlejmUr";
 
-    public override Version Version => new(0, 0, 1, 0);
+    public override Version Version => new(0, 0, 2, 0);
 
     public override Version RequiredApiVersion => LabApi.Features.LabApiProperties.CurrentVersion;
 
@@ -73,19 +72,5 @@ internal sealed class Main : Plugin
         ThrownProjectile.OnProjectileSpawned += Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged += Subscribed.PhaseChanged;
         CustomItems.RegisterCustomItems();
-#if DEBUG
-        foreach (var item in InventoryItemLoader.AvailableItems)
-        {
-            CL.Info($"ItemType: {item.Key} Base type: {item.Value.GetType()}");
-
-            if (item.Value is Firearm firearm && firearm != null)
-            {
-                foreach (var module in firearm.Modules)
-                {
-                    CL.Info($"FireArmModule: IsSubmodule: {module.IsSubmodule} Type: {module.GetType()}  UniqueComponentId: {module.UniqueComponentId}");
-                }
-            }
-        }
-#endif
     }
 }

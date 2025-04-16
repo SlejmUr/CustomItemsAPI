@@ -3,6 +3,7 @@ using CustomItemsAPI.Interfaces;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Modules;
 using LabApi.Features.Wrappers;
+using MEC;
 using PlayerStatsSystem;
 
 namespace CustomItemsAPI.Items;
@@ -35,9 +36,9 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// <param name="player">The Player who called this function</param>
     /// <param name="weapon">The weapon</param>
     /// <param name="aiming">Is aiming or not</param>
-    public virtual void OnAim(Player player, FirearmItem weapon, bool aiming)
+    public virtual void OnAim(Player player, Item weapon, bool aiming)
     {
-        
+        CL.Debug($"OnAim {player.PlayerId} {weapon.Serial} {aiming}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -45,9 +46,9 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// </summary>
     /// <param name="player">The Player who called this function</param>
     /// <param name="weapon">The weapon</param>
-    public virtual void OnDryFired(Player player, FirearmItem weapon)
+    public virtual void OnDryFired(Player player, Item weapon)
     {
-        
+        CL.Debug($"OnDryFired {player.PlayerId} {weapon.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -56,9 +57,9 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// <param name="player">The Player who called this function</param>
     /// <param name="weapon">The weapon</param>
     /// <param name="isAllowedHelper">Can allow this action</param>
-    public virtual void OnDryFiring(Player player, FirearmItem weapon, TypeWrapper<bool> isAllowedHelper)
+    public virtual void OnDryFiring(Player player, Item weapon, TypeWrapper<bool> isAllowedHelper)
     {
-        
+        CL.Debug($"OnDryFiring {player.PlayerId} {weapon.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -66,9 +67,9 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// </summary>
     /// <param name="player">The Player who called this function</param>
     /// <param name="weapon">The weapon</param>
-    public virtual void OnReloaded(Player player, FirearmItem weapon)
+    public virtual void OnReloaded(Player player, Item weapon)
     {
-        
+        CL.Debug($"OnReloaded {player.PlayerId} {weapon.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -77,9 +78,9 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// <param name="player">The Player who called this function</param>
     /// <param name="weapon">The weapon</param>
     /// <param name="isAllowedHelper">Can allow this action</param>
-    public virtual void OnReloading(Player player, FirearmItem weapon, TypeWrapper<bool> isAllowedHelper)
+    public virtual void OnReloading(Player player, Item weapon, TypeWrapper<bool> isAllowedHelper)
     {
-        
+        CL.Debug($"OnReloading {player.PlayerId} {weapon.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -88,9 +89,9 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// <param name="player">The Player who called this function</param>
     /// <param name="weapon">The weapon</param>
     /// <param name="isAllowedHelper">Can allow this action</param>
-    public virtual void OnShooting(Player player, FirearmItem weapon, TypeWrapper<bool> isAllowedHelper)
+    public virtual void OnShooting(Player player, Item weapon, TypeWrapper<bool> isAllowedHelper)
     {
-        
+        CL.Debug($"OnShooting {player.PlayerId} {weapon.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -98,9 +99,9 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// </summary>
     /// <param name="player">The Player who called this function</param>
     /// <param name="weapon">The weapon</param>
-    public virtual void OnShot(Player player, FirearmItem weapon)
+    public virtual void OnShot(Player player, Item weapon)
     {
-        
+        CL.Debug($"OnShot {player.PlayerId} {weapon.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -109,9 +110,9 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// <param name="player">The Player who called this function</param>
     /// <param name="weapon">The weapon</param>
     /// <param name="newState">State of flashlight</param>
-    public virtual void OnToggledFlashlight(Player player, FirearmItem weapon, bool newState)
+    public virtual void OnToggledFlashlight(Player player, Item weapon, bool newState)
     {
-        
+        CL.Debug($"OnToggledFlashlight {player.PlayerId} {weapon.Serial} {newState}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -121,9 +122,9 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// <param name="weapon">The weapon</param>
     /// <param name="newState">State of flashlight</param>
     /// <param name="isAllowedHelper">Can allow this action</param>
-    public virtual void OnTogglingFlashlight(Player player, FirearmItem weapon, TypeWrapper<bool> newState, TypeWrapper<bool> isAllowedHelper)
+    public virtual void OnTogglingFlashlight(Player player, Item weapon, TypeWrapper<bool> newState, TypeWrapper<bool> isAllowedHelper)
     {
-        
+        CL.Debug($"OnAim {player.PlayerId} {weapon.Serial} {newState.Value}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -131,9 +132,9 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// </summary>
     /// <param name="player">The Player who called this function</param>
     /// <param name="weapon">The weapon</param>
-    public virtual void OnUnloaded(Player player, FirearmItem weapon)
+    public virtual void OnUnloaded(Player player, Item weapon)
     {
-        
+        CL.Debug($"OnUnloaded {player.PlayerId} {weapon.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -142,9 +143,9 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// <param name="player">The Player who called this function</param>
     /// <param name="weapon">The weapon</param>
     /// <param name="isAllowedHelper">Can allow this action</param>
-    public virtual void OnUnloading(Player player, FirearmItem weapon, TypeWrapper<bool> isAllowedHelper)
+    public virtual void OnUnloading(Player player, Item weapon, TypeWrapper<bool> isAllowedHelper)
     {
-        
+        CL.Debug($"OnUnloading {player.PlayerId} {weapon.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -156,7 +157,8 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// <param name="isAllowedHelper">Can allow this action</param>
     public virtual void OnHurting(Player player, Player attacker, FirearmDamageHandler firearmDamage, TypeWrapper<bool> isAllowedHelper)
     {
-        if (Damage == float.NaN)
+        CL.Debug($"OnHurting {player.PlayerId} {attacker.PlayerId} {firearmDamage.Damage}", Main.Instance.Config.Debug);
+        if (float.IsNaN(Damage))
             return;
         firearmDamage.Damage = Damage;
     }
@@ -167,8 +169,8 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// <param name="player">The Player who called this function</param>
     /// <param name="attacker">The Player who attacker the <paramref name="player"/></param>
     /// <param name="firearmDamageHandler">Firearm Damage</param>
-    public virtual void OnHurt(Player target, Player attacker, FirearmDamageHandler firearmDamageHandler)
+    public virtual void OnHurt(Player player, Player attacker, FirearmDamageHandler firearmDamage)
     {
-
+        CL.Debug($"OnHurt {player.PlayerId} {attacker.PlayerId} {firearmDamage.Damage}", Main.Instance.Config.Debug);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using CustomItemsAPI.Items;
-using InventorySystem.Items.Firearms.Modules;
 
 namespace CustomItemsAPI.TestItems;
 

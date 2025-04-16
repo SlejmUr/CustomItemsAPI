@@ -12,10 +12,11 @@ public class GunShotgunTest : CustomFirearmBase
 
     public override ItemType ItemType =>  ItemType.GunShotgun;
 
-    public override float Damage => 50;
+    public override float Damage => 20; // Damage in here is PER PELLET!!
 
-    public override void OnHurt(Player target, Player attacker, FirearmDamageHandler firearmDamageHandler)
+    public override void OnHurt(Player player, Player attacker, FirearmDamageHandler firearmDamageHandler)
     {
-        target.SendHint($"You got hit by {attacker.DisplayName}!");
+        player.SendHint($"You got hit by {attacker.DisplayName}!");
+        attacker.SendHint($"You attacked {player.DisplayName}!");
     }
 }
