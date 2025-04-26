@@ -53,6 +53,13 @@ jobs:
           path: Main
           if-no-files-found: error
 
+      - name: Upload Nuget package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CustomItemsAPI Nuget package
+          path: Main/*.nupkg
+          if-no-files-found: error
+
       - name: Build Test
         env:
           SL_REFERENCES: ${{ env.REFERENCES_PATH }}
