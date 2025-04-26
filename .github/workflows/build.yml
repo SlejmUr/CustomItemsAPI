@@ -18,6 +18,8 @@ jobs:
     env:
       REFERENCES_URL: https://ExMod-Team.github.io/SL-References/LabAPI.zip
       REFERENCES_PATH: ${{ github.workspace }}/References
+      MAINPATH: CustomItemsAPI/CustomItemsAPI.csproj
+      TESTPATH: CustomItemsAPI.TestItems/CustomItemsAPI.TestItems.csproj
 
     steps:
       - name: Checkout
@@ -37,9 +39,30 @@ jobs:
         run: |
             Rename-Item -Path "${{ env.REFERENCES_PATH }}\Assembly-CSharp-Publicized.dll" -NewName "Assembly-CSharp.dll"
 
-      - name: Build
+      - name: Build Main
         env:
           SL_REFERENCES: ${{ env.REFERENCES_PATH }}
         shell: pwsh
         run: |
-          dotnet build -c Release
+          dotnet build ${{ env.MAINPATH }} -c Release -o:Main
+
+      - name: Upload Main artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CustomItemsAPI
+          path: Main
+          if-no-files-found: error
+
+      - name: Build Test
+        env:
+          SL_REFERENCES: ${{ env.REFERENCES_PATH }}
+        shell: pwsh
+        run: |
+          dotnet build ${{ env.TESTPATH }} -c Release -o:Test
+
+      - name: Upload Test artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: CustomItemsAPI.TestItems
+          path: Test
+          if-no-files-found: error
