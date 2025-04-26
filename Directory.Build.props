@@ -52,7 +52,7 @@
     <Reference Include="Pooling">
 		<Private>false</Private>
 	</Reference>
-    <Reference Include="LabAPI">
+    <Reference Include="LabApi">
 		<Private>false</Private>
 	</Reference>
     <Reference Include="Unity.TextMeshPro">
