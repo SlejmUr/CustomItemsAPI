@@ -2,14 +2,22 @@
 
 namespace CustomItemsAPI.Helpers;
 
+/// <summary>
+/// Helper class to print Game Objects.
+/// </summary>
 public static class GameObjectPritnHelper
 {
+    /// <summary>
+    /// Print the <see cref="GameObject"/>'s <see cref="Component"/>.
+    /// </summary>
+    /// <param name="object">The current <see cref="GameObject"/>.</param>
+    /// <returns>The <see cref="GameObject"/>'s <see cref="Component"/> tree to print.</returns>
     public static string PrintComponentTree(this GameObject @object)
     {
         return "\n" + DeepLayersPrint(@object, 0);
     }
 
-    public static string DeepLayersPrint(this GameObject @object, int level)
+    private static string DeepLayersPrint(this GameObject @object, int level)
     {
         string log = string.Empty;
         foreach (var item in @object.GetComponents(typeof(Component)))

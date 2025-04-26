@@ -10,7 +10,7 @@ public class GunShotgunTest : CustomFirearmBase
 
     public override string Description => nameof(GunShotgunTest);
 
-    public override ItemType ItemType =>  ItemType.GunShotgun;
+    public override ItemType Type =>  ItemType.GunShotgun;
 
     public override float Damage => 20; // Damage in here is PER PELLET!!
 

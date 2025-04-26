@@ -1,5 +1,8 @@
 ﻿namespace CustomItemsAPI.Helpers;
 
+/// <summary>
+/// Helper to add/change the <see cref="InventorySystem.Items.Autosync.ModularAutosyncItem"/>'s <see cref="InventorySystem.Items.Autosync.ModularAutosyncItem.AllSubcomponents"/>.
+/// </summary>
 public class ModuleChanger
 {
     /// <summary>
@@ -15,23 +18,42 @@ public class ModuleChanger
     /// </summary>
     public string ChildName;
 
+    /// <summary>
+    /// Create a new Empty <see cref="ModuleChanger"/>.
+    /// </summary>
     public ModuleChanger()
     {
 
     }
 
+    /// <summary>
+    /// Create a new <see cref="ModuleChanger"/> with the parameters.
+    /// </summary>
+    /// <param name="moduleType"></param>
+    /// <param name="childId"></param>
     public ModuleChanger(Type moduleType, int childId)
     {
         ModuleType = moduleType;
         ChildId = childId;
     }
 
+    /// <summary>
+    /// Create a new <see cref="ModuleChanger"/> with the parameters.
+    /// </summary>
+    /// <param name="moduleType"></param>
+    /// <param name="childName"></param>
     public ModuleChanger(Type moduleType, string childName)
     {
         ModuleType = moduleType;
         ChildName = childName;
     }
 
+    /// <summary>
+    /// Create a new <see cref="ModuleChanger"/> with the parameters.
+    /// </summary>
+    /// <param name="moduleType"></param>
+    /// <param name="childId"></param>
+    /// <param name="childName"></param>
     public ModuleChanger(Type moduleType, int childId, string childName)
     {
         ModuleType = moduleType;

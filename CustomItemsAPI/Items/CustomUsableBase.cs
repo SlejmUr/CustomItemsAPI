@@ -3,25 +3,32 @@ using LabApi.Features.Wrappers;
 
 namespace CustomItemsAPI.Items;
 
+/// <summary>
+/// Custom <see cref="UsableItem"/> base.
+/// </summary>
 public abstract class CustomUsableBase : CustomItemBase
 {
-    public virtual float UseTime { get; set; } = float.NaN;
 
+    /// <summary>
+    /// The <see cref="CustomItemBase.ItemBase"/> as <see cref="UsableItem"/>.
+    /// </summary>
+    public UsableItem Usable => ItemBase as UsableItem;
+
+    /// <inheritdoc/>
     public override void Parse(Item item)
     {
         base.Parse(item);
-        if (item is not UsableItem usable)
+        if (item is not UsableItem)
             throw new ArgumentException("Usable must not be null!");
-        if (UseTime != float.NaN)
-            usable.Base.UseTime = UseTime;
     }
 
     /// <summary>
     /// This <paramref name="player"/> who cancelling using this item.
     /// </summary>
-    /// <param name="player">The Player who called this function</param>
-    /// <param name="isAllowed">Can allow this action</param>
-    public virtual void OnCancelling(Player player, TypeWrapper<bool> isAllowed)
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="usableItem">The usable item.</param>
+    /// <param name="isAllowed">Can allow this action.</param>
+    public virtual void OnCancelling(Player player, UsableItem usableItem, TypeWrapper<bool> isAllowed)
     {
 
     }
@@ -29,8 +36,9 @@ public abstract class CustomUsableBase : CustomItemBase
     /// <summary>
     /// This <paramref name="player"/> who cancelled using this item.
     /// </summary>
-    /// <param name="player">The Player who called this function</param>
-    public virtual void OnCancelled(Player player)
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="usableItem">The usable item.</param>
+    public virtual void OnCancelled(Player player, UsableItem usableItem)
     {
 
     }
@@ -38,9 +46,10 @@ public abstract class CustomUsableBase : CustomItemBase
     /// <summary>
     /// This <paramref name="player"/> who using this item.
     /// </summary>
-    /// <param name="player">The Player who called this function</param>
-    /// <param name="isAllowed">Can allow this action</param>
-    public virtual void OnUsing(Player player, TypeWrapper<bool> isAllowed)
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="usableItem">The usable item.</param>
+    /// <param name="isAllowed">Can allow this action.</param>
+    public virtual void OnUsing(Player player, UsableItem usableItem, TypeWrapper<bool> isAllowed)
     {
 
     }
@@ -48,8 +57,9 @@ public abstract class CustomUsableBase : CustomItemBase
     /// <summary>
     /// This <paramref name="player"/> who used this item.
     /// </summary>
-    /// <param name="player">The Player who called this function</param>
-    public virtual void OnUsed(Player player)
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="usableItem">The usable item.</param>
+    public virtual void OnUsed(Player player, UsableItem usableItem)
     {
 
     }

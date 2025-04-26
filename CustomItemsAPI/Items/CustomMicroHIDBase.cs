@@ -5,52 +5,72 @@ using LabApi.Features.Wrappers;
 
 namespace CustomItemsAPI.Items;
 
+/// <summary>
+/// Custom <see cref="MicroHIDItem"/> base.
+/// </summary>
 public abstract class CustomMicroHIDBase : CustomItemBase, IModuleChangable
 {
+    /// <inheritdoc/>
     public virtual Dictionary<ModuleChanger, Type> ReplaceModules { get; } = [];
+    /// <inheritdoc/>
     public virtual List<ModuleChanger> AddModules { get; } = [];
-    public MicroHIDItem MicroItem => Item as MicroHIDItem;
+
+    /// <summary>
+    /// The <see cref="CustomItemBase.ItemBase"/> as <see cref="MicroHIDItem"/>.
+    /// </summary>
+    public MicroHIDItem MicroItem => ItemBase as MicroHIDItem;
+
+    /// <inheritdoc/>
     public override void Parse(Item item)
     {
         base.Parse(item);
         if (item.Type != ItemType.MicroHID)
             throw new ArgumentOutOfRangeException("Type", item.Type, "Invalid MicroHID type.");
-        if (Item is not MicroHIDItem)
+        if (ItemBase is not MicroHIDItem)
             throw new ArgumentException("MicroHIDItem must not be null!");
     }
+
+    /// Gets or sets the <see cref="MicroHIDItem"/>'s Energy.
     public float Energy 
     { 
         get
         {
-            return MicroItem.Base.EnergyManager.Energy;
+            return MicroItem.Energy;
         }
         set
         {
-            MicroItem.Base.EnergyManager.ServerSetEnergy(Serial, value);
+            MicroItem.Energy = value;
         }
     }
 
+    /// Gets or sets the <see cref="MicroHIDItem"/>'s Broken state.
     public bool Broken
     {
         get
         {
-            return MicroItem.Base.BrokenSync.Broken;
+            return MicroItem.IsBroken;
         }
         set
         {
-            MicroItem.Base.BrokenSync.ServerSetBroken(Serial, value);
+            MicroItem.IsBroken = value;
         }
     }
 
-    public CycleController CycleController
+    /// <summary>
+    /// Gets the <see cref="MicroHIDItem"/>'s <see cref="CycleSyncModule"/>.
+    /// </summary>
+    public CycleController BaseCycleController
     {
         get
         {
-            return MicroItem.Base.CycleController;
+            return MicroItem.BaseCycleController;
         }
     }
 
-    public AudioController AudioController
+    /// <summary>
+    /// Gets the <see cref="MicroHIDItem"/>'s <see cref="AudioController"/>.
+    /// </summary>
+    public AudioController BaseAudioController
     {
         get
         {
@@ -58,12 +78,14 @@ public abstract class CustomMicroHIDBase : CustomItemBase, IModuleChangable
         }
     }
 
+    /// <summary>
+    /// Gets the <see cref="MicroHIDItem"/>'s last <see cref="FiringModeControllerModule"/>.
+    /// </summary>
     public FiringModeControllerModule? FiringModeController
     {
         get
         {
-            FiringModeControllerModule ret = null;
-            CycleController.TryGetLastFiringController(out ret);
+            BaseCycleController.TryGetLastFiringController(out FiringModeControllerModule ret);
             return ret;
         }
     }
@@ -75,11 +97,11 @@ public abstract class CustomMicroHIDBase : CustomItemBase, IModuleChangable
     {
         get
         {
-            return CycleController.LastFiringMode;
+            return BaseCycleController.LastFiringMode;
         }
         set
         {
-            CycleController.LastFiringMode = value;
+            BaseCycleController.LastFiringMode = value;
         }
     }
 
@@ -93,14 +115,18 @@ public abstract class CustomMicroHIDBase : CustomItemBase, IModuleChangable
     {
         get
         {
-            return CycleController.Phase;
+            return BaseCycleController.Phase;
         }
         set
         {
-            CycleController.Phase = value;
+            BaseCycleController.Phase = value;
         }
     }
 
+    /// <summary>
+    /// Called when this <see cref="MicroItem"/>'s <see cref="MicroHidPhase"/> changed.
+    /// </summary>
+    /// <param name="phase"></param>
     public virtual void OnPhaseChanged(MicroHidPhase phase)
     {
 

@@ -46,12 +46,7 @@ public abstract class CustomArmorBase : CustomItemBase
     [Description("If null do not change any limit. Otherwise changes limits to it")]
     public virtual List<BodyArmor.ArmorCategoryLimitModifier> CategoryLimits { get; } = null;
 
-    /// <summary>
-    /// Should not drop the excess items. (Used when other items are dropped.)
-    /// </summary>
-    [Description("Should not drop the excess items.")]
-    public virtual bool DontRemoveExcessOnDrop { get; } = false;
-
+    /// <inheritdoc/>
     public override void Parse(Item item)
     {
         base.Parse(item);
@@ -80,6 +75,5 @@ public abstract class CustomArmorBase : CustomItemBase
         }
         if (CategoryLimits != null)
             body.Base.CategoryLimits = [.. CategoryLimits];
-        body.Base.DontRemoveExcessOnDrop = DontRemoveExcessOnDrop;
     }
 }

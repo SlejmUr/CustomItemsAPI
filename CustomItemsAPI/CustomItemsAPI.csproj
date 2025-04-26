@@ -4,6 +4,10 @@
 	  <AssemblyName>CustomItemsAPI</AssemblyName>
 	  <RootNamespace>CustomItemsAPI</RootNamespace>
 	  <Copyright>SlejmUr</Copyright>
+	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	  <FileVersion>$(Version)</FileVersion>
+	  <AssemblyVersion>$(Version)</AssemblyVersion>
+	  <Version>0.0.3.0</Version>
   </PropertyGroup>
 
 </Project>

@@ -8,5 +8,5 @@ public class TestGun : CustomFirearmBase
 
     public override string Description => nameof(TestGun);
 
-    public override ItemType ItemType =>  ItemType.GunA7;
+    public override ItemType Type =>  ItemType.GunA7;
 }

@@ -24,9 +24,9 @@ public abstract class CustomItemBase : ICloneable
     public abstract string Description { get; }
 
     /// <summary>
-    /// Item Type to be made.
+    /// <see cref="ItemType"/> to be made.
     /// </summary>
-    public abstract ItemType ItemType { get; }
+    public abstract ItemType Type { get; }
 
     /// <summary>
     /// Serial of the item.
@@ -35,10 +35,10 @@ public abstract class CustomItemBase : ICloneable
     {
         get
         { 
-            if (Item != null)
-                return Item.Serial;
-            if (Pickup != null)
-                return Pickup.Serial;
+            if (ItemBase != null)
+                return ItemBase.Serial;
+            if (PickupBase != null)
+                return PickupBase.Serial;
             return 0;
         }
     }
@@ -47,12 +47,12 @@ public abstract class CustomItemBase : ICloneable
     /// <summary>
     /// ItemBase. It stores when the <see cref="Parse(Item)"/> function called.
     /// </summary>
-    public Item Item;
+    public Item ItemBase;
 
     /// <summary>
     /// ItemBase. It stores when the <see cref="Parse(Pickup)"/> function called.
     /// </summary>
-    public Pickup Pickup;
+    public Pickup PickupBase;
 
     /// <summary>
     /// Called when the New Item created for this Type.
@@ -63,13 +63,13 @@ public abstract class CustomItemBase : ICloneable
     }
 
     /// <summary>
-    /// Parsing <paramref name="item"/> to this Custom Item
+    /// Parsing <paramref name="item"/> to this Custom Item.
     /// </summary>
-    /// <param name="item">A Custom Item</param>
+    /// <param name="item">A custom item.</param>
     public virtual void Parse(Item item)
     {
-        Item = item;
-        Pickup = Pickup.Get(item.Base.PickupDropModel);
+        ItemBase = item;
+        PickupBase = Pickup.Get(item.Base.PickupDropModel);
         CL.Info(item.Base.gameObject.PrintComponentTree());
         if (this is IModuleChangable changable && changable != null && item.Base is ModularAutosyncItem modularAutosync && modularAutosync != null)
             modularAutosync.ApplyChange(changable);
@@ -77,19 +77,19 @@ public abstract class CustomItemBase : ICloneable
     }
 
     /// <summary>
-    /// Parsing <paramref name="pickup"/> to this Custom Item
+    /// Parsing <paramref name="pickup"/> to this custom item.
     /// </summary>
     /// <param name="pickup">A Custom Pickup</param>
     public virtual void Parse(Pickup pickup)
     {
-        Pickup = pickup;
+        PickupBase = pickup;
     }
 
     /// <summary>
     /// This <paramref name="player"/> changed to/from this Custom Item.
     /// </summary>
-    /// <param name="player">The Player who called this function</param>
-    /// <param name="changedToThisItem">Is player selected item or unselected it</param>
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="changedToThisItem">Is player selected item or unselected it.</param>
     public virtual void OnChanged(Player player, bool changedToThisItem)
     {
 
@@ -98,9 +98,9 @@ public abstract class CustomItemBase : ICloneable
     /// <summary>
     /// This <paramref name="player"/> changing to/from this Custom Item.
     /// </summary>
-    /// <param name="player">The Player who called this function</param>
-    /// <param name="changedToThisItem">Is player selected item or unselected it</param>
-    /// <param name="isAllowed">Can allow this action</param>
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="changedToThisItem">Is player selected item or unselected it.</param>
+    /// <param name="isAllowed">Can allow this action.</param>
     public virtual void OnChanging(Player player, bool changedToThisItem, TypeWrapper<bool> isAllowed)
     {
 
@@ -109,8 +109,8 @@ public abstract class CustomItemBase : ICloneable
     /// <summary>
     /// This <paramref name="player"/> who currently dropping to Currect Custom Item.
     /// </summary>
-    /// <param name="player">The Player who called this function</param>
-    /// <param name="isAllowed">Can allow this action</param>
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="isAllowed">Can allow this action.</param>
     public virtual void OnDropping(Player player, TypeWrapper<bool> isAllowed)
     {
 
@@ -119,7 +119,7 @@ public abstract class CustomItemBase : ICloneable
     /// <summary>
     /// This <paramref name="player"/> who currently dropped to Currect Custom Item.
     /// </summary>
-    /// <param name="player">The Player who called this function</param>
+    /// <param name="player">The Player who called this function.</param>
     public virtual void OnDropped(Player player)
     {
 
@@ -128,9 +128,9 @@ public abstract class CustomItemBase : ICloneable
     /// <summary>
     /// This <paramref name="player"/> who searching the Currect Custom Item.
     /// </summary>
-    /// <param name="player">Player who called this function</param>
-    /// <param name="pickup">The pickup searching</param>
-    /// <param name="isAllowed">Can allow this action</param>
+    /// <param name="player">Player who called this function.</param>
+    /// <param name="pickup">The pickup searching.</param>
+    /// <param name="isAllowed">Can allow this action.</param>
     public virtual void OnSearching(Player player, Pickup pickup, TypeWrapper<bool> isAllowed)
     {
 
@@ -139,7 +139,7 @@ public abstract class CustomItemBase : ICloneable
     /// <summary>
     /// This <paramref name="player"/> who picked up the Currect Custom Item.
     /// </summary>
-    /// <param name="player">The Player who called this function</param>
+    /// <param name="player">The Player who called this function.</param>
     public virtual void OnSearched(Player player)
     {
 
@@ -148,9 +148,9 @@ public abstract class CustomItemBase : ICloneable
     /// <summary>
     /// This <paramref name="player"/> who picking up the Currect Custom Item.
     /// </summary>
-    /// <param name="player">Player who called this function</param>
+    /// <param name="player">Player who called this function.</param>
     /// <param name="pickup">The pickup picking up</param>
-    /// <param name="isAllowed">Can allow this action</param>
+    /// <param name="isAllowed">Can allow this action.</param>
     public virtual void OnPicking(Player player, Pickup pickup, TypeWrapper<bool> isAllowed)
     {
 
@@ -159,7 +159,8 @@ public abstract class CustomItemBase : ICloneable
     /// <summary>
     /// This <paramref name="player"/> who picked up the Currect Custom Item.
     /// </summary>
-    /// <param name="player">The Player who called this function</param>
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="item">The item has been picked up.</param>
     public virtual void OnPicked(Player player, Item item)
     {
         Parse(item);
@@ -168,10 +169,10 @@ public abstract class CustomItemBase : ICloneable
     /// <summary>
     /// This <paramref name="player"/> who throwing the Currect Custom Item.
     /// </summary>
-    /// <param name="player">Player who called this function</param>
+    /// <param name="player">Player who called this function.</param>
     /// <param name="pickup">The pickup to throw</param>
     /// <param name="rigidbody">The rigidbody for the <paramref name="pickup"/></param>
-    /// <param name="isAllowed">Can allow this action</param>
+    /// <param name="isAllowed">Can allow this action.</param>
     public virtual void OnThrowing(Player player, Pickup pickup, Rigidbody rigidbody, TypeWrapper<bool> isAllowed)
     {
 
@@ -180,7 +181,8 @@ public abstract class CustomItemBase : ICloneable
     /// <summary>
     /// This <paramref name="player"/> who threw up the Currect Custom Item.
     /// </summary>
-    /// <param name="player">The Player who called this function</param>
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="rigidbody">The rigidbody for the <see cref="LabApi.Features.Wrappers.Pickup"/></param>
     public virtual void OnThrew(Player player, Rigidbody rigidbody)
     {
 
@@ -190,7 +192,7 @@ public abstract class CustomItemBase : ICloneable
     /// <summary>
     /// This <paramref name="player"/> who removed the Currect Custom Item.
     /// </summary>
-    /// <param name="player">The Player who called this function</param>
+    /// <param name="player">The Player who called this function.</param>
     /// <param name="itemBase">ItemBase</param>
     /// <param name="itemPickupBase">itemPickupBase</param>
     public virtual void OnRemoved(Player player, ItemBase? itemBase, ItemPickupBase? itemPickupBase)
@@ -202,6 +204,7 @@ public abstract class CustomItemBase : ICloneable
         }
     }
 
+    /// <inheritdoc/>
     public object Clone()
     {
         return MemberwiseClone();

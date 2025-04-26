@@ -1,7 +1,11 @@
 ﻿using CustomItemsAPI.Helpers;
+using InventorySystem.Items.Autosync;
 
 namespace CustomItemsAPI.Interfaces;
 
+/// <summary>
+/// Module changer for <see cref="ModularAutosyncItem"/>.
+/// </summary>
 public interface IModuleChangable
 {
     /// <summary>
@@ -9,5 +13,8 @@ public interface IModuleChangable
     /// </summary>
     public Dictionary<ModuleChanger, Type> ReplaceModules { get; }
 
+    /// <summary>
+    /// Add modules to the custom item.
+    /// </summary>
     public List<ModuleChanger> AddModules { get; }
 }

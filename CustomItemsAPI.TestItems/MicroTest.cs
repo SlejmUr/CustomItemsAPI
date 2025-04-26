@@ -17,7 +17,7 @@ public class MicroTest : CustomMicroHIDBase
 
     public override string Description => "Testing micro";
 
-    public override ItemType ItemType => ItemType.MicroHID;
+    public override ItemType Type => ItemType.MicroHID;
 
     private int firedTimes; 
     /*
@@ -60,14 +60,14 @@ public class MicroTest : CustomMicroHIDBase
             return;
         firedTimes = 0;
         
-        CycleController.RecacheFiringModes(MicroItem.Base);
+        BaseCycleController.RecacheFiringModes(MicroItem.Base);
     }
 
     public override void OnPhaseChanged(MicroHidPhase newPhase)
     {
         Energy = 100;
-        if (AudioController._windupSource != null)
-            AudioController._windupSource.maxDistance *= 2;
+        if (BaseAudioController._windupSource != null)
+            BaseAudioController._windupSource.maxDistance *= 2;
 
         if (FiringModeController is CustomCharge module)
         {
@@ -76,8 +76,8 @@ public class MicroTest : CustomMicroHIDBase
 
         if (newPhase == MicroHidPhase.Firing)
         {
-            if (AudioController._firingSource != null)
-                AudioController._firingSource.maxDistance *= 5;
+            if (BaseAudioController._firingSource != null)
+                BaseAudioController._firingSource.maxDistance *= 5;
 
             firedTimes++;
         }

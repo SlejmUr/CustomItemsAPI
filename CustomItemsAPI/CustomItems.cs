@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace CustomItemsAPI;
 
+/// <summary>
+/// Static class for handling Custom Items, such as spawning, giving to player, checking and getting the item. 
+/// </summary>
 public static class CustomItems
 {
     internal static readonly Dictionary<ushort, CustomItemBase> SerialToCustomItem = [];
@@ -17,8 +20,8 @@ public static class CustomItems
     /// <summary>
     /// Creating a new item with as <typeparamref name="T"/> 
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns>null if <typeparamref name="T"/> not found inside <see cref="CustomItemBaseList"/> or created <typeparamref name="T"/> item </returns>
+    /// <typeparam name="T">Any <see cref="CustomItemBase"/></typeparam>
+    /// <returns><see langword="null"/> if <typeparamref name="T"/> not found inside <see cref="CustomItemBaseList"/> or created <typeparamref name="T"/> item </returns>
     public static T? CreateItem<T>() where T : CustomItemBase
     {
         var cib = CustomItemBaseList.FirstOrDefault(x => x.GetType() == typeof(T));
@@ -29,6 +32,11 @@ public static class CustomItems
         return newItem;
     }
 
+    /// <summary>
+    /// Creating a new <see cref="CustomItemBase"/> from <paramref name="ItemName"/>
+    /// </summary>
+    /// <param name="ItemName">A registered <see cref="CustomItemBase.CustomItemName"/>.</param>
+    /// <returns><see langword="null"/> if <paramref name="ItemName"/> not found inside <see cref="CustomItemBaseList"/>.</returns>
     public static CustomItemBase CreateItem(string ItemName)
     {
         var cib = CustomItemBaseList.FirstOrDefault(x => x.CustomItemName == ItemName);
@@ -40,17 +48,27 @@ public static class CustomItems
     }
     #endregion
     #region Adding Item to player
+    /// <summary>
+    /// Create and add Custom Item as <typeparamref name="T"/> to the <paramref name="player"/> Inventory.
+    /// </summary>
+    /// <typeparam name="T">Any <see cref="CustomItemBase"/>.</typeparam>
+    /// <param name="player">The player to add item to.</param>
     public static void AddCustomItem<T>(Player player) where T : CustomItemBase
     {
-        var item = CreateItem<T>();
+        T? item = CreateItem<T>();
         AddCustomItem(item, player);
     }
 
-    public static void AddCustomItem(CustomItemBase item, Player player)
+    /// <summary>
+    /// Add <paramref name="item"/> to the <paramref name="player"/> Inventory.
+    /// </summary>
+    /// <param name="item">The Custom Item.</param>
+    /// <param name="player">The <see cref="Player"/> to add item to.</param>
+    public static void AddCustomItem(CustomItemBase? item, Player player)
     {
         if (item == null)
             return;
-        var itemBase = player.AddItem(item.ItemType);
+        var itemBase = player.AddItem(item.Type);
         if (itemBase == null)
             return;
         item.Parse(itemBase);
@@ -58,11 +76,16 @@ public static class CustomItems
         SerialToCustomItem.Add(item.Serial, item);
     }
 
-    public static void AddCustomItem(CustomItemBase item, ReferenceHub hub)
+    /// <summary>
+    /// Add <paramref name="item"/> to the <paramref name="hub"/> Inventory.
+    /// </summary>
+    /// <param name="item">The Custom Item.</param>
+    /// <param name="hub">The <see cref="ReferenceHub"/> to add item to.</param>
+    public static void AddCustomItem(CustomItemBase? item, ReferenceHub hub)
     {
         if (item == null)
             return;
-        var itemBase = Item.Get(hub.inventory.ServerAddItem(item.ItemType, ItemAddReason.AdminCommand, item.Serial));
+        var itemBase = Item.Get(hub.inventory.ServerAddItem(item.Type, ItemAddReason.AdminCommand, item.Serial));
         if (itemBase == null)
             return;
         item.Parse(itemBase);
@@ -71,31 +94,85 @@ public static class CustomItems
     }
     #endregion
     #region Spawn Item
-    public static void Spawn<T>(Vector3 position, Quaternion rotation = default, Vector3 scale = default) where T : CustomItemBase
+    /// <summary>
+    /// Spawns a Custom Item as <typeparamref name="T"/> to specified parameters.
+    /// </summary>
+    /// <typeparam name="T">Any <see cref="CustomItemBase"/>.</typeparam>
+    /// <param name="position">The position the pickup should spawn.</param>
+    /// <param name="rotation">The rotation the pickup should spawn.</param>
+    /// <param name="scale">The scale the pickup should spawn.</param>
+    /// <returns>Returns <see langword="null"/> if pickup cannot be created otherwise it is a <see cref="Pickup"/>.</returns>
+    public static Pickup Spawn<T>(Vector3 position, Quaternion rotation = default, Vector3 scale = default) where T : CustomItemBase
     {
-        var item = CreateItem<T>();
-        Spawn(item, position, rotation, scale);
+        T? item = CreateItem<T>();
+        return Spawn(item, position, rotation, scale);
     }
 
-    public static void Spawn(CustomItemBase customItem, Vector3 position, Quaternion rotation = default, Vector3 scale = default)
+    /// <summary>
+    /// Spawns a <paramref name="customItem"/> to specified parameters.
+    /// </summary>
+    /// <param name="customItem"></param>
+    /// <param name="position">The position the pickup should spawn.</param>
+    /// <param name="rotation">The rotation the pickup should spawn.</param>
+    /// <param name="scale">The scale the pickup should spawn.</param>
+    /// <returns>Returns <see langword="null"/> if pickup cannot be created or <paramref name="customItem"/> is <see langword="null"/> otherwise it is a <see cref="Pickup"/>.</returns>
+    public static Pickup? Spawn(CustomItemBase? customItem, Vector3 position, Quaternion rotation = default, Vector3 scale = default)
     {
+        if (customItem == null)
+            return null;
         if (rotation == null)
             rotation = Quaternion.identity;
         if (scale == null)
             scale = Vector3.one;
-        var pickup = Pickup.Create(customItem.ItemType, position, rotation, scale) ?? throw new Exception("Pickup must not be null!");
+        var pickup = Pickup.Create(customItem.Type, position, rotation, scale);
+        if (pickup == null)
+            return null;
         customItem.Parse(pickup);
         SerialToCustomItem.Add(pickup.Serial, customItem);
+        pickup.Spawn();
+        return pickup;
     }
     #endregion
     #region Checks
-    public static bool IsItemNameExist(string ItemName)
+    /// <summary>
+    /// Checks if the <see cref="CustomItemBaseList"/> has any <see cref="CustomItemBase.CustomItemName"/> as <paramref name="ItemName"/>.
+    /// </summary>
+    /// <param name="ItemName">The Custom Item name.</param>
+    /// <param name="comparison">String Comparison for easier check.</param>
+    /// <returns><see langword="true"/> if found otherwise <see langword="false"/>.</returns>
+    public static bool IsItemNameExist(string? ItemName, StringComparison comparison = StringComparison.InvariantCulture)
     {
-        return CustomItemBaseList.Any(x => x.CustomItemName == ItemName);
+        if (string.IsNullOrEmpty(ItemName))
+            return false;
+        return CustomItemBaseList.Any(x => x.CustomItemName.Equals(ItemName, comparison));
     }
+
+    /// <summary>
+    /// Checks if the <paramref name="serial"/> contains inside the <see cref="SerialToCustomItem"/>.
+    /// </summary>
+    /// <param name="serial">The Item Serial Id.</param>
+    /// <returns><see langword="true"/> if it is custom item, otherwise <see langword="false"/>.</returns>
     public static bool IsCustom(ushort serial) => SerialToCustomItem.ContainsKey(serial);
+
+    /// <summary>
+    /// Checks if the <see cref="Item.Serial"/> contains inside the <see cref="SerialToCustomItem"/>.
+    /// </summary>
+    /// <param name="item">The <see cref="Item"/> to check its Serial.</param>
+    /// <returns><see langword="true"/> if it is custom item, otherwise <see langword="false"/>.</returns>
     public static bool IsCustom(Item? item) => item != null && SerialToCustomItem.ContainsKey(item.Serial);
+
+    /// <summary>
+    /// Checks if the <see cref="Pickup.Serial"/> contains inside the <see cref="SerialToCustomItem"/>.
+    /// </summary>
+    /// <param name="item">The <see cref="Pickup"/> to check its Serial.</param>
+    /// <returns><see langword="true"/> if it is custom item, otherwise <see langword="false"/>.</returns>
     public static bool IsCustom(Pickup? item) => item != null && SerialToCustomItem.ContainsKey(item.Serial);
+
+    /// <summary>
+    /// Checks if <paramref name="player"/> holding a custom item.
+    /// </summary>
+    /// <param name="player">The player to check.</param>
+    /// <returns><see langword="true"/> if it is custom item, otherwise <see langword="false"/>.</returns>
     public static bool IsHoldingCustomItem(Player? player)
     {
         if (player == null)
@@ -104,6 +181,12 @@ public static class CustomItems
     }
     #endregion
     #region GetCustomItem
+    /// <summary>
+    /// Get the custom item as <typeparamref name="T"/> from <paramref name="item"/>.
+    /// </summary>
+    /// <typeparam name="T">Any <see cref="CustomItemBase"/>.</typeparam>
+    /// <param name="item">The <see cref="Item"/> to get from.</param>
+    /// <returns><see langword="null"/> if could not get the item otherwise <typeparamref name="T"/>.</returns>
     public static T? GetCustomItem<T>(Item? item) where T : CustomItemBase
     {
         if (item == null)
@@ -111,12 +194,25 @@ public static class CustomItems
         return GetCustomItem<T>(item.Serial);
     }
 
+    /// <summary>
+    /// Get the custom item as <typeparamref name="T"/> from <paramref name="item"/>.
+    /// </summary>
+    /// <typeparam name="T">Any <see cref="CustomItemBase"/>.</typeparam>
+    /// <param name="item">The <see cref="Pickup"/> to get from.</param>
+    /// <returns><see langword="null"/> if could not get the item otherwise <typeparamref name="T"/>.</returns>
     public static T? GetCustomItem<T>(Pickup? item) where T : CustomItemBase
     {
         if (item == null)
             return null;
         return GetCustomItem<T>(item.Serial);
     }
+
+    /// <summary>
+    /// Get the custom item as <typeparamref name="T"/> from <paramref name="player"/> from it's <see cref="Player.CurrentItem"/>.
+    /// </summary>
+    /// <typeparam name="T">Any <see cref="CustomItemBase"/>.</typeparam>
+    /// <param name="player">The <see cref="Pickup"/> to get from.</param>
+    /// <returns><see langword="null"/> if could not get the item otherwise <typeparamref name="T"/>.</returns>
     public static T? GetCustomItem<T>(Player player) where T : CustomItemBase
     {
         if (player.IsServer)
@@ -124,6 +220,12 @@ public static class CustomItems
         return GetCustomItem<T>(player.CurrentItem);
     }
 
+    /// <summary>
+    /// Get the custom item as <typeparamref name="T"/> from <paramref name="serial"/>.
+    /// </summary>
+    /// <typeparam name="T">Any <see cref="CustomItemBase"/>.</typeparam>
+    /// <param name="serial">The serial id of the item/pickup.</param>
+    /// <returns><see langword="null"/> if could not get the item otherwise <typeparamref name="T"/>.</returns>
     public static T? GetCustomItem<T>(ushort serial) where T : CustomItemBase
     {
         if (serial == 0)
@@ -134,35 +236,49 @@ public static class CustomItems
     }
     #endregion
     #region Register Custom Item
+    /// <summary>
+    /// Register custom items with the Calling Assembly.
+    /// </summary>
     public static void RegisterCustomItems()
     {
         Assembly assembly = Assembly.GetCallingAssembly();
-        var types = assembly.GetTypes().Where(x => !x.IsAbstract).Where(item => item.BaseType == typeof(CustomItemBase) || item.BaseType.IsSubclassOf(typeof(CustomItemBase))).ToList();
-        foreach (var item in types)
-        {
-            CustomItemBase customItemBase = (CustomItemBase)Activator.CreateInstance(item);
-            if (customItemBase == null)
-                continue;
-            CustomItemBaseList.Add(customItemBase);
-        }
-    }
-
-    public static void RegisterCustomItems(params Type[] types)
-    {
-        foreach (var type in types)
+        List<Type> types = [.. assembly.GetTypes().Where(x => !x.IsAbstract).Where(item => item.BaseType == typeof(CustomItemBase) || item.BaseType.IsSubclassOf(typeof(CustomItemBase)))];
+        foreach (Type type in types)
         {
             RegisterCustomItem(type);
         }
     }
 
+    /// <summary>
+    /// Register only <paramref name="types"/> as custom items.
+    /// </summary>
+    /// <param name="types">Parameter array of the <see cref="Type"/> of a <see cref="CustomItemBase"/>.</param>
+    public static void RegisterCustomItems(params Type[] types)
+    {
+        foreach (Type type in types)
+        {
+            RegisterCustomItem(type);
+        }
+    }
+
+    /// <summary>
+    /// Register individual <paramref name="type"/> as a custom item.
+    /// </summary>
+    /// <param name="type">The <see cref="Type"/> of a <see cref="CustomItemBase"/>.</param>
     public static void RegisterCustomItem(Type type)
     {
+        if (type == null)
+            return;
         CustomItemBase customItemBase = (CustomItemBase)Activator.CreateInstance(type);
         if (customItemBase == null)
             return;
         CustomItemBaseList.Add(customItemBase);
     }
 
+    /// <summary>
+    /// Register <paramref name="customItemBase"/> as a custom item.
+    /// </summary>
+    /// <param name="customItemBase">The instanciated <see cref="CustomItemBase"/></param>
     public static void RegisterCustomItem(CustomItemBase customItemBase)
     {
         if (customItemBase == null)
@@ -171,6 +287,10 @@ public static class CustomItems
     }
     #endregion
     #region Unregister Custom Item
+    /// <summary>
+    /// Unregister <paramref name="types"/> from custom items.
+    /// </summary>
+    /// <param name="types">Parameter array of the <see cref="Type"/> of a <see cref="CustomItemBase"/>.</param>
     public static void UnRegisterCustomItems(params Type[] types)
     {
         foreach (var type in types)
@@ -179,11 +299,19 @@ public static class CustomItems
         }
     }
 
+    /// <summary>
+    /// Unregister <paramref name="type"/> from custom items.
+    /// </summary>
+    /// <param name="type">The <see cref="Type"/> of a <see cref="CustomItemBase"/>.</param>
     public static void UnRegisterCustomItem(Type type)
     {
         CustomItemBaseList.RemoveWhere(x=>x.GetType() == type);
     }
 
+    /// <summary>
+    /// Unregister <paramref name="customItemBase"/> from custom items.
+    /// </summary>
+    /// <param name="customItemBase">The instanciated <see cref="CustomItemBase"/></param>
     public static void UnRegisterCustomItem(CustomItemBase customItemBase)
     {
         if (customItemBase == null)
@@ -191,12 +319,18 @@ public static class CustomItems
         CustomItemBaseList.Remove(customItemBase);
     }
 
+    /// <summary>
+    /// Unregister all custom items.
+    /// </summary>
     public static void UnRegisterAllCustomItems()
     {
         CustomItemBaseList.Clear();
         SerialToCustomItem.Clear();
     }
 
+    /// <summary>
+    /// Clear custom items serials.
+    /// </summary>
     public static void ClearSerials()
     {
         SerialToCustomItem.Clear();

@@ -7,13 +7,13 @@ namespace CustomItemsAPI.TestItems;
 
 class KeycardTest : CustomKeyCardBase
 {
-    public override KeycardPermissions Permissions =>  KeycardPermissions.Intercom;
+    public override KeycardLevels Levels => new(3, 3, 3);
 
     public override string CustomItemName => "KeycardTest";
 
     public override string Description => "KeycardTest";
 
-    public override ItemType ItemType => ItemType.KeycardJanitor;
+    public override ItemType Type => ItemType.KeycardJanitor;
 
     public override void OnInteractingLocker(Player player, Locker locker, LockerChamber lockerChamber, TypeWrapper<bool> canOpen, TypeWrapper<bool> isAllowed)
     {

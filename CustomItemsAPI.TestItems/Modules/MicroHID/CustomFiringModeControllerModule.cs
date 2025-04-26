@@ -1,6 +1,6 @@
 ﻿using InventorySystem.Items.MicroHID.Modules;
 
-namespace CustomItemsAPI.Modules.MicroHID;
+namespace CustomItemsAPI.TestItems.Modules.MicroHID;
 
 public class CustomFiringModeControllerModule(MicroHidFiringMode mode) : FiringModeControllerModule
 {
@@ -19,21 +19,21 @@ public class CustomFiringModeControllerModule(MicroHidFiringMode mode) : FiringM
     public override float DrainRateWindUp => drainRateWindUp;
     public override float DrainRateSustain => drainRateSustain;
     public override float DrainRateFiring => drainRateFiring;
-    public override bool ValidateStart => validateStart();
-    public override bool ValidateEnterFire => validateEnterFire();
-    public override bool ValidateUpdate => validateUpdate();
+    public override bool ValidateStart => VirtualValidateStart();
+    public override bool ValidateEnterFire => VirtualValidateEnterFire();
+    public override bool ValidateUpdate => VirtualValidateUpdate();
 
-    public virtual bool validateStart()
+    public virtual bool VirtualValidateStart()
     {
         return false;
     }
 
-    public virtual bool validateEnterFire()
+    public virtual bool VirtualValidateEnterFire()
     {
         return false;
     }
 
-    public virtual bool validateUpdate()
+    public virtual bool VirtualValidateUpdate()
     {
         return false;
     }

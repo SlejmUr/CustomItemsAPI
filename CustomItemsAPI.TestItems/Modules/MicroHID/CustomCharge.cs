@@ -1,5 +1,4 @@
-﻿using CustomItemsAPI.Modules.MicroHID;
-using Interactables;
+﻿using Interactables;
 using Interactables.Interobjects;
 using InventorySystem.Items.MicroHID.Modules;
 using PlayerRoles;
@@ -14,12 +13,12 @@ public class CustomCharge : CustomFiringModeControllerModule
         CL.Info("CustomCharge.ctor");
     }
 
-    public override bool validateEnterFire()
+    public override bool VirtualValidateEnterFire()
     {
         return InputSync.Primary;
     }
 
-    public override bool validateUpdate()
+    public override bool VirtualValidateUpdate()
     {
         if ((InputSync.Primary || InputSync.Secondary) && Energy > 0f)
         {
@@ -29,7 +28,7 @@ public class CustomCharge : CustomFiringModeControllerModule
         return false;
     }
 
-    public override bool validateStart()
+    public override bool VirtualValidateStart()
     {
         if (InputSync.Secondary)
         {
@@ -88,7 +87,7 @@ public class CustomCharge : CustomFiringModeControllerModule
     {
         Transform transform = collider.transform;
         Vector3 end = transform.position + transform.TransformDirection(collider.VerificationOffset);
-        if (Physics.Linecast(originPoint, end, out var hitInfo, PlayerRolesUtils.BlockerMask))
+        if (Physics.Linecast(originPoint, end, out var hitInfo, PlayerRolesUtils.AttackMask))
         {
             return hitInfo.collider.transform == transform;
         }

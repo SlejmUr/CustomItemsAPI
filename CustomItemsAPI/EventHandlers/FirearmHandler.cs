@@ -2,7 +2,6 @@
 using CustomItemsAPI.Items;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;
-using LabApi.Features.Wrappers;
 
 namespace CustomItemsAPI.EventHandlers;
 
@@ -12,63 +11,63 @@ internal sealed class FirearmHandler : CustomEventsHandler
     public override void OnPlayerDryFiringWeapon(PlayerDryFiringWeaponEventArgs ev)
     {
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnDryFiring(ev.Player, ev.Weapon, isAllowedHelper);
+        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.FirearmItem);
+        cur_item?.OnDryFiring(ev.Player, ev.FirearmItem, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerDryFiredWeapon(PlayerDryFiredWeaponEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnDryFired(ev.Player, ev.Weapon);
+        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.FirearmItem);
+        cur_item?.OnDryFired(ev.Player, ev.FirearmItem);
     }
     #endregion
     #region Aim
     public override void OnPlayerAimedWeapon(PlayerAimedWeaponEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnAim(ev.Player, ev.Weapon, ev.Aiming);
+        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.FirearmItem);
+        cur_item?.OnAim(ev.Player, ev.FirearmItem, ev.Aiming);
     }
     #endregion
     #region Reload
     public override void OnPlayerReloadingWeapon(PlayerReloadingWeaponEventArgs ev)
     {
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnReloading(ev.Player, ev.Weapon, isAllowedHelper);
+        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.FirearmItem);
+        cur_item?.OnReloading(ev.Player, ev.FirearmItem, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerReloadedWeapon(PlayerReloadedWeaponEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnReloaded(ev.Player, (FirearmItem)ev.Weapon);
+        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.FirearmItem);
+        cur_item?.OnReloaded(ev.Player, ev.FirearmItem);
     }
     #endregion
     #region Shoot
     public override void OnPlayerShootingWeapon(PlayerShootingWeaponEventArgs ev)
     {
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnShooting(ev.Player, ev.Weapon, isAllowedHelper);
+        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.FirearmItem);
+        cur_item?.OnShooting(ev.Player, ev.FirearmItem, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerShotWeapon(PlayerShotWeaponEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnShot(ev.Player, ev.Weapon);
+        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.FirearmItem);
+        cur_item?.OnShot(ev.Player, ev.FirearmItem);
     }
     #endregion
     #region Unload
     public override void OnPlayerUnloadingWeapon(PlayerUnloadingWeaponEventArgs ev)
     {
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnUnloading(ev.Player, ev.Weapon, isAllowedHelper);
+        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.FirearmItem);
+        cur_item?.OnUnloading(ev.Player, ev.FirearmItem, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerUnloadedWeapon(PlayerUnloadedWeaponEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Weapon);
-        cur_item?.OnUnloaded(ev.Player, ev.Weapon);
+        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.FirearmItem);
+        cur_item?.OnUnloaded(ev.Player, ev.FirearmItem);
     }
     #endregion
     #region Toggle Flashlight
@@ -76,15 +75,15 @@ internal sealed class FirearmHandler : CustomEventsHandler
     {
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
         TypeWrapper<bool> newState = new(ev.NewState);
-        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Item);
-        cur_item?.OnTogglingFlashlight(ev.Player, ev.Item, newState, isAllowedHelper);
+        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.FirearmItem);
+        cur_item?.OnTogglingFlashlight(ev.Player, ev.FirearmItem, newState, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
         ev.NewState = newState.Value;
     }
     public override void OnPlayerToggledWeaponFlashlight(PlayerToggledWeaponFlashlightEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.Item);
-        cur_item?.OnToggledFlashlight(ev.Player, ev.Item, ev.NewState);
+        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.FirearmItem);
+        cur_item?.OnToggledFlashlight(ev.Player, ev.FirearmItem, ev.NewState);
     }
     #endregion
 }
