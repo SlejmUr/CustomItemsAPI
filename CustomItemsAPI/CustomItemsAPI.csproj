@@ -8,7 +8,7 @@
 	  <FileVersion>$(Version)</FileVersion>
 	  <AssemblyVersion>$(Version)</AssemblyVersion>
 	  <Version>0.0.3.0</Version>
-	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 	  <Authors>SlejmUr</Authors>
 	  <Company>SlejmUr</Company>
 	  <PackageReadmeFile>README.md</PackageReadmeFile>
