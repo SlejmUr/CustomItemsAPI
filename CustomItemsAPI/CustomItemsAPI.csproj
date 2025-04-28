@@ -5,9 +5,7 @@
 		<RootNamespace>CustomItemsAPI</RootNamespace>
 		<Copyright>SlejmUr</Copyright>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<FileVersion>$(Version)</FileVersion>
-		<AssemblyVersion>$(Version)</AssemblyVersion>
-		<Version>0.0.3.0</Version>
+		<Version>0.0.3.1</Version>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<Authors>SlejmUr</Authors>
 		<Company>SlejmUr</Company>
