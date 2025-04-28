@@ -22,6 +22,6 @@ internal class ThrowableItemHandler : CustomEventsHandler
     public override void OnPlayerThrewProjectile(PlayerThrewProjectileEventArgs ev)
     {
         var cur_item = CustomItems.GetCustomItem<CustomThrowableBase>(ev.ThrowableItem);
-        cur_item?.OnThrewProjectile(ev.Player, ev.ThrowableItem, ev.ProjectileSettings, ev.FullForce);
+        cur_item?.OnThrewProjectile(ev.Player, ev.ThrowableItem, ev.Projectile, ev.ProjectileSettings, ev.FullForce);
     }
 }

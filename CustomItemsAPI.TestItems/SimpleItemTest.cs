@@ -5,12 +5,8 @@ namespace CustomItemsAPI.TestItems;
 
 class SimpleItemTest : CustomItemBase
 {
-    public override string CustomItemName => "SimpleItemTest";
-    public override string Description => "Testing simple item";
+    public override string CustomItemName { get; set; } = "SimpleItemTest";
+    public override string Description { get; set; } = "Testing simple item";
     public override ItemType Type => ItemType.KeycardGuard;
 
-    public override void OnDropped(Player player)
-    {
-        player.SendHint("dropped");
-    }
 }

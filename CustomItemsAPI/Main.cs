@@ -16,7 +16,7 @@ internal sealed class Main : Plugin<Config>
 
     public override string Author => "SlejmUr";
 
-    public override Version Version => new(0, 0, 3, 0);
+    public override Version Version => new(0, 0, 3, 1);
 
     public override Version RequiredApiVersion => LabApi.Features.LabApiProperties.CurrentVersion;
 
@@ -27,6 +27,7 @@ internal sealed class Main : Plugin<Config>
     private ThrowableItemHandler throwableItemHandler;
     private DamageHandler damageHandler;
     private FirearmHandler firearmHandler;
+    private Scp914Handler scp914Handler;
 
     public override void Disable()
     {
@@ -45,6 +46,8 @@ internal sealed class Main : Plugin<Config>
         damageHandler = null;
         CustomHandlersManager.UnregisterEventsHandler(firearmHandler);
         firearmHandler = null;
+        CustomHandlersManager.UnregisterEventsHandler(scp914Handler);
+        scp914Handler = null;
         InventoryExtensions.OnItemRemoved -= Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned -= Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged -= Subscribed.PhaseChanged;
@@ -68,6 +71,8 @@ internal sealed class Main : Plugin<Config>
         CustomHandlersManager.RegisterEventsHandler(damageHandler);
         firearmHandler = new();
         CustomHandlersManager.RegisterEventsHandler(firearmHandler);
+        scp914Handler = new();
+        CustomHandlersManager.RegisterEventsHandler(scp914Handler);
         InventoryExtensions.OnItemRemoved += Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned += Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged += Subscribed.PhaseChanged;

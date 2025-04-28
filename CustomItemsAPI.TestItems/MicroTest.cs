@@ -13,9 +13,9 @@ public class MicroTest : CustomMicroHIDBase
     {
         { new(typeof(ChargeFireModeModule),0, "Firing Modes"), typeof(CustomCharge) }
     };
-    public override string CustomItemName => nameof(MicroTest); 
+    public override string CustomItemName { get; set; } = nameof(MicroTest); 
 
-    public override string Description => "Testing micro";
+    public override string Description { get; set; } = "Testing micro";
 
     public override ItemType Type => ItemType.MicroHID;
 
@@ -54,7 +54,7 @@ public class MicroTest : CustomMicroHIDBase
     }
     */
 
-    public override void OnChanged(Player player, bool changedToThisItem)
+    public override void OnChanged(Player player, Item? oldItem, Item? newItem, bool changedToThisItem)
     {
         if (!changedToThisItem)
             return;

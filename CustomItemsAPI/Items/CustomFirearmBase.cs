@@ -3,7 +3,6 @@ using CustomItemsAPI.Interfaces;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Modules;
 using LabApi.Features.Wrappers;
-using MEC;
 using PlayerStatsSystem;
 
 namespace CustomItemsAPI.Items;

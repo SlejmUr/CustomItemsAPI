@@ -8,7 +8,6 @@ namespace CustomItemsAPI.Items;
 /// </summary>
 public abstract class CustomUsableBase : CustomItemBase
 {
-
     /// <summary>
     /// The <see cref="CustomItemBase.ItemBase"/> as <see cref="UsableItem"/>.
     /// </summary>
@@ -30,7 +29,7 @@ public abstract class CustomUsableBase : CustomItemBase
     /// <param name="isAllowed">Can allow this action.</param>
     public virtual void OnCancelling(Player player, UsableItem usableItem, TypeWrapper<bool> isAllowed)
     {
-
+        CL.Debug($"OnCancelling {player.PlayerId} {usableItem.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -40,7 +39,7 @@ public abstract class CustomUsableBase : CustomItemBase
     /// <param name="usableItem">The usable item.</param>
     public virtual void OnCancelled(Player player, UsableItem usableItem)
     {
-
+        CL.Debug($"OnCancelled {player.PlayerId} {usableItem.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -51,7 +50,7 @@ public abstract class CustomUsableBase : CustomItemBase
     /// <param name="isAllowed">Can allow this action.</param>
     public virtual void OnUsing(Player player, UsableItem usableItem, TypeWrapper<bool> isAllowed)
     {
-
+        CL.Debug($"OnUsing {player.PlayerId} {usableItem.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -61,6 +60,6 @@ public abstract class CustomUsableBase : CustomItemBase
     /// <param name="usableItem">The usable item.</param>
     public virtual void OnUsed(Player player, UsableItem usableItem)
     {
-
+        CL.Debug($"OnUsed {player.PlayerId} {usableItem.Serial}", Main.Instance.Config.Debug);
     }
 }

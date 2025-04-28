@@ -32,6 +32,6 @@ internal sealed class ArmorHandler : CustomEventsHandler
     public override void OnPlayerSearchedArmor(PlayerSearchedArmorEventArgs ev)
     {
         var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.BodyArmorPickup);
-        cur_item?.OnSearched(ev.Player);
+        cur_item?.OnSearched(ev.Player, ev.BodyArmorPickup);
     }
 }

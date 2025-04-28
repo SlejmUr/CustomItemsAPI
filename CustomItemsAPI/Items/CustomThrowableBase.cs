@@ -20,7 +20,7 @@ public abstract class CustomThrowableBase : CustomItemBase
     /// <param name="isAllowed">Can allow this action.</param>
     public virtual void OnThrowingProjectile(Player player, LabApi.Features.Wrappers.ThrowableItem throwableItem, TypeWrapper<PSettings> settings, TypeWrapper<bool> isFullForce, TypeWrapper<bool> isAllowed)
     {
-
+        CL.Debug($"OnThrowingProjectile {player.PlayerId} {throwableItem.Serial} {settings.Value} {isFullForce.Value}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -28,11 +28,12 @@ public abstract class CustomThrowableBase : CustomItemBase
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
     /// <param name="throwableItem">The Custom Throwable Item</param>
+    /// <param name="projectile">The new projectile object created.</param>
     /// <param name="settings">The projectile Settings</param>
     /// <param name="fullForce">Is used full force to throw</param>
-    public virtual void OnThrewProjectile(Player player, LabApi.Features.Wrappers.ThrowableItem throwableItem, PSettings settings, bool fullForce)
+    public virtual void OnThrewProjectile(Player player, LabApi.Features.Wrappers.ThrowableItem throwableItem, Projectile projectile, PSettings settings, bool fullForce)
     {
-
+        CL.Debug($"OnThrewProjectile {player.PlayerId} {throwableItem.Serial} {projectile.Serial} {settings} {fullForce}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -41,6 +42,6 @@ public abstract class CustomThrowableBase : CustomItemBase
     /// <param name="projectile"></param>
     public virtual void OnProjectileSpawned(ThrownProjectile projectile)
     {
-
+        CL.Debug($"OnProjectileSpawned {projectile}", Main.Instance.Config.Debug);
     }
 }

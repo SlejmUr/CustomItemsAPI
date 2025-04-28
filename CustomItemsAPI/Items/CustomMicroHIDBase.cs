@@ -129,6 +129,6 @@ public abstract class CustomMicroHIDBase : CustomItemBase, IModuleChangable
     /// <param name="phase"></param>
     public virtual void OnPhaseChanged(MicroHidPhase phase)
     {
-
+        CL.Debug($"OnPhaseChanged {phase}", Main.Instance.Config.Debug);
     }
 }

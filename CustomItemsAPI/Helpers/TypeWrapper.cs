@@ -32,4 +32,10 @@ public class TypeWrapper<T>
         Value = value;
         DefaultValue = value;
     }
+
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        return Value.ToString();
+    }
 }

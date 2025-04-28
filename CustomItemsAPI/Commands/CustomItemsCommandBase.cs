@@ -18,19 +18,21 @@ public sealed class CustomItemsCommandBase : ParentCommand, IUsageProvider
     public override string Description => "Interacting with Custom Items";
 
     /// <inheritdoc/>
-    public string[] Usage => ["give/list", "%player% ItemName"];
+    public string[] Usage => ["give/spawn/list/delete"];
 
     /// <inheritdoc/>
     public override void LoadGeneratedCommands()
     {
         RegisterCommand(new GiveCommand());
+        RegisterCommand(new SpawnCommand());
         RegisterCommand(new ListCommand());
+        RegisterCommand(new DeleteCommand());
     }
 
     /// <inheritdoc/>
     protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
     {
-        response = $"Please specify a valid subcommand!\n- {Command} list\n- {Command} give %player% ItemName";
+        response = $"Please specify a valid subcommand!\n- {Command} list\n- {Command} give %player% ItemName\n- {Command} spawn ItemName x y z\n- {Command} delete id";
         return false;
     }
 

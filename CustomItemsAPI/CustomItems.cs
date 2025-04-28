@@ -1,6 +1,7 @@
 ﻿using CustomItemsAPI.Items;
 using InventorySystem;
 using InventorySystem.Items;
+using InventorySystem.Items.Pickups;
 using LabApi.Features.Wrappers;
 using System.Reflection;
 using UnityEngine;
@@ -116,7 +117,7 @@ public static class CustomItems
     /// <param name="rotation">The rotation the pickup should spawn.</param>
     /// <param name="scale">The scale the pickup should spawn.</param>
     /// <returns>Returns <see langword="null"/> if pickup cannot be created or <paramref name="customItem"/> is <see langword="null"/> otherwise it is a <see cref="Pickup"/>.</returns>
-    public static Pickup? Spawn(CustomItemBase? customItem, Vector3 position, Quaternion rotation = default, Vector3 scale = default)
+    public static Pickup? Spawn(CustomItemBase? customItem, Vector3 position, Quaternion? rotation = null, Vector3? scale = null)
     {
         if (customItem == null)
             return null;
@@ -124,12 +125,13 @@ public static class CustomItems
             rotation = Quaternion.identity;
         if (scale == null)
             scale = Vector3.one;
-        var pickup = Pickup.Create(customItem.Type, position, rotation, scale);
+        var pickup = Pickup.Create(customItem.Type, position, rotation.Value, scale.Value);
         if (pickup == null)
             return null;
+        pickup.Spawn();
         customItem.Parse(pickup);
         SerialToCustomItem.Add(pickup.Serial, customItem);
-        pickup.Spawn();
+        pickup.Position = position;
         return pickup;
     }
     #endregion
@@ -152,28 +154,42 @@ public static class CustomItems
     /// </summary>
     /// <param name="serial">The Item Serial Id.</param>
     /// <returns><see langword="true"/> if it is custom item, otherwise <see langword="false"/>.</returns>
-    public static bool IsCustom(ushort serial) => SerialToCustomItem.ContainsKey(serial);
+    public static bool IsCustom(this ushort serial) => SerialToCustomItem.ContainsKey(serial);
 
     /// <summary>
     /// Checks if the <see cref="Item.Serial"/> contains inside the <see cref="SerialToCustomItem"/>.
     /// </summary>
     /// <param name="item">The <see cref="Item"/> to check its Serial.</param>
     /// <returns><see langword="true"/> if it is custom item, otherwise <see langword="false"/>.</returns>
-    public static bool IsCustom(Item? item) => item != null && SerialToCustomItem.ContainsKey(item.Serial);
+    public static bool IsCustom(this Item? item) => item != null && SerialToCustomItem.ContainsKey(item.Serial);
+
+    /// <summary>
+    /// Checks if the <see cref="Item.Serial"/> contains inside the <see cref="SerialToCustomItem"/>.
+    /// </summary>
+    /// <param name="item">The <see cref="Item"/> to check its Serial.</param>
+    /// <returns><see langword="true"/> if it is custom item, otherwise <see langword="false"/>.</returns>
+    public static bool IsCustom(this ItemBase? item) => item != null && SerialToCustomItem.ContainsKey(item.ItemSerial);
 
     /// <summary>
     /// Checks if the <see cref="Pickup.Serial"/> contains inside the <see cref="SerialToCustomItem"/>.
     /// </summary>
     /// <param name="item">The <see cref="Pickup"/> to check its Serial.</param>
     /// <returns><see langword="true"/> if it is custom item, otherwise <see langword="false"/>.</returns>
-    public static bool IsCustom(Pickup? item) => item != null && SerialToCustomItem.ContainsKey(item.Serial);
+    public static bool IsCustom(this Pickup? item) => item != null && SerialToCustomItem.ContainsKey(item.Serial);
+
+    /// <summary>
+    /// Checks if the <see cref="Pickup.Serial"/> contains inside the <see cref="SerialToCustomItem"/>.
+    /// </summary>
+    /// <param name="item">The <see cref="Pickup"/> to check its Serial.</param>
+    /// <returns><see langword="true"/> if it is custom item, otherwise <see langword="false"/>.</returns>
+    public static bool IsCustom(this ItemPickupBase? item) => item != null && SerialToCustomItem.ContainsKey(item.Info.Serial);
 
     /// <summary>
     /// Checks if <paramref name="player"/> holding a custom item.
     /// </summary>
     /// <param name="player">The player to check.</param>
     /// <returns><see langword="true"/> if it is custom item, otherwise <see langword="false"/>.</returns>
-    public static bool IsHoldingCustomItem(Player? player)
+    public static bool IsHoldingCustomItem(this Player? player)
     {
         if (player == null)
             return false;
@@ -243,6 +259,25 @@ public static class CustomItems
     {
         Assembly assembly = Assembly.GetCallingAssembly();
         List<Type> types = [.. assembly.GetTypes().Where(x => !x.IsAbstract).Where(item => item.BaseType == typeof(CustomItemBase) || item.BaseType.IsSubclassOf(typeof(CustomItemBase)))];
+        foreach (Type type in types)
+        {
+            RegisterCustomItem(type);
+        }
+    }
+
+    /// <summary>
+    /// Register custom items with the Calling Assembly except <paramref name="exceptType"/>'s.
+    /// </summary>
+    /// <param name="exceptType">Parameter array of the <see cref="Type"/> of a <see cref="CustomItemBase"/>.</param>
+    public static void RegisterCustomItemsExcept(params Type[] exceptType)
+    {
+        Assembly assembly = Assembly.GetCallingAssembly();
+        List<Type> types = [.. assembly.GetTypes().
+            Where(x => !x.IsAbstract).
+            Where(item => ( item.BaseType == typeof(CustomItemBase) || 
+                item.BaseType.IsSubclassOf(typeof(CustomItemBase)) ) &&
+                !exceptType.Contains(item)
+                )];
         foreach (Type type in types)
         {
             RegisterCustomItem(type);

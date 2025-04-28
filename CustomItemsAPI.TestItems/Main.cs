@@ -1,4 +1,5 @@
-﻿using LabApi.Loader.Features.Plugins;
+﻿using CustomItemsAPI.TestItems.ManyItemTest;
+using LabApi.Loader.Features.Plugins;
 
 namespace CustomItemsAPI.TestItems;
 
@@ -11,7 +12,7 @@ internal sealed class Main : Plugin
 
     public override string Author => "SlejmUr";
 
-    public override Version Version => new(0, 0, 3, 0);
+    public override Version Version => new(0, 0, 3, 1);
 
     public override Version RequiredApiVersion => LabApi.Features.LabApiProperties.CurrentVersion;
 
@@ -24,6 +25,14 @@ internal sealed class Main : Plugin
     public override void Enable()
     {
         Instance = this;
-        CustomItems.RegisterCustomItems();
+        CustomItems.RegisterCustomItemsExcept([typeof(ManyItemBase)]);
+        foreach (var item in Enumerable.Range(0, 5))
+        {
+            CustomItems.RegisterCustomItem(new ManyItemBase()
+            { 
+                CustomItemName = $"{nameof(ManyItemBase)}_{item}",
+                Description = $"Test decs for item: {item}"
+            });
+        }
     }
 }

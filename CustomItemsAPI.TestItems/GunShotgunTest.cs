@@ -6,9 +6,9 @@ namespace CustomItemsAPI.TestItems;
 
 public class GunShotgunTest : CustomFirearmBase
 {
-    public override string CustomItemName => nameof(GunShotgunTest);
+    public override string CustomItemName { get; set; } = nameof(GunShotgunTest);
 
-    public override string Description => nameof(GunShotgunTest);
+    public override string Description { get; set; } = nameof(GunShotgunTest);
 
     public override ItemType Type =>  ItemType.GunShotgun;
 
