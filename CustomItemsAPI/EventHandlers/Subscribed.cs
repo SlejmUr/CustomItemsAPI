@@ -13,8 +13,8 @@ internal sealed class Subscribed
     {
         var customItem = CustomItems.GetCustomItem<CustomItemBase>(Item.Get(itemBase));
         customItem?.OnRemoved(Player.Get(hub), itemBase, itemPickupBase);
-        customItem = CustomItems.GetCustomItem<CustomItemBase>(Pickup.Get(itemPickupBase));
-        customItem?.OnRemoved(Player.Get(hub), itemBase, itemPickupBase);
+        var customItem2 = CustomItems.GetCustomItem<CustomItemBase>(Pickup.Get(itemPickupBase));
+        customItem2?.OnRemoved(Player.Get(hub), itemBase, itemPickupBase);
     }
 
     internal static void ProjectileSpawned(ThrownProjectile projectile)

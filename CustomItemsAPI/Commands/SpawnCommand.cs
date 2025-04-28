@@ -63,7 +63,7 @@ public sealed class SpawnCommand : ICommand, IUsageProvider
             response = "Item creation failed!";
             return false;
         }
-        var pickup = CustomItems.Spawn(customitem, new Vector3(x, y, z));
+        CustomItems.Spawn(customitem, new Vector3(x, y, z));
         response = $"Done!";
         return true;
     }

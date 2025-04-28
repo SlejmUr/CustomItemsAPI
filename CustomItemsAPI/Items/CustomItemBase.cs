@@ -30,6 +30,11 @@ public abstract class CustomItemBase : ICloneable
     public abstract ItemType Type { get; }
 
     /// <summary>
+    /// Name of your custom item.
+    /// </summary>
+    public virtual string DisplayName { get; set; }
+
+    /// <summary>
     /// Serial of the item.
     /// </summary>
     public ushort Serial
@@ -60,11 +65,27 @@ public abstract class CustomItemBase : ICloneable
     public Pickup PickupBase { get; private set; }
 
     /// <summary>
+    /// Called once when this instance is registered.
+    /// </summary>
+    public virtual void OnRegistered()
+    {
+        CL.Debug($"OnRegistered {this.GetType()}", Main.Instance.Config.Debug);
+    }
+    
+    /// <summary>
+    /// Called once when this instance is unregistered.
+    /// </summary>
+    public virtual void OnUnRegistered()
+    {
+        CL.Debug($"OnUnRegistered {this.GetType()}", Main.Instance.Config.Debug);
+    }
+
+    /// <summary>
     /// Called when the New Item created for this Type.
     /// </summary>
     public virtual void OnNewCreated()
     {
-        CL.Debug($"OnNewCreated", Main.Instance.Config.Debug);
+        CL.Debug($"OnNewCreated {this.GetType()}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -91,6 +112,14 @@ public abstract class CustomItemBase : ICloneable
         PickupBase = pickup;
         if (!float.IsNaN(Weight))
             PickupBase.Weight = Weight;
+    }
+
+    /// <summary>
+    /// Called when <see cref="LabApi.Events.Handlers.ServerEvents.MapGenerated"/> runs for every already made instance.
+    /// </summary>
+    public virtual void OnDistribute()
+    {
+        CL.Debug("OnDistribute", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -179,7 +208,6 @@ public abstract class CustomItemBase : ICloneable
     public virtual void OnPicked(Player player, Item item)
     {
         CL.Debug($"OnPicked {player.PlayerId} {item.Serial}", Main.Instance.Config.Debug);
-        Parse(item);
     }
 
     /// <summary>
@@ -192,7 +220,8 @@ public abstract class CustomItemBase : ICloneable
     public virtual void OnThrowing(Player player, Pickup pickup, Rigidbody rigidbody, TypeWrapper<bool> isAllowed)
     {
         CL.Debug($"OnThrowing {player.PlayerId} {pickup.Serial} {rigidbody}", Main.Instance.Config.Debug);
-        Parse(pickup);
+        if (!float.IsNaN(Weight))
+            pickup.Weight = Weight;
     }
 
     /// <summary>

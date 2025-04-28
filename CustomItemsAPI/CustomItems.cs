@@ -102,11 +102,12 @@ public static class CustomItems
     /// <param name="position">The position the pickup should spawn.</param>
     /// <param name="rotation">The rotation the pickup should spawn.</param>
     /// <param name="scale">The scale the pickup should spawn.</param>
+    /// <param name="shouldSpawn"></param>
     /// <returns>Returns <see langword="null"/> if pickup cannot be created otherwise it is a <see cref="Pickup"/>.</returns>
-    public static Pickup Spawn<T>(Vector3 position, Quaternion rotation = default, Vector3 scale = default) where T : CustomItemBase
+    public static Pickup Spawn<T>(Vector3 position, Quaternion rotation = default, Vector3 scale = default, bool shouldSpawn = true) where T : CustomItemBase
     {
         T? item = CreateItem<T>();
-        return Spawn(item, position, rotation, scale);
+        return Spawn(item, position, rotation, scale, shouldSpawn);
     }
 
     /// <summary>
@@ -116,8 +117,9 @@ public static class CustomItems
     /// <param name="position">The position the pickup should spawn.</param>
     /// <param name="rotation">The rotation the pickup should spawn.</param>
     /// <param name="scale">The scale the pickup should spawn.</param>
+    /// <param name="shouldSpawn"></param>
     /// <returns>Returns <see langword="null"/> if pickup cannot be created or <paramref name="customItem"/> is <see langword="null"/> otherwise it is a <see cref="Pickup"/>.</returns>
-    public static Pickup? Spawn(CustomItemBase? customItem, Vector3 position, Quaternion? rotation = null, Vector3? scale = null)
+    public static Pickup? Spawn(CustomItemBase? customItem, Vector3 position, Quaternion? rotation = null, Vector3? scale = null, bool shouldSpawn = true)
     {
         if (customItem == null)
             return null;
@@ -128,7 +130,8 @@ public static class CustomItems
         var pickup = Pickup.Create(customItem.Type, position, rotation.Value, scale.Value);
         if (pickup == null)
             return null;
-        pickup.Spawn();
+        if (shouldSpawn)
+            pickup.Spawn();
         customItem.Parse(pickup);
         SerialToCustomItem.Add(pickup.Serial, customItem);
         pickup.Position = position;
@@ -196,7 +199,7 @@ public static class CustomItems
         return IsCustom(player.CurrentItem);
     }
     #endregion
-    #region GetCustomItem
+    #region GetCustomItem with T
     /// <summary>
     /// Get the custom item as <typeparamref name="T"/> from <paramref name="item"/>.
     /// </summary>
@@ -251,6 +254,109 @@ public static class CustomItems
         return null;
     }
     #endregion
+    #region GetCustomItems without T
+    /// <summary>
+    /// Get the custom item as <see cref="CustomItemBase"/> from <paramref name="item"/>.
+    /// </summary>
+    /// <param name="item">The <see cref="Item"/> to get from.</param>
+    /// <returns><see langword="null"/> if could not get the item otherwise <see cref="CustomItemBase"/>.</returns>
+    public static CustomItemBase? GetCustomItem(this Item? item)
+    {
+        if (item == null)
+            return null;
+        return GetCustomItem(item.Serial);
+    }
+
+    /// <summary>
+    /// Get the custom item as <see cref="CustomItemBase"/> from <paramref name="item"/>.
+    /// </summary>
+    /// <param name="item">The <see cref="Pickup"/> to get from.</param>
+    /// <returns><see langword="null"/> if could not get the item otherwise <see cref="CustomItemBase"/>.</returns>
+    public static CustomItemBase? GetCustomItem(this Pickup? item)
+    {
+        if (item == null)
+            return null;
+        return GetCustomItem(item.Serial);
+    }
+
+    /// <summary>
+    /// Get the custom item as <see cref="CustomItemBase"/> from <paramref name="player"/> from it's <see cref="Player.CurrentItem"/>.
+    /// </summary>
+    /// <param name="player">The <see cref="Pickup"/> to get from.</param>
+    /// <returns><see langword="null"/> if could not get the item otherwise <see cref="CustomItemBase"/>.</returns>
+    public static CustomItemBase? GetCustomItem(this Player player)
+    {
+        if (player.IsServer) // Use Npc or something rather than server for testing!
+            return null;
+        return GetCustomItem(player.CurrentItem);
+    }
+
+    /// <summary>
+    /// Get the custom item as <see cref="CustomItemBase"/> from <paramref name="serial"/>.
+    /// </summary>
+    /// <param name="serial">The serial id of the item/pickup.</param>
+    /// <returns><see langword="null"/> if could not get the item otherwise <see cref="CustomItemBase"/>.</returns>
+    public static CustomItemBase? GetCustomItem(this ushort serial)
+    {
+        if (serial == 0)
+            return null;
+        if (SerialToCustomItem.TryGetValue(serial, out var customItem))
+            return customItem;
+        return null;
+    }
+    #endregion
+    #region TryGetCustomItems
+
+    /// <summary>
+    /// Gets the <paramref name="customItem"/> associated with the <paramref name="player"/>.
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="customItem"></param>
+    /// <returns></returns>
+    public static bool TryGet(Player player, out CustomItemBase? customItem)
+    {
+        return TryGet(player.CurrentItem, out customItem);
+    }
+
+    /// <summary>
+    /// Gets the <paramref name="customItem"/> associated with the <paramref name="item"/>.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="customItem"></param>
+    /// <returns></returns>
+    public static bool TryGet(Item? item, out CustomItemBase? customItem)
+    {
+        customItem = null;
+        if (item == null)
+            return false;
+        return TryGet(item.Serial, out customItem);
+    }
+
+    /// <summary>
+    /// Gets the <paramref name="customItem"/> associated with the <paramref name="pickup"/>.
+    /// </summary>
+    /// <param name="pickup"></param>
+    /// <param name="customItem"></param>
+    /// <returns></returns>
+    public static bool TryGet(Pickup? pickup, out CustomItemBase? customItem)
+    {
+        customItem = null;
+        if (pickup == null)
+            return false;
+        return TryGet(pickup.Serial, out customItem);
+    }
+
+    /// <summary>
+    /// Gets the <paramref name="customItem"/> associated with the <paramref name="serial"/>.
+    /// </summary>
+    /// <param name="serial"></param>
+    /// <param name="customItem"></param>
+    /// <returns></returns>
+    public static bool TryGet(ushort serial, out CustomItemBase? customItem)
+    {
+        return SerialToCustomItem.TryGetValue(serial, out customItem);
+    }
+    #endregion
     #region Register Custom Item
     /// <summary>
     /// Register custom items with the Calling Assembly.
@@ -258,7 +364,13 @@ public static class CustomItems
     public static void RegisterCustomItems()
     {
         Assembly assembly = Assembly.GetCallingAssembly();
-        List<Type> types = [.. assembly.GetTypes().Where(x => !x.IsAbstract).Where(item => item.BaseType == typeof(CustomItemBase) || item.BaseType.IsSubclassOf(typeof(CustomItemBase)))];
+        if (assembly == typeof(CustomItems).Assembly)
+            return;
+        List<Type> types = [.. assembly.GetTypes().
+            Where(item =>
+                !item.IsAbstract &&
+                typeof(CustomItemBase).IsAssignableFrom(item)
+                )];
         foreach (Type type in types)
         {
             RegisterCustomItem(type);
@@ -272,14 +384,16 @@ public static class CustomItems
     public static void RegisterCustomItemsExcept(params Type[] exceptType)
     {
         Assembly assembly = Assembly.GetCallingAssembly();
+        if (assembly == typeof(CustomItems).Assembly)
+            return;
         List<Type> types = [.. assembly.GetTypes().
-            Where(x => !x.IsAbstract).
-            Where(item => ( item.BaseType == typeof(CustomItemBase) || 
-                item.BaseType.IsSubclassOf(typeof(CustomItemBase)) ) &&
-                !exceptType.Contains(item)
-                )];
+            Where(item => 
+                !item.IsAbstract &&
+                typeof(CustomItemBase).IsAssignableFrom(item))];
         foreach (Type type in types)
         {
+            if (exceptType.Contains(type))
+                continue;
             RegisterCustomItem(type);
         }
     }
@@ -304,20 +418,19 @@ public static class CustomItems
     {
         if (type == null)
             return;
-        CustomItemBase customItemBase = (CustomItemBase)Activator.CreateInstance(type);
-        if (customItemBase == null)
-            return;
-        CustomItemBaseList.Add(customItemBase);
+        CustomItemBase customItem = (CustomItemBase)Activator.CreateInstance(type);
+        RegisterCustomItem(customItem);
     }
 
     /// <summary>
     /// Register <paramref name="customItemBase"/> as a custom item.
     /// </summary>
     /// <param name="customItemBase">The instanciated <see cref="CustomItemBase"/></param>
-    public static void RegisterCustomItem(CustomItemBase customItemBase)
+    public static void RegisterCustomItem(CustomItemBase? customItemBase)
     {
         if (customItemBase == null)
             return;
+        customItemBase.OnRegistered();
         CustomItemBaseList.Add(customItemBase);
     }
     #endregion
@@ -351,7 +464,22 @@ public static class CustomItems
     {
         if (customItemBase == null)
             return;
+        customItemBase.OnUnRegistered();
         CustomItemBaseList.Remove(customItemBase);
+    }
+
+    /// <summary>
+    /// Unregister all custom items.
+    /// </summary>
+    public static void UnRegisterCustomItems()
+    {
+        Assembly assembly = Assembly.GetCallingAssembly();
+        List<Type> types = [.. assembly.GetTypes().Where(x => !x.IsAbstract).Where(item => item.BaseType == typeof(CustomItemBase) || item.BaseType.IsSubclassOf(typeof(CustomItemBase)))];
+        foreach (var item in CustomItemBaseList.Where(x=> types.Contains(x.GetType())).ToList())
+        {
+            UnRegisterCustomItem(item);
+        }
+        SerialToCustomItem.Clear();
     }
 
     /// <summary>
@@ -359,7 +487,10 @@ public static class CustomItems
     /// </summary>
     public static void UnRegisterAllCustomItems()
     {
-        CustomItemBaseList.Clear();
+        foreach (var item in CustomItemBaseList.ToList())
+        {
+            UnRegisterCustomItem(item);
+        }
         SerialToCustomItem.Clear();
     }
 
@@ -369,6 +500,23 @@ public static class CustomItems
     public static void ClearSerials()
     {
         SerialToCustomItem.Clear();
+    }
+    #endregion
+    #region Bonus
+    /// <summary>
+    /// Adding custom item to the serial.
+    /// </summary>
+    /// <param name="serial"></param>
+    /// <param name="customItem"></param>
+    public static void AddCustomItemToSerial(ushort serial, CustomItemBase? customItem)
+    {
+        if (serial == 0)
+            return;
+        if (customItem == null)
+            return;
+        if (SerialToCustomItem.ContainsKey(serial))
+            return;
+        SerialToCustomItem.Add(serial, customItem);
     }
     #endregion
 }
