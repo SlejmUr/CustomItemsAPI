@@ -31,7 +31,7 @@ public sealed class GiveCommand : ICommand, IUsageProvider
         }
         List<Player> players = [];
         var player = Player.Get(sender);
-        if (arguments.Count < 2 || ( player == null || player.IsHost) )
+        if (arguments.Count == 1 || player == null)
         {
             response = "To execute this command provide at least 2 arguments!\nUsage: " + arguments.Array[0] + " " + this.DisplayCommandUsage();
             return false;
