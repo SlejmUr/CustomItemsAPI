@@ -12,7 +12,7 @@ internal sealed class Main : Plugin
 
     public override string Author => "SlejmUr";
 
-    public override Version Version => new(0, 0, 3, 1);
+    public override Version Version => new(0, 0, 3, 3);
 
     public override Version RequiredApiVersion => LabApi.Features.LabApiProperties.CurrentVersion;
 

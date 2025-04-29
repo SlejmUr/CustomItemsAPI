@@ -32,7 +32,7 @@ public sealed class CustomItemsCommandBase : ParentCommand, IUsageProvider
     /// <inheritdoc/>
     protected override bool ExecuteParent(ArraySegment<string> arguments, ICommandSender sender, out string response)
     {
-        response = $"Please specify a valid subcommand!\n- {Command} list\n- {Command} give %player% ItemName\n- {Command} spawn ItemName x y z\n- {Command} delete id";
+        response = $"Please specify a valid subcommand!\n- {Command} list\n- {Command} give ItemName %player%\n- {Command} spawn ItemName x y z\n- {Command} delete id";
         return false;
     }
 

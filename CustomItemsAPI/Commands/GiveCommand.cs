@@ -1,4 +1,5 @@
 ﻿using CommandSystem;
+using LabApi.Features.Wrappers;
 using Utils;
 
 namespace CustomItemsAPI.Commands;
@@ -19,7 +20,7 @@ public sealed class GiveCommand : ICommand, IUsageProvider
     public string Description => "Give item to player(s)";
 
     /// <inheritdoc/>
-    public string[] Usage => ["%player%", "itemname"];
+    public string[] Usage => ["itemname", "%player% (Optional)"];
 
     /// <inheritdoc/>
     public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
@@ -28,34 +29,35 @@ public sealed class GiveCommand : ICommand, IUsageProvider
         {
             return false;
         }
-        if (arguments.Count < 2)
+        List<Player> players = [];
+        var player = Player.Get(sender);
+        if (arguments.Count < 2 || ( player == null || player.IsHost) )
         {
             response = "To execute this command provide at least 2 arguments!\nUsage: " + arguments.Array[0] + " " + this.DisplayCommandUsage();
             return false;
         }
-        List<ReferenceHub> list = RAUtils.ProcessPlayerIdOrNamesList(arguments, 0, out string[] array, false);
-        if (list == null)
-        {
-            response = "Playerlist is null!";
-            return false;
-        }
-        if (array == null || array.Length == 0)
-        {
-            response = "You must specify ItemName to give.";
-            return false;
-        }
-        string itemname = array[0];
+        players.Add(player);
+        string itemname = arguments.At(0);
         StringComparison comparison = Main.Instance.Config.EasyCompare ?  StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase;
         if (!CustomItems.IsItemNameExist(itemname, comparison))
         {
             response = "ItemName not exists!";
             return false;
         }
-        foreach (var item in list)
+        if (arguments.Count == 2)
+        {
+            players = [.. RAUtils.ProcessPlayerIdOrNamesList(arguments, 1, out _).Select(Player.Get)];
+        }
+        if (players.Count == 0)
+        {
+            response = "No players!";
+            return false;
+        }
+        foreach (Player p in players)
         {
             var customitem = CustomItems.CreateItem(itemname);
             if (customitem != null)
-                CustomItems.AddCustomItem(customitem, item);
+                CustomItems.AddCustomItem(customitem, p);
         }
         response = "Done!";
         return true;

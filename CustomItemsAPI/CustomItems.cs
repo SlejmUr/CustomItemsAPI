@@ -134,7 +134,6 @@ public static class CustomItems
             pickup.Spawn();
         customItem.Parse(pickup);
         SerialToCustomItem.Add(pickup.Serial, customItem);
-        pickup.Position = position;
         return pickup;
     }
     #endregion
