@@ -55,6 +55,26 @@ public abstract class CustomItemBase : ICloneable
     public virtual float Weight { get; } = float.NaN;
 
     /// <summary>
+    /// Overrides a to show a custom picked up show details
+    /// </summary>
+    public virtual bool OverrideShowPickedUpHint { get; set; } = Main.Instance.Config.ShowPickedUpHint;
+
+    /// <summary>
+    /// Overrides the hint for showing custom picked up details
+    /// </summary>
+    public virtual string OverridePickedUpHint { get; set; } = Main.Instance.Config.PickedUpHint;
+
+    /// <summary>
+    /// Overrides a to show a custom selected show details
+    /// </summary>
+    public virtual bool OverrideShowSelectHint { get; set; } = Main.Instance.Config.ShowSelectedHint;
+
+    /// <summary>
+    /// Overrides a to show a custom selected show details
+    /// </summary>
+    public virtual string OverrideSelectedHint { get; set; } = Main.Instance.Config.SelectedHint;
+
+    /// <summary>
     /// ItemBase. It stores when the <see cref="Parse(Item)"/> function called.
     /// </summary>
     public Item ItemBase { get; private set; }
@@ -132,6 +152,8 @@ public abstract class CustomItemBase : ICloneable
     public virtual void OnChanged(Player player, Item? oldItem, Item? newItem, bool changedToThisItem)
     {
         CL.Debug($"OnChanged {player.PlayerId} {oldItem?.Serial} {newItem?.Serial} {changedToThisItem}", Main.Instance.Config.Debug);
+        if (changedToThisItem && OverrideShowPickedUpHint)
+            player.SendHint(string.Format(OverridePickedUpHint, DisplayName, Description));
     }
 
     /// <summary>
@@ -208,6 +230,8 @@ public abstract class CustomItemBase : ICloneable
     public virtual void OnPicked(Player player, Item item)
     {
         CL.Debug($"OnPicked {player.PlayerId} {item.Serial}", Main.Instance.Config.Debug);
+        if (OverrideShowPickedUpHint)
+            player.SendHint(string.Format(OverridePickedUpHint, DisplayName, Description));
     }
 
     /// <summary>

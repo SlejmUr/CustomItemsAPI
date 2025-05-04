@@ -1,4 +1,6 @@
-﻿namespace CustomItemsAPI;
+﻿using System.ComponentModel;
+
+namespace CustomItemsAPI;
 
 /// <summary>
 /// Configuration for Custom Items.
@@ -19,4 +21,16 @@ internal sealed class Config
     /// Whenever getting/spawning the item should ignore the case of it.
     /// </summary>
     public bool EasyCompare { get; set; }
+
+
+    public bool ShowPickedUpHint { get; set; }
+
+    [Description("Hint when you picked up the custom item. {0}: DisplayName {1}: Description.")]
+    public string PickedUpHint { get; set; } = "You picked up {0}\n{1}";
+
+
+    public bool ShowSelectedHint { get; set; }
+
+    [Description("Hint when you selected a the custom item. {0}: DisplayName {1}: Description.")]
+    public string SelectedHint { get; set; } = "You selected {0}\n{1}";
 }

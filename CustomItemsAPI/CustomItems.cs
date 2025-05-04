@@ -61,6 +61,17 @@ public static class CustomItems
     }
 
     /// <summary>
+    /// Add <paramref name="CustomItemName"/> to the <paramref name="player"/> Inventory.
+    /// </summary>
+    /// <param name="CustomItemName">The Custom Item name.</param>
+    /// <param name="player">The <see cref="Player"/> to add item to.</param>
+    public static void AddCustomItem(string CustomItemName, Player player)
+    {
+        CustomItemBase? customItemBase = CreateItem(CustomItemName);
+        AddCustomItem(customItemBase, player);
+    }
+
+    /// <summary>
     /// Add <paramref name="item"/> to the <paramref name="player"/> Inventory.
     /// </summary>
     /// <param name="item">The Custom Item.</param>
@@ -95,6 +106,22 @@ public static class CustomItems
     }
     #endregion
     #region Spawn Item
+
+    /// <summary>
+    /// Spawns a <see cref="CustomItemBase"/> to specified parameters.
+    /// </summary>
+    /// <param name="customItemame"></param>
+    /// <param name="position">The position the pickup should spawn.</param>
+    /// <param name="rotation">The rotation the pickup should spawn.</param>
+    /// <param name="scale">The scale the pickup should spawn.</param>
+    /// <param name="shouldSpawn"></param>
+    /// <returns>Returns <see langword="null"/> if pickup cannot be created otherwise it is a <see cref="Pickup"/>.</returns>
+    public static Pickup Spawn(string customItemame, Vector3 position, Quaternion rotation = default, Vector3 scale = default, bool shouldSpawn = true)
+    {
+        CustomItemBase? item = CreateItem(customItemame);
+        return Spawn(item, position, rotation, scale, shouldSpawn);
+    }
+
     /// <summary>
     /// Spawns a Custom Item as <typeparamref name="T"/> to specified parameters.
     /// </summary>
@@ -269,6 +296,18 @@ public static class CustomItems
     /// <summary>
     /// Get the custom item as <see cref="CustomItemBase"/> from <paramref name="item"/>.
     /// </summary>
+    /// <param name="item">The <see cref="ItemBase"/> to get from.</param>
+    /// <returns><see langword="null"/> if could not get the item otherwise <see cref="CustomItemBase"/>.</returns>
+    public static CustomItemBase? GetCustomItem(this ItemBase? item)
+    {
+        if (item == null)
+            return null;
+        return GetCustomItem(item.ItemSerial);
+    }
+
+    /// <summary>
+    /// Get the custom item as <see cref="CustomItemBase"/> from <paramref name="item"/>.
+    /// </summary>
     /// <param name="item">The <see cref="Pickup"/> to get from.</param>
     /// <returns><see langword="null"/> if could not get the item otherwise <see cref="CustomItemBase"/>.</returns>
     public static CustomItemBase? GetCustomItem(this Pickup? item)
@@ -276,6 +315,18 @@ public static class CustomItems
         if (item == null)
             return null;
         return GetCustomItem(item.Serial);
+    }
+
+    /// <summary>
+    /// Get the custom item as <see cref="CustomItemBase"/> from <paramref name="item"/>.
+    /// </summary>
+    /// <param name="item">The <see cref="ItemPickupBase"/> to get from.</param>
+    /// <returns><see langword="null"/> if could not get the item otherwise <see cref="CustomItemBase"/>.</returns>
+    public static CustomItemBase? GetCustomItem(this ItemPickupBase? item)
+    {
+        if (item == null)
+            return null;
+        return GetCustomItem(item.Info.Serial);
     }
 
     /// <summary>
@@ -425,7 +476,7 @@ public static class CustomItems
     /// Register <paramref name="customItemBase"/> as a custom item.
     /// </summary>
     /// <param name="customItemBase">The instanciated <see cref="CustomItemBase"/></param>
-    public static void RegisterCustomItem(CustomItemBase? customItemBase)
+    public static void RegisterCustomItem(this CustomItemBase? customItemBase)
     {
         if (customItemBase == null)
             return;
@@ -459,7 +510,7 @@ public static class CustomItems
     /// Unregister <paramref name="customItemBase"/> from custom items.
     /// </summary>
     /// <param name="customItemBase">The instanciated <see cref="CustomItemBase"/></param>
-    public static void UnRegisterCustomItem(CustomItemBase customItemBase)
+    public static void UnRegisterCustomItem(this CustomItemBase customItemBase)
     {
         if (customItemBase == null)
             return;
