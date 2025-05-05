@@ -152,8 +152,8 @@ public abstract class CustomItemBase : ICloneable
     public virtual void OnChanged(Player player, Item? oldItem, Item? newItem, bool changedToThisItem)
     {
         CL.Debug($"OnChanged {player.PlayerId} {oldItem?.Serial} {newItem?.Serial} {changedToThisItem}", Main.Instance.Config.Debug);
-        if (changedToThisItem && OverrideShowPickedUpHint)
-            player.SendHint(string.Format(OverridePickedUpHint, DisplayName, Description));
+        if (changedToThisItem && OverrideShowSelectHint)
+            player.SendHint(string.Format(OverrideSelectedHint, DisplayName, Description));
     }
 
     /// <summary>
