@@ -10,7 +10,7 @@ namespace CustomItemsAPI.EventHandlers;
 
 internal sealed class Subscribed
 {
-    const float WaitForRemove = 1.5f;
+    const float WaitForRemove = 0.5f;
 
     internal static void OnItemRemoved(ReferenceHub hub, ItemBase itemBase, ItemPickupBase itemPickupBase)
     {

@@ -260,7 +260,7 @@ public static class CustomItems
     /// <returns><see langword="null"/> if could not get the item otherwise <typeparamref name="T"/>.</returns>
     public static T? GetCustomItem<T>(Player player) where T : CustomItemBase
     {
-        if (player.IsServer)
+        if (player.IsHost)
             return null;
         return GetCustomItem<T>(player.CurrentItem);
     }
@@ -336,7 +336,7 @@ public static class CustomItems
     /// <returns><see langword="null"/> if could not get the item otherwise <see cref="CustomItemBase"/>.</returns>
     public static CustomItemBase? GetCustomItem(this Player player)
     {
-        if (player.IsServer) // Use Npc or something rather than server for testing!
+        if (player.IsHost) // Use Npc or something rather than server for testing!
             return null;
         return GetCustomItem(player.CurrentItem);
     }
