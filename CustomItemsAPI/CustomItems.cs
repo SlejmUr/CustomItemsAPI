@@ -232,7 +232,7 @@ public static class CustomItems
     /// <typeparam name="T">Any <see cref="CustomItemBase"/>.</typeparam>
     /// <param name="item">The <see cref="Item"/> to get from.</param>
     /// <returns><see langword="null"/> if could not get the item otherwise <typeparamref name="T"/>.</returns>
-    public static T? GetCustomItem<T>(Item? item) where T : CustomItemBase
+    public static T? GetCustomItem<T>(this Item? item) where T : CustomItemBase
     {
         if (item == null)
             return null;
@@ -245,7 +245,7 @@ public static class CustomItems
     /// <typeparam name="T">Any <see cref="CustomItemBase"/>.</typeparam>
     /// <param name="item">The <see cref="Pickup"/> to get from.</param>
     /// <returns><see langword="null"/> if could not get the item otherwise <typeparamref name="T"/>.</returns>
-    public static T? GetCustomItem<T>(Pickup? item) where T : CustomItemBase
+    public static T? GetCustomItem<T>(this Pickup? item) where T : CustomItemBase
     {
         if (item == null)
             return null;
@@ -258,7 +258,7 @@ public static class CustomItems
     /// <typeparam name="T">Any <see cref="CustomItemBase"/>.</typeparam>
     /// <param name="player">The <see cref="Pickup"/> to get from.</param>
     /// <returns><see langword="null"/> if could not get the item otherwise <typeparamref name="T"/>.</returns>
-    public static T? GetCustomItem<T>(Player player) where T : CustomItemBase
+    public static T? GetCustomItem<T>(this Player player) where T : CustomItemBase
     {
         if (player.IsHost)
             return null;
@@ -271,7 +271,7 @@ public static class CustomItems
     /// <typeparam name="T">Any <see cref="CustomItemBase"/>.</typeparam>
     /// <param name="serial">The serial id of the item/pickup.</param>
     /// <returns><see langword="null"/> if could not get the item otherwise <typeparamref name="T"/>.</returns>
-    public static T? GetCustomItem<T>(ushort serial) where T : CustomItemBase
+    public static T? GetCustomItem<T>(this ushort serial) where T : CustomItemBase
     {
         if (serial == 0)
             return null;
