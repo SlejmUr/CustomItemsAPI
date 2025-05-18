@@ -28,7 +28,7 @@ public static class CustomItems
         var cib = CustomItemBaseList.FirstOrDefault(x => x.GetType() == typeof(T));
         if (cib == null)
             return null;
-        var newItem = (T)cib.Clone();
+        var newItem = (T)cib;
         newItem.OnNewCreated();
         return newItem;
     }
@@ -43,9 +43,8 @@ public static class CustomItems
         var cib = CustomItemBaseList.FirstOrDefault(x => x.CustomItemName == ItemName);
         if (cib == null)
             return null;
-        var newItem = (CustomItemBase)cib.Clone();
-        newItem.OnNewCreated();
-        return newItem;
+        cib.OnNewCreated();
+        return cib;
     }
     #endregion
     #region Adding Item to player
