@@ -362,9 +362,9 @@ public static class CustomItems
     /// <param name="player"></param>
     /// <param name="customItem"></param>
     /// <returns></returns>
-    public static bool TryGet(Player player, out CustomItemBase? customItem)
+    public static bool TryGetCustomItem(this Player player, out CustomItemBase? customItem)
     {
-        return TryGet(player.CurrentItem, out customItem);
+        return TryGetCustomItem(player.CurrentItem, out customItem);
     }
 
     /// <summary>
@@ -373,12 +373,12 @@ public static class CustomItems
     /// <param name="item"></param>
     /// <param name="customItem"></param>
     /// <returns></returns>
-    public static bool TryGet(Item? item, out CustomItemBase? customItem)
+    public static bool TryGetCustomItem(this Item? item, out CustomItemBase? customItem)
     {
         customItem = null;
         if (item == null)
             return false;
-        return TryGet(item.Serial, out customItem);
+        return TryGetCustomItem(item.Serial, out customItem);
     }
 
     /// <summary>
@@ -387,12 +387,12 @@ public static class CustomItems
     /// <param name="pickup"></param>
     /// <param name="customItem"></param>
     /// <returns></returns>
-    public static bool TryGet(Pickup? pickup, out CustomItemBase? customItem)
+    public static bool TryGetCustomItem(this Pickup? pickup, out CustomItemBase? customItem)
     {
         customItem = null;
         if (pickup == null)
             return false;
-        return TryGet(pickup.Serial, out customItem);
+        return TryGetCustomItem(pickup.Serial, out customItem);
     }
 
     /// <summary>
@@ -401,7 +401,7 @@ public static class CustomItems
     /// <param name="serial"></param>
     /// <param name="customItem"></param>
     /// <returns></returns>
-    public static bool TryGet(ushort serial, out CustomItemBase? customItem)
+    public static bool TryGetCustomItem(this ushort serial, out CustomItemBase? customItem)
     {
         return SerialToCustomItem.TryGetValue(serial, out customItem);
     }

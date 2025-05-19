@@ -12,7 +12,7 @@ namespace CustomItemsAPI.Items;
 /// <summary>
 /// Custom <see cref="Item"/> base
 /// </summary>
-public abstract class CustomItemBase : ICloneable
+public abstract class CustomItemBase
 {
     /// <summary>
     /// Name of your custom item.
@@ -293,15 +293,9 @@ public abstract class CustomItemBase : ICloneable
     public virtual void OnRemoved(Player player, ItemBase? itemBase, ItemPickupBase? itemPickupBase)
     {
         CL.Debug($"OnRemoved {player.PlayerId} {itemBase == null} {itemPickupBase == null}", Main.Instance.Config.Debug);
-        if (itemPickupBase == null)
+        if (itemBase != null && itemPickupBase == null)
         {
             CustomItems.SerialToCustomItem.Remove(itemBase.ItemSerial);
         }
-    }
-
-    /// <inheritdoc/>
-    public object Clone()
-    {
-        return MemberwiseClone();
     }
 }
