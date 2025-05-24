@@ -1,6 +1,6 @@
-﻿using CustomItemsAPI.Helpers;
+﻿using CustomItemsAPI.Classes;
+using CustomItemsAPI.Helpers;
 using CustomItemsAPI.Interfaces;
-using CustomItemsAPI.Structs;
 using LabApi.Features.Wrappers;
 
 namespace CustomItemsAPI.Items;
@@ -19,7 +19,7 @@ internal abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
     /// <summary>
     /// The <see cref="CustomItemBase.ItemBase"/> as <see cref="JailbirdItem"/>.
     /// </summary>
-    public JailbirdItem Jailbird => ItemBase as JailbirdItem;
+    public LabApi.Features.Wrappers.JailbirdItem Jailbird => ItemBase as LabApi.Features.Wrappers.JailbirdItem;
 
     /// <inheritdoc/>
     public override void Parse(Item item)
@@ -27,17 +27,17 @@ internal abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
         base.Parse(item);
         if (item.Type != ItemType.Jailbird)
             throw new ArgumentOutOfRangeException("Type", item.Type, "Invalid Jailbird type.");
-        if (ItemBase is not JailbirdItem jailbird)
+        if (ItemBase is not LabApi.Features.Wrappers.JailbirdItem jailbird)
             throw new ArgumentException("JailbirdItem must not be null!");
 
         JailbirdHitreg.Apply(jailbird.Base._hitreg);
-        jailbirdItemStruct.Apply(jailbird.Base);
+        JailbirdItem.Apply(jailbird.Base);
 
     }
 
-    public JailbirdHitregStruct JailbirdHitreg = new();
+    public JailbirdHitregClass JailbirdHitreg = new();
 
-    public JailbirdItemStruct jailbirdItemStruct = new();
+    public JailbirdItemClass JailbirdItem = new();
 
     public int TotalCharges
     {

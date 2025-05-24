@@ -6,6 +6,7 @@ using UnityEngine;
 using CustomItemsAPI.Helpers;
 using CustomItemsAPI.Interfaces;
 using Scp914;
+using MEC;
 
 namespace CustomItemsAPI.Items;
 
@@ -295,7 +296,12 @@ public abstract class CustomItemBase
         CL.Debug($"OnRemoved {player.PlayerId} {itemBase == null} {itemPickupBase == null}", Main.Instance.Config.Debug);
         if (itemBase != null && itemPickupBase == null)
         {
-            CustomItems.SerialToCustomItem.Remove(itemBase.ItemSerial);
+            ushort serial = itemBase.ItemSerial;
+            // Since we remove the item 0.1 delay we wait for 0.2 so all action runs before this item being destroyed
+            Timing.CallDelayed(0.2f, () => {
+                CustomItems.SerialToCustomItem.Remove(serial);
+            });
+            
         }
     }
 }

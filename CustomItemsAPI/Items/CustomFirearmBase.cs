@@ -1,4 +1,5 @@
-﻿using CustomItemsAPI.Helpers;
+﻿using CustomItemsAPI.Classes;
+using CustomItemsAPI.Helpers;
 using CustomItemsAPI.Interfaces;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Modules;
@@ -28,6 +29,11 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// </summary>
     public virtual float Damage { get; } = float.NaN;
 
+    /// <summary>
+    /// Changer for <see cref="A7BurnEffectModule"/>.
+    /// </summary>
+    public virtual A7Burn A7Burn { get; set; } = new();
+
     /// <inheritdoc/>
     public override void Parse(Item item)
     {
@@ -36,6 +42,8 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
             throw new ArgumentOutOfRangeException("Type", item.Type, "Invalid Firearm type.");
         if (ItemBase is not FirearmItem)
             throw new ArgumentException("FirearmItem must not be null!");
+        if (TryGetModule(out A7BurnEffectModule a7BurnEffectModule))
+            A7Burn.Apply(ref a7BurnEffectModule);
     }
 
     /// <summary>
