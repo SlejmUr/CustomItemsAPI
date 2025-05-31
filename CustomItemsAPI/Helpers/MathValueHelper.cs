@@ -46,6 +46,25 @@ public class MathValueFloat
     /// <see cref="MathOption"/>
     /// </summary>
     public MathOption Math { get; set; } = MathOption.None;
+
+    /// <summary>
+    /// Create a new Empty No value, No MathOption
+    /// </summary>
+    public MathValueFloat()
+    {
+
+    }
+
+    /// <summary>
+    /// Create a new MathValue with parameters
+    /// </summary>
+    /// <param name="math"></param>
+    /// <param name="value"></param>
+    public MathValueFloat(MathOption math, float value)
+    {
+        Math = math;
+        Value = value;
+    }
 }
 
 /// <summary>
@@ -61,6 +80,25 @@ public class MathValueInt
     /// <see cref="MathOption"/>
     /// </summary>
     public MathOption Math { get; set; } = MathOption.None;
+
+    /// <summary>
+    /// Create a new Empty No value, No MathOption
+    /// </summary>
+    public MathValueInt()
+    {
+
+    }
+
+    /// <summary>
+    /// Create a new MathValue with parameters
+    /// </summary>
+    /// <param name="math"></param>
+    /// <param name="value"></param>
+    public MathValueInt(MathOption math, int value)
+    {
+        Math = math;
+        Value = value;
+    }
 }
 
 
@@ -126,8 +164,29 @@ public static class MathValueHelper
     /// </summary>
     /// <param name="mathValue"></param>
     /// <param name="inValue"></param>
+    public static float MathWithValue(this MathValueFloat mathValue, float inValue)
+    {
+        return mathValue.Math.MathWithFloat(inValue, mathValue.Value);
+    }
+
+    /// <summary>
+    /// Change the <paramref name="inValue"/> with <paramref name="mathValue"/>.
+    /// </summary>
+    /// <param name="mathValue"></param>
+    /// <param name="inValue"></param>
     public static void MathWithValue(this MathValueInt mathValue, ref int inValue)
     {
         inValue = mathValue.Math.MathWithInt(inValue, mathValue.Value);
+    }
+
+
+    /// <summary>
+    /// Change the <paramref name="inValue"/> with <paramref name="mathValue"/>.
+    /// </summary>
+    /// <param name="mathValue"></param>
+    /// <param name="inValue"></param>
+    public static int MathWithValue(this MathValueInt mathValue, int inValue)
+    {
+        return mathValue.Math.MathWithInt(inValue, mathValue.Value);
     }
 }

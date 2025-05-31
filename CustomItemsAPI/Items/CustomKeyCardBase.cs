@@ -1,7 +1,6 @@
 ﻿using CustomItemsAPI.Helpers;
 using Interactables.Interobjects.DoorUtils;
 using IC = InventorySystem.Items.Keycards;
-using WKeycard = LabApi.Features.Wrappers.KeycardItem;
 using LabApi.Features.Wrappers;
 using UnityEngine;
 
@@ -12,10 +11,6 @@ namespace CustomItemsAPI.Items;
 /// </summary>
 public abstract class CustomKeyCardBase : CustomItemBase 
 {
-    /// <summary>
-    /// The <see cref="CustomItemBase.ItemBase"/> as <see cref="WKeycard"/>.
-    /// </summary>
-    public WKeycard Keycard => ItemBase as WKeycard;
     /// <summary>
     /// Sets the permissions for custom keycard.
     /// </summary>
@@ -117,10 +112,11 @@ public abstract class CustomKeyCardBase : CustomItemBase
     /// Called when <paramref name="player"/> is interacting with the <paramref name="door"/>.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
+    /// <param name="item"></param>
     /// <param name="door">The <see cref="Door"/> the <paramref name="player"/> interacting.</param>
     /// <param name="canOpen">Can the <paramref name="player"/> open the <paramref name="door"/>.</param>
     /// <param name="isAllowed">Can allow this action.</param>
-    public virtual void OnInteractingDoor(Player player, Door door, TypeWrapper<bool> canOpen, TypeWrapper<bool> isAllowed)
+    public virtual void OnInteractingDoor(Player player, Item item, Door door, TypeWrapper<bool> canOpen, TypeWrapper<bool> isAllowed)
     {
         CL.Debug($"OnInteractingDoor {player.PlayerId} {door.DoorName} {canOpen.Value}", Main.Instance.Config.Debug);
     }
@@ -129,9 +125,10 @@ public abstract class CustomKeyCardBase : CustomItemBase
     /// Called when <paramref name="player"/> is interacted with the <paramref name="door"/>.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
+    /// <param name="item"></param>
     /// <param name="door">The <see cref="Door"/> the <paramref name="player"/> interacted.</param>
     /// <param name="canOpen">The <paramref name="player"/> can open the <paramref name="door"/>.</param>
-    public virtual void OnInteractedDoor(Player player, Door door, bool canOpen)
+    public virtual void OnInteractedDoor(Player player, Item item, Door door, bool canOpen)
     {
         CL.Debug($"OnInteractedDoor {player.PlayerId} {door.DoorName} {canOpen}", Main.Instance.Config.Debug);
     }
@@ -140,9 +137,10 @@ public abstract class CustomKeyCardBase : CustomItemBase
     /// Called when <paramref name="player"/> is interacting with the <paramref name="generator"/>.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
+    /// <param name="item"></param>
     /// <param name="generator">The <see cref="Generator"/> the <paramref name="player"/> interacting.</param>
     /// <param name="isAllowed">Can allow this action.</param>
-    public virtual void OnInteractingGenerator(Player player, Generator generator, TypeWrapper<bool> isAllowed)
+    public virtual void OnInteractingGenerator(Player player, Item item, Generator generator, TypeWrapper<bool> isAllowed)
     {
         CL.Debug($"OnInteractingGenerator {player.PlayerId} {generator.Base}", Main.Instance.Config.Debug);
     }
@@ -151,8 +149,9 @@ public abstract class CustomKeyCardBase : CustomItemBase
     /// Called when <paramref name="player"/> is interacted with the <paramref name="generator"/>.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
+    /// <param name="item"></param>
     /// <param name="generator">The <see cref="Generator"/> the <paramref name="player"/> interacted.</param>
-    public virtual void OnInteractedGenerator(Player player, Generator generator)
+    public virtual void OnInteractedGenerator(Player player, Item item, Generator generator)
     {
         CL.Debug($"OnInteractedGenerator {player.PlayerId} {generator.Base}", Main.Instance.Config.Debug);
     }
@@ -161,11 +160,12 @@ public abstract class CustomKeyCardBase : CustomItemBase
     /// Called when <paramref name="player"/> is interacting with the <paramref name="locker"/>.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
+    /// <param name="item"></param>
     /// <param name="locker">The <see cref="Locker"/> the <paramref name="player"/> interacting.</param>
     /// <param name="lockerChamber">The targeted <see cref="LockerChamber"/>.</param>
     /// <param name="canOpen">Can the <paramref name="player"/> open the <paramref name="locker"/>.</param>
     /// <param name="isAllowed">Can allow this action.</param>
-    public virtual void OnInteractingLocker(Player player, Locker locker, LockerChamber lockerChamber, TypeWrapper<bool> canOpen, TypeWrapper<bool> isAllowed)
+    public virtual void OnInteractingLocker(Player player, Item item, Locker locker, LockerChamber lockerChamber, TypeWrapper<bool> canOpen, TypeWrapper<bool> isAllowed)
     {
         CL.Debug($"OnInteractingLocker {player.PlayerId} {locker} {lockerChamber.Id} {canOpen.Value}", Main.Instance.Config.Debug);
     }
@@ -174,10 +174,11 @@ public abstract class CustomKeyCardBase : CustomItemBase
     /// Called when <paramref name="player"/> is interacted with the <paramref name="locker"/>.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
+    /// <param name="item"></param>
     /// <param name="locker">The <see cref="Locker"/> the <paramref name="player"/> interacted.</param>
     /// <param name="lockerChamber">The targeted <see cref="LockerChamber"/>.</param>
     /// <param name="canOpen">The <paramref name="player"/> can open the <paramref name="locker"/>.</param>
-    public virtual void OnInteractedLocker(Player player, Locker locker, LockerChamber lockerChamber, bool canOpen)
+    public virtual void OnInteractedLocker(Player player, Item item, Locker locker, LockerChamber lockerChamber, bool canOpen)
     {
         CL.Debug($"OnInteractedLocker {player.PlayerId} {locker} {lockerChamber.Id} {canOpen}", Main.Instance.Config.Debug);
     }

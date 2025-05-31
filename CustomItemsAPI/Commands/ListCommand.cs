@@ -1,4 +1,5 @@
 ﻿using CommandSystem;
+using LabApi.Features.Wrappers;
 
 namespace CustomItemsAPI.Commands;
 
@@ -28,7 +29,8 @@ public sealed class ListCommand : ICommand
         response += "--- Currently Existing items and its id: ---\n";
         foreach (var item in CustomItems.SerialToCustomItem)
         {
-            response += $" {item.Key} = {item.Value.CustomItemName}\n";
+            
+            response += $" {item.Key} = {(Pickup.SerialCache.ContainsKey(item.Key) ? "P" : "I")} {item.Value.CustomItemName}\n";
         }
         return true;
     }

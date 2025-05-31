@@ -1,4 +1,5 @@
-﻿using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Helpers;
+using CustomItemsAPI.Items;
 using LabApi.Features.Wrappers;
 using PlayerStatsSystem;
 
@@ -12,7 +13,7 @@ public class GunShotgunTest : CustomFirearmBase
 
     public override ItemType Type =>  ItemType.GunShotgun;
 
-    public override float Damage => 20; // Damage in here is PER PELLET!!
+    public override MathValueFloat Damage => new(MathOption.Set, 20); // Damage in here is PER PELLET!!
 
     public override void OnHurt(Player player, Player attacker, FirearmDamageHandler firearmDamageHandler)
     {

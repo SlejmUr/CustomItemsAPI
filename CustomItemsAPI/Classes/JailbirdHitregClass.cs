@@ -4,7 +4,7 @@ using InventorySystem.Items.Jailbird;
 namespace CustomItemsAPI.Classes;
 
 /// <summary>
-/// Changable struct for <see cref="JailbirdHitreg"/>
+/// Changable values for <see cref="JailbirdHitreg"/>
 /// </summary>
 public class JailbirdHitregClass
 {

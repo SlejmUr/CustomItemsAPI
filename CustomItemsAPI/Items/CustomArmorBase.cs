@@ -2,6 +2,7 @@
 using CustomItemsAPI.Extensions;
 using InventorySystem.Items.Armor;
 using System.ComponentModel;
+using CustomItemsAPI.Helpers;
 
 namespace CustomItemsAPI.Items;
 
@@ -13,26 +14,22 @@ public abstract class CustomArmorBase : CustomItemBase
     /// <summary>
     /// Currently not used ingame.
     /// </summary>
-    [Description("Value must be between 0 and 100. -1 means do not change.")]
-    public virtual int HelmetEfficacy { get; } = -1;
+    public virtual MathValueInt HelmetEfficacy { get; } = new();
 
     /// <summary>
     /// Used to alter efficacy for 939 Claw and Explosion Damage
     /// </summary>
-    [Description("Value must be between 0 and 100. -1 means do not change.")]
-    public virtual int VestEfficacy { get; } = -1;
+    public virtual MathValueInt VestEfficacy { get; } = new();
 
     /// <summary>
     /// Use to alter stamina usage.
     /// </summary>
-    [Description("Value must be between 1f and 2f. NaN means do not change.")]
-    public virtual float StaminaUseMultiplier { get; } = float.NaN;
+    public virtual MathValueFloat StaminaUseMultiplier { get; } = new();
 
     /// <summary>
     /// Use to alter movement speed.
     /// </summary>
-    [Description("Value must be between 0f and 1f. NaN means do not change.")]
-    public virtual float MovementSpeedMultiplier { get; } = float.NaN;
+    public virtual MathValueFloat MovementSpeedMultiplier { get; } = new();
 
     /// <summary>
     /// List of Ammo limits this item changes/provide.
@@ -54,14 +51,10 @@ public abstract class CustomArmorBase : CustomItemBase
             throw new ArgumentOutOfRangeException("Type", item.Type, "Invalid Armor type.");
         if (item is not BodyArmorItem body)
             throw new ArgumentException("Body must not be null!");
-        if (HelmetEfficacy != -1)
-            body.Base.HelmetEfficacy = HelmetEfficacy;
-        if (VestEfficacy != -1)
-            body.Base.VestEfficacy = VestEfficacy;
-        if (StaminaUseMultiplier != float.NaN)
-            body.Base._staminaUseMultiplier = StaminaUseMultiplier;
-        if (MovementSpeedMultiplier != float.NaN)
-            body.Base._movementSpeedMultiplier = MovementSpeedMultiplier;
+        HelmetEfficacy.MathWithValue(ref body.Base.HelmetEfficacy);
+        VestEfficacy.MathWithValue(ref body.Base.VestEfficacy);
+        StaminaUseMultiplier.MathWithValue(ref body.Base._staminaUseMultiplier);
+        MovementSpeedMultiplier.MathWithValue(ref body.Base._movementSpeedMultiplier);
         if (AmmoLimits != null)
         {
             List<BodyArmor.ArmorAmmoLimit> ValidLimits = new(AmmoLimits.Count);

@@ -11,8 +11,9 @@ internal sealed class UsableItemHandler : CustomEventsHandler
     #region Cancel
     public override void OnPlayerCancellingUsingItem(PlayerCancellingUsingItemEventArgs ev)
     {
+        if (!CustomItems.TryGetCustomItem(ev.UsableItem, out CustomUsableBase cur_item))
+            return;
         TypeWrapper<bool> isAllowed = new(ev.IsAllowed);
-        var cur_item = CustomItems.GetCustomItem<CustomUsableBase>(ev.UsableItem);
         cur_item?.OnCancelling(ev.Player, ev.UsableItem, isAllowed);
         ev.IsAllowed = isAllowed.Value;
     }
@@ -25,8 +26,9 @@ internal sealed class UsableItemHandler : CustomEventsHandler
     #region Use
     public override void OnPlayerUsingItem(PlayerUsingItemEventArgs ev)
     {
+        if (!CustomItems.TryGetCustomItem(ev.UsableItem, out CustomUsableBase cur_item))
+            return;
         TypeWrapper<bool> isAllowed = new(ev.IsAllowed);
-        var cur_item = CustomItems.GetCustomItem<CustomUsableBase>(ev.UsableItem);
         cur_item?.OnUsing(ev.Player, ev.UsableItem, isAllowed);
         ev.IsAllowed = isAllowed.Value;
     }

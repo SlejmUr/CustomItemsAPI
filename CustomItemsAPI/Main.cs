@@ -4,6 +4,7 @@ using CustomItemsAPI.EventHandlers;
 using InventorySystem;
 using InventorySystem.Items.ThrowableProjectiles;
 using InventorySystem.Items.MicroHID.Modules;
+using InventorySystem.Items.Jailbird;
 
 namespace CustomItemsAPI;
 
@@ -16,7 +17,7 @@ internal sealed class Main : Plugin<Config>
 
     public override string Author => "SlejmUr";
 
-    public override Version Version => new(0, 0, 4, 1);
+    public override Version Version => new(0, 0, 5, 0);
 
     public override Version RequiredApiVersion => LabApi.Features.LabApiProperties.CurrentVersion;
 
@@ -51,6 +52,7 @@ internal sealed class Main : Plugin<Config>
         InventoryExtensions.OnItemRemoved -= Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned -= Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged -= Subscribed.PhaseChanged;
+        JailbirdItem.OnRpcReceived += Subscribed.Jailbird_OnRpcReceived;
         CustomItems.UnRegisterAllCustomItems();
     }
 
@@ -76,6 +78,7 @@ internal sealed class Main : Plugin<Config>
         InventoryExtensions.OnItemRemoved += Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned += Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged += Subscribed.PhaseChanged;
+        JailbirdItem.OnRpcReceived -= Subscribed.Jailbird_OnRpcReceived;
         CustomItems.RegisterCustomItems();
     }
 }

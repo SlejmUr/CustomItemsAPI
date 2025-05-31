@@ -11,6 +11,9 @@ internal sealed class Config
     /// Should print out Debug related information.
     /// </summary>
     public bool Debug { get; set; }
+#if DEBUG
+    = true;
+#endif
 
     /// <summary>
     /// Printing component on before and after

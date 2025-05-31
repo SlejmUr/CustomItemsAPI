@@ -1,5 +1,6 @@
 ﻿using CustomItemsAPI.Items;
 using InventorySystem.Items;
+using InventorySystem.Items.Jailbird;
 using InventorySystem.Items.MicroHID.Modules;
 using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
@@ -27,7 +28,19 @@ internal sealed class Subscribed
 
     internal static void PhaseChanged(ushort Serial, MicroHidPhase phase)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomMicroHIDBase>(Serial);
-        cur_item?.OnPhaseChanged(phase);
+        if (!CustomItems.TryGetCustomItem(Serial, out CustomMicroHIDBase cur_item))
+            return;
+        if (Item.Get(Serial) is not MicroHIDItem microHIDItem)
+            return;
+        cur_item.OnPhaseChanged(microHIDItem, phase);
+    }
+
+    internal static void Jailbird_OnRpcReceived(ushort Serial, JailbirdMessageType type)
+    {
+        if (!CustomItems.TryGetCustomItem(Serial, out CustomJailbirdBase cur_item))
+            return;
+        if (Item.Get(Serial) is not LabApi.Features.Wrappers.JailbirdItem microHIDItem)
+            return;
+        cur_item.OnReceived(microHIDItem, type);
     }
 }

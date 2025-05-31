@@ -8,10 +8,6 @@ namespace CustomItemsAPI.Items;
 /// </summary>
 public abstract class CustomUsableBase : CustomItemBase
 {
-    /// <summary>
-    /// The <see cref="CustomItemBase.ItemBase"/> as <see cref="UsableItem"/>.
-    /// </summary>
-    public UsableItem Usable => ItemBase as UsableItem;
 
     /// <inheritdoc/>
     public override void Parse(Item item)

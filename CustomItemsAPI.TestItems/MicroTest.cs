@@ -59,32 +59,33 @@ public class MicroTest : CustomMicroHIDBase
         if (!changedToThisItem)
             return;
         firedTimes = 0;
-        
-        BaseCycleController.RecacheFiringModes(MicroItem.Base);
+        if (newItem is not MicroHIDItem microHIDItem)
+            return;
+        microHIDItem.BaseCycleController.RecacheFiringModes(microHIDItem.Base);
     }
 
-    public override void OnPhaseChanged(MicroHidPhase newPhase)
+    public override void OnPhaseChanged(MicroHIDItem item, MicroHidPhase newPhase)
     {
-        Energy = 100;
-        if (BaseAudioController._windupSource != null)
-            BaseAudioController._windupSource.maxDistance *= 2;
-
-        if (FiringModeController is CustomCharge module)
+        item.Energy = 100;
+        var audiocontroller = AudioManagerModule.GetController(item.Serial);
+        if (audiocontroller._windupSource != null)
+            audiocontroller._windupSource.maxDistance *= 2;
+        if (item.BaseCycleController.TryGetLastFiringController(out var FiringModeController) && FiringModeController is CustomCharge module)
         {
             CL.Info(module);
         }
 
         if (newPhase == MicroHidPhase.Firing)
         {
-            if (BaseAudioController._firingSource != null)
-                BaseAudioController._firingSource.maxDistance *= 5;
+            if (audiocontroller._firingSource != null)
+                audiocontroller._firingSource.maxDistance *= 5;
 
             firedTimes++;
         }
 
-        if (firedTimes > 5 && !Broken)
+        if (firedTimes > 5 && !item.IsBroken)
         {
-            Broken = true;
+            item.IsBroken = true;
         }
     }
 }

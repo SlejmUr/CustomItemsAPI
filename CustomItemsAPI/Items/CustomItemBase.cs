@@ -36,21 +36,6 @@ public abstract class CustomItemBase
     public virtual string DisplayName { get; set; }
 
     /// <summary>
-    /// Serial of the item.
-    /// </summary>
-    public ushort Serial
-    {
-        get
-        { 
-            if (ItemBase != null)
-                return ItemBase.Serial;
-            if (PickupBase != null)
-                return PickupBase.Serial;
-            return 0;
-        }
-    }
-
-    /// <summary>
     /// Gets the new weight of the <see cref="Pickup"/>
     /// </summary>
     public virtual float Weight { get; } = float.NaN;
@@ -58,39 +43,29 @@ public abstract class CustomItemBase
     /// <summary>
     /// Overrides a to show a custom picked up show details
     /// </summary>
-    public virtual bool OverrideShowPickedUpHint { get; set; } = Main.Instance.Config.ShowPickedUpHint;
+    public virtual bool OverrideShowPickedUpHint { get; } = Main.Instance.Config.ShowPickedUpHint;
 
     /// <summary>
     /// Overrides the hint for showing custom picked up details
     /// </summary>
-    public virtual string OverridePickedUpHint { get; set; } = Main.Instance.Config.PickedUpHint;
+    public virtual string OverridePickedUpHint { get; } = Main.Instance.Config.PickedUpHint;
 
     /// <summary>
     /// Overrides a to show a custom selected show details
     /// </summary>
-    public virtual bool OverrideShowSelectHint { get; set; } = Main.Instance.Config.ShowSelectedHint;
+    public virtual bool OverrideShowSelectHint { get; } = Main.Instance.Config.ShowSelectedHint;
 
     /// <summary>
     /// Overrides a to show a custom selected show details
     /// </summary>
-    public virtual string OverrideSelectedHint { get; set; } = Main.Instance.Config.SelectedHint;
-
-    /// <summary>
-    /// ItemBase. It stores when the <see cref="Parse(Item)"/> function called.
-    /// </summary>
-    public Item ItemBase { get; private set; }
-
-    /// <summary>
-    /// ItemBase. It stores when the <see cref="Parse(Pickup)"/> function called.
-    /// </summary>
-    public Pickup PickupBase { get; private set; }
+    public virtual string OverrideSelectedHint { get; } = Main.Instance.Config.SelectedHint;
 
     /// <summary>
     /// Called once when this instance is registered.
     /// </summary>
     public virtual void OnRegistered()
     {
-        CL.Debug($"OnRegistered {this.GetType()}", Main.Instance.Config.Debug);
+        CL.Debug($"OnRegistered {this.GetType()} {this.CustomItemName}", Main.Instance.Config.Debug);
     }
     
     /// <summary>
@@ -98,7 +73,7 @@ public abstract class CustomItemBase
     /// </summary>
     public virtual void OnUnRegistered()
     {
-        CL.Debug($"OnUnRegistered {this.GetType()}", Main.Instance.Config.Debug);
+        CL.Debug($"OnUnRegistered {this.GetType()} {this.CustomItemName}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -106,7 +81,7 @@ public abstract class CustomItemBase
     /// </summary>
     public virtual void OnNewCreated()
     {
-        CL.Debug($"OnNewCreated {this.GetType()}", Main.Instance.Config.Debug);
+        CL.Debug($"OnNewCreated {this.GetType()} {this.CustomItemName}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -116,7 +91,6 @@ public abstract class CustomItemBase
     public virtual void Parse(Item item)
     {
         CL.Debug($"Parse {item.Serial}", Main.Instance.Config.Debug);
-        ItemBase = item;
         CL.Debug(item.Base.gameObject.PrintComponentTree(), Main.Instance.Config.PrintComponentOnChange);
         if (this is IModuleChangable changable && changable != null && item.Base is ModularAutosyncItem modularAutosync && modularAutosync != null)
             modularAutosync.ApplyChange(changable);
@@ -130,9 +104,8 @@ public abstract class CustomItemBase
     public virtual void Parse(Pickup pickup)
     {
         CL.Debug($"Parse {pickup.Serial}", Main.Instance.Config.Debug);
-        PickupBase = pickup;
         if (!float.IsNaN(Weight))
-            PickupBase.Weight = Weight;
+            pickup.Weight = Weight;
     }
 
     /// <summary>
@@ -140,7 +113,7 @@ public abstract class CustomItemBase
     /// </summary>
     public virtual void OnDistribute()
     {
-        CL.Debug("OnDistribute", Main.Instance.Config.Debug);
+        CL.Debug($"OnDistribute  {this.GetType()} {this.CustomItemName}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -267,7 +240,7 @@ public abstract class CustomItemBase
     /// <param name="item">The currently processing item.</param>
     /// <param name="knobSetting">The know setting value.</param>
     /// <param name="isAllowed">Can allow this action.</param>
-    public virtual void OnProcessingItem(Player player, Item item, Scp914KnobSetting knobSetting, TypeWrapper<bool> isAllowed)
+    public virtual void OnProcessingItem(Player player, Item item, TypeWrapper<Scp914KnobSetting> knobSetting, TypeWrapper<bool> isAllowed)
     {
         CL.Debug($"OnProcessingItem {player.PlayerId} {item.Serial} {knobSetting}", Main.Instance.Config.Debug);
         isAllowed.Value = false;
@@ -279,9 +252,10 @@ public abstract class CustomItemBase
     /// <param name="pickup">The currently processing pickup.</param>
     /// <param name="knobSetting">The know setting value.</param>
     /// <param name="isAllowed">Can allow this action.</param>
-    public virtual void OnProcessingPickup(Pickup pickup, Scp914KnobSetting knobSetting, TypeWrapper<bool> isAllowed)
+    /// <param name="newPosition">New position for the pickup.</param>
+    public virtual void OnProcessingPickup(Pickup pickup, TypeWrapper<Scp914KnobSetting> knobSetting, TypeWrapper<bool> isAllowed, TypeWrapper<Vector3> newPosition)
     {
-        CL.Debug($"OnProcessingPickup {pickup.Serial} {knobSetting}", Main.Instance.Config.Debug);
+        CL.Debug($"OnProcessingPickup {pickup.Serial} {knobSetting.Value}", Main.Instance.Config.Debug);
         isAllowed.Value = false;
     }
 

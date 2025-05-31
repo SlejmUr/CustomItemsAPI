@@ -20,29 +20,24 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     public virtual List<ModuleChanger> AddModules { get; } = [];
 
     /// <summary>
-    /// The <see cref="CustomItemBase.ItemBase"/> as <see cref="FirearmItem"/>.
-    /// </summary>
-    public FirearmItem Firearm => ItemBase as FirearmItem;
-
-    /// <summary>
     /// The <see cref="FirearmItem"/>'s Damage.
     /// </summary>
-    public virtual float Damage { get; } = float.NaN;
+    public virtual MathValueFloat Damage { get; } = new();
 
     /// <summary>
     /// Changer for <see cref="A7BurnEffectModule"/>.
     /// </summary>
-    public virtual A7Burn A7Burn { get; set; } = new();
+    public virtual A7Burn A7Burn { get; } = new();
 
     /// <inheritdoc/>
     public override void Parse(Item item)
     {
         base.Parse(item);
-        if (ItemBase.Category != ItemCategory.Firearm)
+        if (item.Category != ItemCategory.Firearm)
             throw new ArgumentOutOfRangeException("Type", item.Type, "Invalid Firearm type.");
-        if (ItemBase is not FirearmItem)
+        if (item is not FirearmItem firearmItem)
             throw new ArgumentException("FirearmItem must not be null!");
-        if (TryGetModule(out A7BurnEffectModule a7BurnEffectModule))
+        if (TryGetModule(firearmItem, out A7BurnEffectModule a7BurnEffectModule))
             A7Burn.Apply(ref a7BurnEffectModule);
     }
 
@@ -50,12 +45,13 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// Trying to get a <see cref="FirearmSubcomponentBase"/> from a <see cref="Firearm"/>.
     /// </summary>
     /// <typeparam name="T">Any <see cref="FirearmSubcomponentBase"/>.</typeparam>
+    /// <param name="firearm"></param>
     /// <param name="module">The Module <see cref="FirearmSubcomponentBase"/></param>
     /// <param name="ignoreSubmodules">Ignore weapon SubModules.</param>
     /// <returns>True if the <paramref name="module"/> found otherwise false.</returns>
-    public bool TryGetModule<T>(out T module, bool ignoreSubmodules = true) where T : FirearmSubcomponentBase
+    public bool TryGetModule<T>(FirearmItem firearm, out T module, bool ignoreSubmodules = true) where T : FirearmSubcomponentBase
     {
-        return Firearm.Base.TryGetModule(out module, ignoreSubmodules);
+        return firearm.Base.TryGetModule(out module, ignoreSubmodules);
     }
 
     /// <summary>
@@ -186,9 +182,7 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     public virtual void OnHurting(Player player, Player attacker, FirearmDamageHandler firearmDamage, TypeWrapper<bool> isAllowedHelper)
     {
         CL.Debug($"OnHurting {player.PlayerId} {attacker.PlayerId} {firearmDamage.Damage}", Main.Instance.Config.Debug);
-        if (float.IsNaN(Damage))
-            return;
-        firearmDamage.Damage = Damage;
+        firearmDamage.Damage = Damage.MathWithValue(firearmDamage.Damage);
     }
 
     /// <summary>

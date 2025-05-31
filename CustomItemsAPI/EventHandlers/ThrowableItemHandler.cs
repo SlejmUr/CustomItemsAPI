@@ -9,10 +9,11 @@ internal class ThrowableItemHandler : CustomEventsHandler
 {
     public override void OnPlayerThrowingProjectile(PlayerThrowingProjectileEventArgs ev)
     {
+        if (!CustomItems.TryGetCustomItem(ev.ThrowableItem, out CustomThrowableBase cur_item))
+            return;
         TypeWrapper<bool> isAllowed = new(ev.IsAllowed);
         TypeWrapper<bool> fullForce = new(ev.FullForce);
         TypeWrapper<InventorySystem.Items.ThrowableProjectiles.ThrowableItem.ProjectileSettings> settings = new(ev.ProjectileSettings);
-        var cur_item = CustomItems.GetCustomItem<CustomThrowableBase>(ev.ThrowableItem);
         cur_item?.OnThrowingProjectile(ev.Player, ev.ThrowableItem, settings, fullForce, isAllowed);
         ev.IsAllowed = isAllowed.Value;
         ev.FullForce = fullForce.Value;

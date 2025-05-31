@@ -8,8 +8,7 @@ namespace CustomItemsAPI.Items;
 /// <summary>
 /// Custom <see cref="JailbirdItem"/> base.
 /// </summary>
-// TODO: Implement this right.
-internal abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
+public abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
 {
     /// <inheritdoc/>
     public virtual Dictionary<ModuleChanger, Type> ReplaceModules { get; } = [];
@@ -17,9 +16,14 @@ internal abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
     public virtual List<ModuleChanger> AddModules { get; } = [];
 
     /// <summary>
-    /// The <see cref="CustomItemBase.ItemBase"/> as <see cref="JailbirdItem"/>.
+    /// Changable values for <see cref="InventorySystem.Items.Jailbird.JailbirdHitreg"/>
     /// </summary>
-    public LabApi.Features.Wrappers.JailbirdItem Jailbird => ItemBase as LabApi.Features.Wrappers.JailbirdItem;
+    public JailbirdHitregClass JailbirdHitregClass = new();
+
+    /// <summary>
+    /// Changable values for <see cref="InventorySystem.Items.Jailbird.JailbirdItem"/>
+    /// </summary>
+    public JailbirdItemClass JailbirdItemClass = new();
 
     /// <inheritdoc/>
     public override void Parse(Item item)
@@ -27,28 +31,20 @@ internal abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
         base.Parse(item);
         if (item.Type != ItemType.Jailbird)
             throw new ArgumentOutOfRangeException("Type", item.Type, "Invalid Jailbird type.");
-        if (ItemBase is not LabApi.Features.Wrappers.JailbirdItem jailbird)
+        if (item is not JailbirdItem jailbird)
             throw new ArgumentException("JailbirdItem must not be null!");
 
-        JailbirdHitreg.Apply(jailbird.Base._hitreg);
-        JailbirdItem.Apply(jailbird.Base);
-
+        JailbirdHitregClass.Apply(jailbird.Base._hitreg);
+        JailbirdItemClass.Apply(jailbird.Base);
     }
 
-    public JailbirdHitregClass JailbirdHitreg = new();
-
-    public JailbirdItemClass JailbirdItem = new();
-
-    public int TotalCharges
+    /// <summary>
+    /// Called Server Receives a <paramref name="jailbirdMessageType"/> from <paramref name="jailbird"/>.
+    /// </summary>
+    /// <param name="jailbird"></param>
+    /// <param name="jailbirdMessageType"></param>
+    public virtual void OnReceived(JailbirdItem jailbird, InventorySystem.Items.Jailbird.JailbirdMessageType jailbirdMessageType)
     {
-        get => Jailbird.Base.TotalChargesPerformed;
-        set => Jailbird.Base.TotalChargesPerformed = value;
-    }
 
-    public float TotalDamageDealt
-    {
-        get => Jailbird.Base._hitreg.TotalMeleeDamageDealt;
-        set => Jailbird.Base._hitreg.TotalMeleeDamageDealt = value;
     }
-
 }

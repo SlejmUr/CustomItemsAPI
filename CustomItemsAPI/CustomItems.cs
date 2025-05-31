@@ -53,10 +53,10 @@ public static class CustomItems
     /// </summary>
     /// <typeparam name="T">Any <see cref="CustomItemBase"/>.</typeparam>
     /// <param name="player">The player to add item to.</param>
-    public static void AddCustomItem<T>(Player player) where T : CustomItemBase
+    public static Item? AddCustomItem<T>(Player player) where T : CustomItemBase
     {
         T? item = CreateItem<T>();
-        AddCustomItem(item, player);
+        return AddCustomItem(item, player);
     }
 
     /// <summary>
@@ -64,10 +64,10 @@ public static class CustomItems
     /// </summary>
     /// <param name="CustomItemName">The Custom Item name.</param>
     /// <param name="player">The <see cref="Player"/> to add item to.</param>
-    public static void AddCustomItem(string CustomItemName, Player player)
+    public static Item? AddCustomItem(string CustomItemName, Player player)
     {
         CustomItemBase? customItemBase = CreateItem(CustomItemName);
-        AddCustomItem(customItemBase, player);
+        return AddCustomItem(customItemBase, player);
     }
 
     /// <summary>
@@ -75,16 +75,17 @@ public static class CustomItems
     /// </summary>
     /// <param name="item">The Custom Item.</param>
     /// <param name="player">The <see cref="Player"/> to add item to.</param>
-    public static void AddCustomItem(CustomItemBase? item, Player player)
+    public static Item? AddCustomItem(CustomItemBase? item, Player player)
     {
         if (item == null)
-            return;
+            return null;
         var itemBase = player.AddItem(item.Type);
         if (itemBase == null)
-            return;
+            return null;
         item.Parse(itemBase);
-        player.ReferenceHub.inventory.UserInventory.Items[item.Serial] = itemBase.Base;
-        SerialToCustomItem.Add(item.Serial, item);
+        player.ReferenceHub.inventory.UserInventory.Items[itemBase.Serial] = itemBase.Base;
+        SerialToCustomItem.Add(itemBase.Serial, item);
+        return itemBase;
     }
 
     /// <summary>
@@ -92,16 +93,17 @@ public static class CustomItems
     /// </summary>
     /// <param name="item">The Custom Item.</param>
     /// <param name="hub">The <see cref="ReferenceHub"/> to add item to.</param>
-    public static void AddCustomItem(CustomItemBase? item, ReferenceHub hub)
+    public static Item? AddCustomItem(CustomItemBase? item, ReferenceHub hub)
     {
         if (item == null)
-            return;
-        var itemBase = Item.Get(hub.inventory.ServerAddItem(item.Type, ItemAddReason.AdminCommand, item.Serial));
+            return null;
+        var itemBase = Item.Get(hub.inventory.ServerAddItem(item.Type, ItemAddReason.AdminCommand));
         if (itemBase == null)
-            return;
+            return null;
         item.Parse(itemBase);
-        hub.inventory.UserInventory.Items[item.Serial] = itemBase.Base;
-        SerialToCustomItem.Add(item.Serial, item);
+        hub.inventory.UserInventory.Items[itemBase.Serial] = itemBase.Base;
+        SerialToCustomItem.Add(itemBase.Serial, item);
+        return itemBase;
     }
     #endregion
     #region Spawn Item
@@ -115,7 +117,7 @@ public static class CustomItems
     /// <param name="scale">The scale the pickup should spawn.</param>
     /// <param name="shouldSpawn"></param>
     /// <returns>Returns <see langword="null"/> if pickup cannot be created otherwise it is a <see cref="Pickup"/>.</returns>
-    public static Pickup Spawn(string customItemame, Vector3 position, Quaternion rotation = default, Vector3 scale = default, bool shouldSpawn = true)
+    public static Pickup? Spawn(string customItemame, Vector3 position, Quaternion rotation = default, Vector3 scale = default, bool shouldSpawn = true)
     {
         CustomItemBase? item = CreateItem(customItemame);
         return Spawn(item, position, rotation, scale, shouldSpawn);
@@ -130,7 +132,7 @@ public static class CustomItems
     /// <param name="scale">The scale the pickup should spawn.</param>
     /// <param name="shouldSpawn"></param>
     /// <returns>Returns <see langword="null"/> if pickup cannot be created otherwise it is a <see cref="Pickup"/>.</returns>
-    public static Pickup Spawn<T>(Vector3 position, Quaternion rotation = default, Vector3 scale = default, bool shouldSpawn = true) where T : CustomItemBase
+    public static Pickup? Spawn<T>(Vector3 position, Quaternion rotation = default, Vector3 scale = default, bool shouldSpawn = true) where T : CustomItemBase
     {
         T? item = CreateItem<T>();
         return Spawn(item, position, rotation, scale, shouldSpawn);
@@ -156,7 +158,7 @@ public static class CustomItems
         var pickup = Pickup.Create(customItem.Type, position, rotation.Value, scale.Value);
         if (pickup == null)
             return null;
-        if (shouldSpawn)
+        if (shouldSpawn && !pickup.IsSpawned)
             pickup.Spawn();
         customItem.Parse(pickup);
         SerialToCustomItem.Add(pickup.Serial, customItem);
@@ -404,6 +406,64 @@ public static class CustomItems
     public static bool TryGetCustomItem(this ushort serial, out CustomItemBase? customItem)
     {
         return SerialToCustomItem.TryGetValue(serial, out customItem);
+    }
+    #endregion
+    #region TryGetCustomItems as T
+
+    /// <summary>
+    /// Gets the <paramref name="customItem"/> associated with the <paramref name="player"/>.
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="customItem"></param>
+    /// <returns></returns>
+    public static bool TryGetCustomItem<T>(this Player player, out T? customItem) where T : CustomItemBase
+    {
+        return TryGetCustomItem<T>(player.CurrentItem, out customItem);
+    }
+
+    /// <summary>
+    /// Gets the <paramref name="customItem"/> associated with the <paramref name="item"/>.
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="customItem"></param>
+    /// <returns></returns>
+    public static bool TryGetCustomItem<T>(this Item? item, out T? customItem) where T : CustomItemBase
+    {
+        customItem = null;
+        if (item == null)
+            return false;
+        return TryGetCustomItem(item.Serial, out customItem);
+    }
+
+    /// <summary>
+    /// Gets the <paramref name="customItem"/> associated with the <paramref name="pickup"/>.
+    /// </summary>
+    /// <param name="pickup"></param>
+    /// <param name="customItem"></param>
+    /// <returns></returns>
+    public static bool TryGetCustomItem<T>(this Pickup? pickup, out T? customItem) where T : CustomItemBase
+    {
+        customItem = null;
+        if (pickup == null)
+            return false;
+        return TryGetCustomItem(pickup.Serial, out customItem);
+    }
+
+    /// <summary>
+    /// Gets the <paramref name="customItem"/> associated with the <paramref name="serial"/>.
+    /// </summary>
+    /// <param name="serial"></param>
+    /// <param name="customItem"></param>
+    /// <returns></returns>
+    public static bool TryGetCustomItem<T>(this ushort serial, out T? customItem) where T : CustomItemBase
+    {
+        if (SerialToCustomItem.TryGetValue(serial, out var customItemBase) && customItemBase is T customItemT)
+        {
+            customItem = customItemT;
+            return true;
+        }
+        customItem = null;
+        return false;
     }
     #endregion
     #region Register Custom Item

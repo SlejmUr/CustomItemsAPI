@@ -25,17 +25,17 @@ class KeycardTest : CustomKeyCardBase
     public override Color? TintColor => Color.blue;
     public override ItemType Type => ItemType.KeycardCustomTaskForce;
 
-    public override void OnInteractingLocker(Player player, Locker locker, LockerChamber lockerChamber, TypeWrapper<bool> canOpen, TypeWrapper<bool> isAllowed)
+    public override void OnInteractingLocker(Player player, Item item, Locker locker, LockerChamber lockerChamber, TypeWrapper<bool> canOpen, TypeWrapper<bool> isAllowed)
     {
         canOpen.Value = true;
         isAllowed.Value = true;
     }
-    public override void OnInteractingGenerator(Player player, Generator generator, TypeWrapper<bool> isAllowed)
+    public override void OnInteractingGenerator(Player player, Item item, Generator generator, TypeWrapper<bool> isAllowed)
     {
         isAllowed.Value = true;
     }
 
-    public override void OnInteractingDoor(Player player, Door door, TypeWrapper<bool> canOpen, TypeWrapper<bool> isAllowed)
+    public override void OnInteractingDoor(Player player, Item item, Door door, TypeWrapper<bool> canOpen, TypeWrapper<bool> isAllowed)
     {
         canOpen.Value = true;
         isAllowed.Value = true;
