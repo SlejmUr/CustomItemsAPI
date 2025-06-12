@@ -28,7 +28,7 @@ public abstract class CustomKeyCardBase : CustomItemBase
     /// </summary>
     public virtual byte? WearLevel { get; }
     /// <summary>
-    /// Sets the Custom Inventory Name of the keycard if exists. (Currently not works)
+    /// Sets the Custom Inventory Name of the keycard if exists.
     /// </summary>
     public virtual string CustomName { get; } = string.Empty;
     /// <summary>
@@ -39,6 +39,17 @@ public abstract class CustomKeyCardBase : CustomItemBase
     /// Sets the Custom Name Tag of the keycard if exists.
     /// </summary>
     public virtual string CustomNameTag { get; } = string.Empty;
+
+    /// <summary>
+    /// Sets the Custom Label Name of the keycard if exists.
+    /// </summary>
+    public virtual string CustomLabelText { get; } = string.Empty;
+
+    /// <summary>
+    /// Sets the Custom Label Color of the keycard if exists.
+    /// </summary>
+    public virtual Color? CustomLabelColor { get; }
+
     /// <summary>
     /// Sets the the opening doors on throw property.
     /// </summary>
@@ -67,7 +78,7 @@ public abstract class CustomKeyCardBase : CustomItemBase
         IC.CustomWearDetail? customWear = keycard.Details.OfType<IC.CustomWearDetail>().FirstOrDefault();
         IC.CustomItemNameDetail? customItemName = keycard.Details.OfType<IC.CustomItemNameDetail>().FirstOrDefault();
         IC.CustomSerialNumberDetail? customSerialNumber = keycard.Details.OfType<IC.CustomSerialNumberDetail>().FirstOrDefault();
-
+        IC.CustomLabelDetail customLabel = keycard.Details.OfType<IC.CustomLabelDetail>().FirstOrDefault();
 
         if (Levels.HasValue && customPermsDetail != null)
         {
