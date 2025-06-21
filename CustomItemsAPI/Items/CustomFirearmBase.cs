@@ -33,8 +33,6 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     public override void Parse(Item item)
     {
         base.Parse(item);
-        if (item.Category != ItemCategory.Firearm)
-            throw new ArgumentOutOfRangeException("Type", item.Type, "Invalid Firearm type.");
         if (item is not FirearmItem firearmItem)
             throw new ArgumentException("FirearmItem must not be null!");
         if (TryGetModule(firearmItem, out A7BurnEffectModule a7BurnEffectModule))
