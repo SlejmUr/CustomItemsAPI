@@ -17,18 +17,36 @@ internal sealed class Main : Plugin<Config>
 
     public override string Author => "SlejmUr";
 
-    public override Version Version => new(0, 0, 5, 3);
+    public override Version Version => new(0, 0, 5, 4);
 
     public override Version RequiredApiVersion => LabApi.Features.LabApiProperties.CurrentVersion;
 
-    private CommonItemHandler commonItemHandler;
-    private KeyCardItemHandler keyCardItemHandler;
-    private NonItemRelatedHandler nonItemRelatedHandler;
-    private UsableItemHandler usableItemHandler;
-    private ThrowableItemHandler throwableItemHandler;
-    private DamageHandler damageHandler;
-    private FirearmHandler firearmHandler;
-    private Scp914Handler scp914Handler;
+    private CommonItemHandler commonItemHandler = new();
+    private KeyCardItemHandler keyCardItemHandler = new();
+    private NonItemRelatedHandler nonItemRelatedHandler = new();
+    private UsableItemHandler usableItemHandler = new();
+    private ThrowableItemHandler throwableItemHandler = new();
+    private DamageHandler damageHandler = new();
+    private FirearmHandler firearmHandler = new();
+    private Scp914Handler scp914Handler = new();
+
+    public override void Enable()
+    {
+        Instance = this;
+        CustomHandlersManager.RegisterEventsHandler(commonItemHandler);
+        CustomHandlersManager.RegisterEventsHandler(keyCardItemHandler);
+        CustomHandlersManager.RegisterEventsHandler(nonItemRelatedHandler);
+        CustomHandlersManager.RegisterEventsHandler(usableItemHandler);
+        CustomHandlersManager.RegisterEventsHandler(throwableItemHandler);
+        CustomHandlersManager.RegisterEventsHandler(damageHandler);
+        CustomHandlersManager.RegisterEventsHandler(firearmHandler);
+        CustomHandlersManager.RegisterEventsHandler(scp914Handler);
+        InventoryExtensions.OnItemRemoved += Subscribed.OnItemRemoved;
+        ThrownProjectile.OnProjectileSpawned += Subscribed.ProjectileSpawned;
+        CycleController.OnPhaseChanged += Subscribed.PhaseChanged;
+        JailbirdItem.OnRpcReceived += Subscribed.Jailbird_OnRpcReceived;
+        CustomItems.RegisterCustomItems();
+    }
 
     public override void Disable()
     {
@@ -54,31 +72,5 @@ internal sealed class Main : Plugin<Config>
         CycleController.OnPhaseChanged -= Subscribed.PhaseChanged;
         JailbirdItem.OnRpcReceived -= Subscribed.Jailbird_OnRpcReceived;
         CustomItems.UnRegisterAllCustomItems();
-    }
-
-    public override void Enable()
-    {
-        Instance = this;
-        commonItemHandler = new();
-        CustomHandlersManager.RegisterEventsHandler(commonItemHandler);
-        keyCardItemHandler = new();
-        CustomHandlersManager.RegisterEventsHandler(keyCardItemHandler);
-        nonItemRelatedHandler = new();
-        CustomHandlersManager.RegisterEventsHandler(nonItemRelatedHandler);
-        usableItemHandler = new();
-        CustomHandlersManager.RegisterEventsHandler(usableItemHandler);
-        throwableItemHandler = new();
-        CustomHandlersManager.RegisterEventsHandler(throwableItemHandler);
-        damageHandler = new();
-        CustomHandlersManager.RegisterEventsHandler(damageHandler);
-        firearmHandler = new();
-        CustomHandlersManager.RegisterEventsHandler(firearmHandler);
-        scp914Handler = new();
-        CustomHandlersManager.RegisterEventsHandler(scp914Handler);
-        InventoryExtensions.OnItemRemoved += Subscribed.OnItemRemoved;
-        ThrownProjectile.OnProjectileSpawned += Subscribed.ProjectileSpawned;
-        CycleController.OnPhaseChanged += Subscribed.PhaseChanged;
-        JailbirdItem.OnRpcReceived += Subscribed.Jailbird_OnRpcReceived;
-        CustomItems.RegisterCustomItems();
     }
 }

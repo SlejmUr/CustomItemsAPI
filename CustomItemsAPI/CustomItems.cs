@@ -117,7 +117,7 @@ public static class CustomItems
     /// <param name="scale">The scale the pickup should spawn.</param>
     /// <param name="shouldSpawn"></param>
     /// <returns>Returns <see langword="null"/> if pickup cannot be created otherwise it is a <see cref="Pickup"/>.</returns>
-    public static Pickup? Spawn(string customItemame, Vector3 position, Quaternion rotation = default, Vector3 scale = default, bool shouldSpawn = true)
+    public static Pickup? Spawn(string customItemame, Vector3 position, Quaternion? rotation = null, Vector3? scale = null, bool shouldSpawn = true)
     {
         CustomItemBase? item = CreateItem(customItemame);
         return Spawn(item, position, rotation, scale, shouldSpawn);
@@ -132,7 +132,7 @@ public static class CustomItems
     /// <param name="scale">The scale the pickup should spawn.</param>
     /// <param name="shouldSpawn"></param>
     /// <returns>Returns <see langword="null"/> if pickup cannot be created otherwise it is a <see cref="Pickup"/>.</returns>
-    public static Pickup? Spawn<T>(Vector3 position, Quaternion rotation = default, Vector3 scale = default, bool shouldSpawn = true) where T : CustomItemBase
+    public static Pickup? Spawn<T>(Vector3 position, Quaternion? rotation = null, Vector3? scale = null, bool shouldSpawn = true) where T : CustomItemBase
     {
         T? item = CreateItem<T>();
         return Spawn(item, position, rotation, scale, shouldSpawn);
