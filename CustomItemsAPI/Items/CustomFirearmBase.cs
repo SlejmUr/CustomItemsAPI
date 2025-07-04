@@ -179,8 +179,9 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// <param name="isAllowedHelper">Can allow this action.</param>
     public virtual void OnHurting(Player player, Player attacker, FirearmDamageHandler firearmDamage, TypeWrapper<bool> isAllowedHelper)
     {
-        CL.Debug($"OnHurting {player.PlayerId} {attacker.PlayerId} {firearmDamage.Damage}", Main.Instance.Config.Debug);
+        CL.Debug($"OnHurting (Before) {player.PlayerId} {attacker.PlayerId} {firearmDamage.Damage}", Main.Instance.Config.Debug);
         firearmDamage.Damage = Damage.MathWithValue(firearmDamage.Damage);
+        CL.Debug($"OnHurting (After) {player.PlayerId} {attacker.PlayerId} {firearmDamage.Damage}", Main.Instance.Config.Debug);
     }
 
     /// <summary>

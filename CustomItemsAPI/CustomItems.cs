@@ -158,7 +158,7 @@ public static class CustomItems
         var pickup = Pickup.Create(customItem.Type, position, rotation.Value, scale.Value);
         if (pickup == null)
             return null;
-        if (shouldSpawn && !pickup.IsSpawned)
+        if (shouldSpawn)
             pickup.Spawn();
         customItem.Parse(pickup);
         SerialToCustomItem.Add(pickup.Serial, customItem);

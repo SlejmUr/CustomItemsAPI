@@ -34,4 +34,22 @@ public abstract class CustomMicroHIDBase : CustomItemBase, IModuleChangable
     {
         CL.Debug($"OnPhaseChanged {phase}", Main.Instance.Config.Debug);
     }
+
+    /// <summary>
+    /// Called when this <paramref name="microHIDItem"/> is broken by <see cref="BrokenSyncModule"/>.
+    /// </summary>
+    /// <param name="microHIDItem"></param>
+    public virtual void OnBroken(MicroHIDItem microHIDItem)
+    {
+        CL.Debug($"OnBroken {microHIDItem.Serial}", Main.Instance.Config.Debug);
+    }
+
+    /// <summary>
+    /// Called when the <paramref name="microHIDItem"/> is inspected by <see cref="DrawAndInspectorModule"/>.
+    /// </summary>
+    /// <param name="microHIDItem"></param>
+    public virtual void OnInspectRequested(MicroHIDItem microHIDItem)
+    {
+        CL.Debug($"OnInspectRequested {microHIDItem.Serial}", Main.Instance.Config.Debug);
+    }
 }

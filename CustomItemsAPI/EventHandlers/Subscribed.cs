@@ -35,6 +35,25 @@ internal sealed class Subscribed
         cur_item.OnPhaseChanged(microHIDItem, phase);
     }
 
+
+    internal static void BrokenSyncModule_OnBroken(ushort Serial)
+    {
+        if (!CustomItems.TryGetCustomItem(Serial, out CustomMicroHIDBase cur_item))
+            return;
+        if (Item.Get(Serial) is not MicroHIDItem microHIDItem)
+            return;
+        cur_item.OnBroken(microHIDItem);
+    }
+
+    internal static void DrawAndInspectorModule_OnInspectRequested(ushort Serial)
+    {
+        if (!CustomItems.TryGetCustomItem(Serial, out CustomMicroHIDBase cur_item))
+            return;
+        if (Item.Get(Serial) is not MicroHIDItem microHIDItem)
+            return;
+        cur_item.OnInspectRequested(microHIDItem);
+    }
+
     internal static void Jailbird_OnRpcReceived(ushort Serial, JailbirdMessageType type)
     {
         if (!CustomItems.TryGetCustomItem(Serial, out CustomJailbirdBase cur_item))

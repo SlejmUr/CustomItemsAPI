@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace CustomItemsAPI.Helpers;
+﻿namespace CustomItemsAPI.Helpers;
 
 /// <summary>
 /// Options for changing the base value with Math.

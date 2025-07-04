@@ -17,7 +17,7 @@ internal sealed class Main : Plugin<Config>
 
     public override string Author => "SlejmUr";
 
-    public override Version Version => new(0, 0, 5, 4);
+    public override Version Version => new(0, 0, 5, 5);
 
     public override Version RequiredApiVersion => LabApi.Features.LabApiProperties.CurrentVersion;
 
@@ -44,6 +44,8 @@ internal sealed class Main : Plugin<Config>
         InventoryExtensions.OnItemRemoved += Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned += Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged += Subscribed.PhaseChanged;
+        BrokenSyncModule.OnBroken += Subscribed.BrokenSyncModule_OnBroken;
+        DrawAndInspectorModule.OnInspectRequested += Subscribed.DrawAndInspectorModule_OnInspectRequested;
         JailbirdItem.OnRpcReceived += Subscribed.Jailbird_OnRpcReceived;
         CustomItems.RegisterCustomItems();
     }
@@ -70,6 +72,8 @@ internal sealed class Main : Plugin<Config>
         InventoryExtensions.OnItemRemoved -= Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned -= Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged -= Subscribed.PhaseChanged;
+        BrokenSyncModule.OnBroken -= Subscribed.BrokenSyncModule_OnBroken;
+        DrawAndInspectorModule.OnInspectRequested -= Subscribed.DrawAndInspectorModule_OnInspectRequested;
         JailbirdItem.OnRpcReceived -= Subscribed.Jailbird_OnRpcReceived;
         CustomItems.UnRegisterAllCustomItems();
     }
