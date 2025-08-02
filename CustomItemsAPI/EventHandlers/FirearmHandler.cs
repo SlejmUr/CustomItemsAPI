@@ -86,4 +86,22 @@ internal sealed class FirearmHandler : CustomEventsHandler
         cur_item?.OnToggledFlashlight(ev.Player, ev.FirearmItem, ev.NewState);
     }
     #endregion
+    #region Attachments
+    public override void OnPlayerChangingAttachments(PlayerChangingAttachmentsEventArgs ev)
+
+    {
+        TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
+        TypeWrapper<uint> newState = new(ev.NewAttachments);
+        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.FirearmItem);
+        cur_item?.OnChangingAttachments(ev.Player, ev.FirearmItem, ev.OldAttachments, newState, isAllowedHelper);
+        ev.IsAllowed = isAllowedHelper.Value;
+        ev.NewAttachments = newState.Value;
+    }
+
+    public override void OnPlayerChangedAttachments(PlayerChangedAttachmentsEventArgs ev)
+    {
+        var cur_item = CustomItems.GetCustomItem<CustomFirearmBase>(ev.FirearmItem);
+        cur_item?.OnChangedAttachments(ev.Player, ev.FirearmItem, ev.OldAttachments, ev.NewAttachments);
+    }
+    #endregion
 }

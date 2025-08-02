@@ -267,12 +267,12 @@ public abstract class CustomItemBase
     /// <param name="itemPickupBase">itemPickupBase</param>
     public virtual void OnRemoved(Player player, ItemBase? itemBase, ItemPickupBase? itemPickupBase)
     {
-        CL.Debug($"OnRemoved {player.PlayerId} {itemBase == null} {itemPickupBase == null}", Main.Instance.Config.Debug);
-        if (itemBase != null && itemPickupBase == null)
+        CL.Debug($"OnRemoved {player.PlayerId} {itemBase is null} {itemPickupBase is null}", Main.Instance.Config.Debug);
+        if (itemBase is not null && itemPickupBase is null)
         {
             ushort serial = itemBase.ItemSerial;
-            // Since we remove the item 0.1 delay we wait for 0.2 so all action runs before this item being destroyed
-            Timing.CallDelayed(0.2f, () => {
+            // Since we remove the item 0.1 delay we wait for 0.3 so all action runs before this item being destroyed
+            Timing.CallDelayed(0.3f, () => {
                 CustomItems.SerialToCustomItem.Remove(serial);
             });
             

@@ -57,13 +57,12 @@ public sealed class SpawnCommand : ICommand, IUsageProvider
             response = "Spawn coordinate is wrong! (Z)";
             return false;
         }
-        var customitem = CustomItems.CreateItem(itemname);
-        if (customitem == null)
+        var pickup = CustomItems.Spawn(itemname, new Vector3(x, y, z));
+        if (pickup == null)
         {
             response = "Item creation failed!";
             return false;
         }
-        CustomItems.Spawn(customitem, new Vector3(x, y, z));
         response = $"Done!";
         return true;
     }

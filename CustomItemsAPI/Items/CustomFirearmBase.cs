@@ -194,4 +194,14 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     {
         CL.Debug($"OnHurt {player.PlayerId} {attacker.PlayerId} {firearmDamage.Damage}", Main.Instance.Config.Debug);
     }
+
+    internal void OnChangingAttachments(Player player, FirearmItem firearmItem, uint oldAttachments, TypeWrapper<uint> newState, TypeWrapper<bool> isAllowedHelper)
+    {
+        
+    }
+
+    internal void OnChangedAttachments(Player player, FirearmItem firearmItem, uint oldAttachments, uint newAttachments)
+    {
+        
+    }
 }

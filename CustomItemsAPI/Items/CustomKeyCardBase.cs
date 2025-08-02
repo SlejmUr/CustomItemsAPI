@@ -193,4 +193,14 @@ public abstract class CustomKeyCardBase : CustomItemBase
     {
         CL.Debug($"OnInteractedLocker {player.PlayerId} {locker} {lockerChamber.Id} {canOpen}", Main.Instance.Config.Debug);
     }
+
+    internal void OnInspectingKeycard(Player player, KeycardItem keycardItem, TypeWrapper<bool> isAllowedHelper)
+    {
+        
+    }
+
+    internal void OnInspectedKeycard(Player player, KeycardItem keycardItem)
+    {
+        
+    }
 }
