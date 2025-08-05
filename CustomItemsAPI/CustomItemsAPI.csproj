@@ -5,7 +5,7 @@
 		<RootNamespace>CustomItemsAPI</RootNamespace>
 		<Copyright>SlejmUr</Copyright>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<Version>0.0.5.5</Version>
+		<Version>0.0.6.0</Version>
 		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
 		<Authors>SlejmUr</Authors>
 		<Company>SlejmUr</Company>
@@ -16,15 +16,5 @@
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 	</PropertyGroup>
 
-	<ItemGroup>
-	<None Include="..\LICENSE.txt">
-		<Pack>True</Pack>
-		<PackagePath>\</PackagePath>
-	</None>
-	<None Include="..\README.md">
-		<Pack>True</Pack>
-		<PackagePath>\</PackagePath>
-		</None>
-	</ItemGroup>
 
 </Project>

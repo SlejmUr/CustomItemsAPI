@@ -2,7 +2,8 @@
 using CustomItemsAPI.Extensions;
 using InventorySystem.Items.Armor;
 using System.ComponentModel;
-using CustomItemsAPI.Helpers;
+using LabApiExtensions.Configs;
+using LabApiExtensions.Managers;
 
 namespace CustomItemsAPI.Items;
 
@@ -51,10 +52,10 @@ public abstract class CustomArmorBase : CustomItemBase
             throw new ArgumentOutOfRangeException("Type", item.Type, "Invalid Armor type.");
         if (item is not BodyArmorItem body)
             throw new ArgumentException("Body must not be null!");
-        HelmetEfficacy.MathWithValue(ref body.Base.HelmetEfficacy);
-        VestEfficacy.MathWithValue(ref body.Base.VestEfficacy);
-        StaminaUseMultiplier.MathWithValue(ref body.Base._staminaUseMultiplier);
-        MovementSpeedMultiplier.MathWithValue(ref body.Base._movementSpeedMultiplier);
+        HelmetEfficacy.MathCalculation(ref body.Base.HelmetEfficacy);
+        VestEfficacy.MathCalculation(ref body.Base.VestEfficacy);
+        StaminaUseMultiplier.MathCalculation(ref body.Base._staminaUseMultiplier);
+        MovementSpeedMultiplier.MathCalculation(ref body.Base._movementSpeedMultiplier);
         if (AmmoLimits != null)
         {
             List<BodyArmor.ArmorAmmoLimit> ValidLimits = new(AmmoLimits.Count);

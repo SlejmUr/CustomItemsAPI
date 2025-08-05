@@ -1,5 +1,6 @@
-﻿using CustomItemsAPI.Helpers;
-using InventorySystem.Items.Jailbird;
+﻿using InventorySystem.Items.Jailbird;
+using LabApiExtensions.Configs;
+using LabApiExtensions.Managers;
 
 namespace CustomItemsAPI.Classes;
 
@@ -55,15 +56,15 @@ public class JailbirdItemClass
     /// <param name="jailbirdItem"></param>
     public void Apply(JailbirdItem jailbirdItem)
     {
-        MeleeDelay.MathWithValue(ref jailbirdItem._meleeDelay);
-        MeleeCooldown.MathWithValue(ref jailbirdItem._meleeCooldown);
-        ChargeDuration.MathWithValue(ref jailbirdItem._chargeDuration);
-        ChargeReadyTime.MathWithValue(ref jailbirdItem._chargeReadyTime);
-        ChargeMovementSpeedMultiplier.MathWithValue(ref jailbirdItem._chargeMovementSpeedMultiplier);
-        ChargeMovementSpeedLimiter.MathWithValue(ref jailbirdItem._chargeMovementSpeedLimiter);
-        ChargeCancelVelocitySqr.MathWithValue(ref jailbirdItem._chargeCancelVelocitySqr);
-        ChargeAutoengageTime.MathWithValue(ref jailbirdItem._chargeAutoengageTime);
-        ChargeDetectionDelay.MathWithValue(ref jailbirdItem._chargeDetectionDelay);
-        BrokenRemoveTime.MathWithValue(ref jailbirdItem._brokenRemoveTime);
+        MeleeDelay.MathCalculation(ref jailbirdItem._meleeDelay);
+        MeleeCooldown.MathCalculation(ref jailbirdItem._meleeCooldown);
+        ChargeDuration.MathCalculation(ref jailbirdItem._chargeDuration);
+        ChargeReadyTime.MathCalculation(ref jailbirdItem._chargeReadyTime);
+        ChargeMovementSpeedMultiplier.MathCalculation(ref jailbirdItem._chargeMovementSpeedMultiplier);
+        ChargeMovementSpeedLimiter.MathCalculation(ref jailbirdItem._chargeMovementSpeedLimiter);
+        ChargeCancelVelocitySqr.MathCalculation(ref jailbirdItem._chargeCancelVelocitySqr);
+        ChargeAutoengageTime.MathCalculation(ref jailbirdItem._chargeAutoengageTime);
+        ChargeDetectionDelay.MathCalculation(ref jailbirdItem._chargeDetectionDelay);
+        BrokenRemoveTime.MathCalculation(ref jailbirdItem._brokenRemoveTime);
     }
 }

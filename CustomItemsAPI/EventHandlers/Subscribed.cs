@@ -53,13 +53,4 @@ internal sealed class Subscribed
             return;
         cur_item.OnInspectRequested(microHIDItem);
     }
-
-    internal static void Jailbird_OnRpcReceived(ushort Serial, JailbirdMessageType type)
-    {
-        if (!CustomItems.TryGetCustomItem(Serial, out CustomJailbirdBase cur_item))
-            return;
-        if (Item.Get(Serial) is not LabApi.Features.Wrappers.JailbirdItem microHIDItem)
-            return;
-        cur_item.OnReceived(microHIDItem, type);
-    }
 }

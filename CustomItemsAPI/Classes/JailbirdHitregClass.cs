@@ -1,5 +1,6 @@
-﻿using CustomItemsAPI.Helpers;
-using InventorySystem.Items.Jailbird;
+﻿using InventorySystem.Items.Jailbird;
+using LabApiExtensions.Configs;
+using LabApiExtensions.Managers;
 
 namespace CustomItemsAPI.Classes;
 
@@ -44,11 +45,11 @@ public class JailbirdHitregClass
     /// <param name="jailbirdHitreg"></param>
     public void Apply(JailbirdHitreg jailbirdHitreg)
     {
-        HitregOffset.MathWithValue(ref jailbirdHitreg._hitregOffset);
-        HitregRadius.MathWithValue(ref jailbirdHitreg._hitregRadius);
-        DamageMelee.MathWithValue(ref jailbirdHitreg._damageMelee);
-        DamageCharge.MathWithValue(ref jailbirdHitreg._damageCharge);
-        ConcussionDuration.MathWithValue(ref jailbirdHitreg._concussionDuration);
-        FlashedDuration.MathWithValue(ref jailbirdHitreg._flashedDuration);
+        HitregOffset.MathCalculation(ref jailbirdHitreg._hitregOffset);
+        HitregRadius.MathCalculation(ref jailbirdHitreg._hitregRadius);
+        DamageMelee.MathCalculation(ref jailbirdHitreg._damageMelee);
+        DamageCharge.MathCalculation(ref jailbirdHitreg._damageCharge);
+        ConcussionDuration.MathCalculation(ref jailbirdHitreg._concussionDuration);
+        FlashedDuration.MathCalculation(ref jailbirdHitreg._flashedDuration);
     }
 }

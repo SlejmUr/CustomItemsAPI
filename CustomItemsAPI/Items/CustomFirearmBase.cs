@@ -4,6 +4,8 @@ using CustomItemsAPI.Interfaces;
 using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Modules;
 using LabApi.Features.Wrappers;
+using LabApiExtensions.Configs;
+using LabApiExtensions.Managers;
 using PlayerStatsSystem;
 
 namespace CustomItemsAPI.Items;
@@ -180,7 +182,7 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     public virtual void OnHurting(Player player, Player attacker, FirearmDamageHandler firearmDamage, TypeWrapper<bool> isAllowedHelper)
     {
         CL.Debug($"OnHurting (Before) {player.PlayerId} {attacker.PlayerId} {firearmDamage.Damage}", Main.Instance.Config.Debug);
-        firearmDamage.Damage = Damage.MathWithValue(firearmDamage.Damage);
+        firearmDamage.Damage = Damage.MathCalculation(firearmDamage.Damage);
         CL.Debug($"OnHurting (After) {player.PlayerId} {attacker.PlayerId} {firearmDamage.Damage}", Main.Instance.Config.Debug);
     }
 
@@ -195,13 +197,28 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
         CL.Debug($"OnHurt {player.PlayerId} {attacker.PlayerId} {firearmDamage.Damage}", Main.Instance.Config.Debug);
     }
 
-    internal void OnChangingAttachments(Player player, FirearmItem firearmItem, uint oldAttachments, TypeWrapper<uint> newState, TypeWrapper<bool> isAllowedHelper)
+    /// <summary>
+    /// This <paramref name="player"/> changing <paramref name="firearmItem"/> attachment from <paramref name="oldAttachments"/> to <paramref name="newState"/>.
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="firearmItem"></param>
+    /// <param name="oldAttachments"></param>
+    /// <param name="newState"></param>
+    /// <param name="isAllowedHelper"></param>
+    public virtual void OnChangingAttachments(Player player, FirearmItem firearmItem, uint oldAttachments, TypeWrapper<uint> newState, TypeWrapper<bool> isAllowedHelper)
     {
-        
+        CL.Debug($"OnChangedAttachments {player.PlayerId} {firearmItem.Serial} {oldAttachments} {newState.Value}", Main.Instance.Config.Debug);
     }
 
-    internal void OnChangedAttachments(Player player, FirearmItem firearmItem, uint oldAttachments, uint newAttachments)
+    /// <summary>
+    /// This <paramref name="player"/> changed <paramref name="firearmItem"/> attachment from <paramref name="oldAttachments"/> to <paramref name="newAttachments"/>.
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="firearmItem"></param>
+    /// <param name="oldAttachments"></param>
+    /// <param name="newAttachments"></param>
+    public virtual void OnChangedAttachments(Player player, FirearmItem firearmItem, uint oldAttachments, uint newAttachments)
     {
-        
+        CL.Debug($"OnChangedAttachments {player.PlayerId} {firearmItem.Serial} {oldAttachments} {newAttachments}", Main.Instance.Config.Debug);
     }
 }

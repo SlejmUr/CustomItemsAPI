@@ -88,7 +88,6 @@ internal sealed class FirearmHandler : CustomEventsHandler
     #endregion
     #region Attachments
     public override void OnPlayerChangingAttachments(PlayerChangingAttachmentsEventArgs ev)
-
     {
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
         TypeWrapper<uint> newState = new(ev.NewAttachments);

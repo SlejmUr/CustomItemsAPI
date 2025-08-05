@@ -1,5 +1,6 @@
-﻿using CustomItemsAPI.Helpers;
-using InventorySystem.Items.Firearms.Modules;
+﻿using InventorySystem.Items.Firearms.Modules;
+using LabApiExtensions.Configs;
+using LabApiExtensions.Managers;
 
 namespace CustomItemsAPI.Classes;
 
@@ -31,9 +32,9 @@ public class A7Burn
     /// <param name="burnEffectModule"></param>
     public void Apply(ref A7BurnEffectModule burnEffectModule)
     {
-        MaxDuration.MathWithValue(ref burnEffectModule._maxDuration);
-        PerShotDuration.MathWithValue(ref burnEffectModule._perShotDuration);
-        ForwardOffset.MathWithValue(ref burnEffectModule._forwardOffset);
-        Radius.MathWithValue(ref burnEffectModule._radius);
+        MaxDuration.MathCalculation(ref burnEffectModule._maxDuration);
+        PerShotDuration.MathCalculation(ref burnEffectModule._perShotDuration);
+        ForwardOffset.MathCalculation(ref burnEffectModule._forwardOffset);
+        Radius.MathCalculation(ref burnEffectModule._radius);
     }
 }

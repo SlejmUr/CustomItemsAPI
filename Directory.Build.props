@@ -73,6 +73,7 @@
     <Reference Include="UnityEngine.PhysicsModule">
 		<Private>false</Private>
 	</Reference>
+		<Reference Include="LabApiExtensions" Private="false" />
     </ItemGroup>
     <!--  Usings -->
     <ItemGroup>

@@ -29,6 +29,7 @@ internal sealed class Main : Plugin<Config>
     private DamageHandler damageHandler = new();
     private FirearmHandler firearmHandler = new();
     private Scp914Handler scp914Handler = new();
+    private JailbirdHandler jailbirdHandler = new();
 
     public override void Enable()
     {
@@ -41,12 +42,12 @@ internal sealed class Main : Plugin<Config>
         CustomHandlersManager.RegisterEventsHandler(damageHandler);
         CustomHandlersManager.RegisterEventsHandler(firearmHandler);
         CustomHandlersManager.RegisterEventsHandler(scp914Handler);
+        CustomHandlersManager.RegisterEventsHandler(jailbirdHandler);
         InventoryExtensions.OnItemRemoved += Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned += Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged += Subscribed.PhaseChanged;
         BrokenSyncModule.OnBroken += Subscribed.BrokenSyncModule_OnBroken;
         DrawAndInspectorModule.OnInspectRequested += Subscribed.DrawAndInspectorModule_OnInspectRequested;
-        JailbirdItem.OnRpcReceived += Subscribed.Jailbird_OnRpcReceived;
         CustomItems.RegisterCustomItems();
     }
 
@@ -69,12 +70,13 @@ internal sealed class Main : Plugin<Config>
         firearmHandler = null;
         CustomHandlersManager.UnregisterEventsHandler(scp914Handler);
         scp914Handler = null;
+        CustomHandlersManager.UnregisterEventsHandler(jailbirdHandler);
+        jailbirdHandler = null;
         InventoryExtensions.OnItemRemoved -= Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned -= Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged -= Subscribed.PhaseChanged;
         BrokenSyncModule.OnBroken -= Subscribed.BrokenSyncModule_OnBroken;
         DrawAndInspectorModule.OnInspectRequested -= Subscribed.DrawAndInspectorModule_OnInspectRequested;
-        JailbirdItem.OnRpcReceived -= Subscribed.Jailbird_OnRpcReceived;
         CustomItems.UnRegisterAllCustomItems();
     }
 }

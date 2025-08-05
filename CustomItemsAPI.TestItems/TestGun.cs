@@ -1,6 +1,7 @@
 ﻿using CustomItemsAPI.Classes;
 using CustomItemsAPI.Items;
 using LabApi.Features.Wrappers;
+using LabApiExtensions.Enums;
 
 namespace CustomItemsAPI.TestItems;
 
@@ -12,7 +13,7 @@ public class TestGun : CustomFirearmBase
 
     public override A7Burn A7Burn => new()
     {
-        PerShotDuration = new(Helpers.MathOption.Multiply, 2),
+        PerShotDuration = new(MathOption.Multiply, 2),
     };
 
     public override ItemType Type =>  ItemType.GunA7;

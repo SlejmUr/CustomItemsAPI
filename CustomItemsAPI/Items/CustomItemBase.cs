@@ -43,22 +43,22 @@ public abstract class CustomItemBase
     /// <summary>
     /// Overrides a to show a custom picked up show details
     /// </summary>
-    public virtual bool OverrideShowPickedUpHint { get; } = Main.Instance.Config.ShowPickedUpHint;
+    public virtual bool OverrideShowPickedUpHint { get; set; } = Main.Instance.Config.ShowPickedUpHint;
 
     /// <summary>
     /// Overrides the hint for showing custom picked up details
     /// </summary>
-    public virtual string OverridePickedUpHint { get; } = Main.Instance.Config.PickedUpHint;
+    public virtual string OverridePickedUpHint { get; set; } = Main.Instance.Config.PickedUpHint;
 
     /// <summary>
     /// Overrides a to show a custom selected show details
     /// </summary>
-    public virtual bool OverrideShowSelectHint { get; } = Main.Instance.Config.ShowSelectedHint;
+    public virtual bool OverrideShowSelectHint { get; set; } = Main.Instance.Config.ShowSelectedHint;
 
     /// <summary>
     /// Overrides a to show a custom selected show details
     /// </summary>
-    public virtual string OverrideSelectedHint { get; } = Main.Instance.Config.SelectedHint;
+    public virtual string OverrideSelectedHint { get; set; } = Main.Instance.Config.SelectedHint;
 
     /// <summary>
     /// Called once when this instance is registered.
