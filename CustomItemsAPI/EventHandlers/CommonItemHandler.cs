@@ -11,17 +11,17 @@ internal sealed class CommonItemHandler : CustomEventsHandler
     public override void OnPlayerChangingItem(PlayerChangingItemEventArgs ev)
     {
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        if (CustomItems.TryGetCustomItem(ev.Item, out CustomItemBase prev_Item))
+        if (CustomItems.TryGetCustomItem(ev.OldItem, out CustomItemBase prev_Item))
             prev_Item.OnChanging(ev.Player, ev.OldItem, ev.NewItem, false, isAllowedHelper);
-        if (CustomItems.TryGetCustomItem(ev.Item, out CustomItemBase cur_item))
+        if (CustomItems.TryGetCustomItem(ev.NewItem, out CustomItemBase cur_item))
             cur_item.OnChanging(ev.Player, ev.OldItem, ev.NewItem, true, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerChangedItem(PlayerChangedItemEventArgs ev)
     {
-        if (CustomItems.TryGetCustomItem(ev.Item, out CustomItemBase prev_Item))
+        if (CustomItems.TryGetCustomItem(ev.OldItem, out CustomItemBase prev_Item))
             prev_Item.OnChanged(ev.Player, ev.OldItem, ev.NewItem, false);
-        if (CustomItems.TryGetCustomItem(ev.Item, out CustomItemBase cur_item))
+        if (CustomItems.TryGetCustomItem(ev.NewItem, out CustomItemBase cur_item))
             cur_item.OnChanged(ev.Player, ev.OldItem, ev.NewItem, true);
     }
     #endregion

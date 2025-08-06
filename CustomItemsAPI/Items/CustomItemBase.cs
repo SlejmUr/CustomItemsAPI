@@ -130,7 +130,7 @@ public abstract class CustomItemBase
     {
         CL.Debug($"OnChanged {player.PlayerId} {oldItem?.Serial} {newItem?.Serial} {changedToThisItem}", Main.Instance.Config.Debug);
         if (changedToThisItem && OverrideShowSelectHint)
-            HintShow?.Invoke(string.Format(OverrideSelectedHint, DisplayName, Description));
+            HintShow?.Invoke(player, string.Format(OverrideSelectedHint, DisplayName, Description));
     }
 
     /// <summary>
@@ -208,7 +208,7 @@ public abstract class CustomItemBase
     {
         CL.Debug($"OnPicked {player.PlayerId} {item.Serial}", Main.Instance.Config.Debug);
         if (OverrideShowPickedUpHint)
-            HintShow?.Invoke(string.Format(OverridePickedUpHint, DisplayName, Description));
+            HintShow?.Invoke(player, string.Format(OverridePickedUpHint, DisplayName, Description));
     }
 
     /// <summary>
