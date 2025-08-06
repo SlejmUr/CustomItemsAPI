@@ -1,6 +1,4 @@
 ﻿using InventorySystem.Items.Jailbird;
-using LabApiExtensions.Configs;
-using LabApiExtensions.Managers;
 
 namespace CustomItemsAPI.Classes;
 

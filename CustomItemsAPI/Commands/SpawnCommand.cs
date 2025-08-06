@@ -1,7 +1,5 @@
 ﻿using CommandSystem;
-using LabApi.Features.Wrappers;
 using UnityEngine;
-using Utils;
 
 namespace CustomItemsAPI.Commands;
 
@@ -36,7 +34,7 @@ public sealed class SpawnCommand : ICommand, IUsageProvider
             return false;
         }
         string itemname = arguments.At(0);
-        StringComparison comparison = Main.Instance.Config.EasyCompare ?  StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase;
+        StringComparison comparison = Main.Instance.Config.EasyCompare ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase;
         if (!CustomItems.IsItemNameExist(itemname, comparison))
         {
             response = "ItemName not exists!";

@@ -1,15 +1,15 @@
 ﻿using CustomItemsAPI.Helpers;
 using Interactables.Interobjects.DoorUtils;
-using IC = InventorySystem.Items.Keycards;
 using LabApi.Features.Wrappers;
 using UnityEngine;
+using IC = InventorySystem.Items.Keycards;
 
 namespace CustomItemsAPI.Items;
 
 /// <summary>
 /// Custom Item Base for <see cref="ItemCategory.Keycard"/>.
 /// </summary>
-public abstract class CustomKeyCardBase : CustomItemBase 
+public abstract class CustomKeyCardBase : CustomItemBase
 {
     /// <summary>
     /// Sets the permissions for custom keycard.

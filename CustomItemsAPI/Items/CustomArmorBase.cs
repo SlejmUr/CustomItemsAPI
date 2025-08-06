@@ -1,9 +1,7 @@
-﻿using LabApi.Features.Wrappers;
-using CustomItemsAPI.Extensions;
+﻿using CustomItemsAPI.Extensions;
 using InventorySystem.Items.Armor;
+using LabApi.Features.Wrappers;
 using System.ComponentModel;
-using LabApiExtensions.Configs;
-using LabApiExtensions.Managers;
 
 namespace CustomItemsAPI.Items;
 

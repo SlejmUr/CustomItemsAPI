@@ -13,10 +13,12 @@ public abstract class CustomSingleUseKeyCardBase : CustomKeyCardBase
     /// Sets the single usage <see cref="DoorPermissionFlags"/> for this keycard.
     /// </summary>
     public virtual DoorPermissionFlags SingleUsePermission { get; } = DoorPermissionFlags.None;
+
     /// <summary>
     /// Sets the value for allowing closing doors.
     /// </summary>
     public virtual bool? AllowClosingDoors { get; }
+
     /// <summary>
     /// Sets the time to destroy this item.
     /// </summary>

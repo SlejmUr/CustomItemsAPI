@@ -1,12 +1,12 @@
-﻿using InventorySystem.Items.Autosync;
-using InventorySystem.Items.Pickups;
-using InventorySystem.Items;
-using LabApi.Features.Wrappers;
-using UnityEngine;
-using CustomItemsAPI.Helpers;
+﻿using CustomItemsAPI.Helpers;
 using CustomItemsAPI.Interfaces;
-using Scp914;
+using InventorySystem.Items;
+using InventorySystem.Items.Autosync;
+using InventorySystem.Items.Pickups;
+using LabApi.Features.Wrappers;
 using MEC;
+using Scp914;
+using UnityEngine;
 
 namespace CustomItemsAPI.Items;
 
@@ -15,7 +15,7 @@ namespace CustomItemsAPI.Items;
 /// </summary>
 public abstract class CustomItemBase
 {
-    internal const float UnregisterTime = 0.3f; 
+    internal const float UnregisterTime = 0.3f;
     /// <summary>
     /// Action to show custom hint. Can be used with any hint framework or even disabling it (null).
     /// </summary>
@@ -73,7 +73,7 @@ public abstract class CustomItemBase
     {
         CL.Debug($"OnRegistered {this.GetType()} {this.CustomItemName}", Main.Instance.Config.Debug);
     }
-    
+
     /// <summary>
     /// Called once when this instance is unregistered.
     /// </summary>
@@ -277,11 +277,11 @@ public abstract class CustomItemBase
         if (itemBase is not null && itemPickupBase is null)
         {
             ushort serial = itemBase.ItemSerial;
-            Timing.CallDelayed(UnregisterTime, () => 
+            Timing.CallDelayed(UnregisterTime, () =>
             {
                 CustomItems.SerialToCustomItem.Remove(serial);
             });
-            
+
         }
     }
 }

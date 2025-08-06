@@ -1,10 +1,9 @@
-﻿using LabApi.Loader.Features.Plugins;
-using LabApi.Events.CustomHandlers;
-using CustomItemsAPI.EventHandlers;
+﻿using CustomItemsAPI.EventHandlers;
 using InventorySystem;
-using InventorySystem.Items.ThrowableProjectiles;
 using InventorySystem.Items.MicroHID.Modules;
-using InventorySystem.Items.Jailbird;
+using InventorySystem.Items.ThrowableProjectiles;
+using LabApi.Events.CustomHandlers;
+using LabApi.Loader.Features.Plugins;
 
 namespace CustomItemsAPI;
 

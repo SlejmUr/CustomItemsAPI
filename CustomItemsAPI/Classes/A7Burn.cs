@@ -1,6 +1,4 @@
 ﻿using InventorySystem.Items.Firearms.Modules;
-using LabApiExtensions.Configs;
-using LabApiExtensions.Managers;
 
 namespace CustomItemsAPI.Classes;
 

@@ -496,7 +496,7 @@ public static class CustomItems
         if (assembly == typeof(CustomItems).Assembly)
             return;
         List<Type> types = [.. assembly.GetTypes().
-            Where(item => 
+            Where(item =>
                 !item.IsAbstract &&
                 typeof(CustomItemBase).IsAssignableFrom(item))];
         foreach (Type type in types)
@@ -562,7 +562,7 @@ public static class CustomItems
     /// <param name="type">The <see cref="Type"/> of a <see cref="CustomItemBase"/>.</param>
     public static void UnRegisterCustomItem(Type type)
     {
-        CustomItemBaseList.RemoveWhere(x=>x.GetType() == type);
+        CustomItemBaseList.RemoveWhere(x => x.GetType() == type);
     }
 
     /// <summary>
@@ -584,7 +584,7 @@ public static class CustomItems
     {
         Assembly assembly = Assembly.GetCallingAssembly();
         List<Type> types = [.. assembly.GetTypes().Where(x => !x.IsAbstract).Where(item => item.BaseType == typeof(CustomItemBase) || item.BaseType.IsSubclassOf(typeof(CustomItemBase)))];
-        foreach (var item in CustomItemBaseList.Where(x=> types.Contains(x.GetType())).ToList())
+        foreach (var item in CustomItemBaseList.Where(x => types.Contains(x.GetType())).ToList())
         {
             UnRegisterCustomItem(item);
         }

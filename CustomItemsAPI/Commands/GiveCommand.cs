@@ -38,7 +38,7 @@ public sealed class GiveCommand : ICommand, IUsageProvider
         }
         players.Add(player);
         string itemname = arguments.At(0);
-        StringComparison comparison = Main.Instance.Config.EasyCompare ?  StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase;
+        StringComparison comparison = Main.Instance.Config.EasyCompare ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase;
         if (!CustomItems.IsItemNameExist(itemname, comparison))
         {
             response = "ItemName not exists!";

@@ -1,11 +1,9 @@
 ﻿using CustomItemsAPI.Items;
 using InventorySystem.Items;
-using InventorySystem.Items.Jailbird;
 using InventorySystem.Items.MicroHID.Modules;
 using InventorySystem.Items.Pickups;
 using InventorySystem.Items.ThrowableProjectiles;
 using LabApi.Features.Wrappers;
-using MEC;
 
 namespace CustomItemsAPI.EventHandlers;
 

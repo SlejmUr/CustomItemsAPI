@@ -2,7 +2,6 @@
 using CustomItemsAPI.Items;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;
-using LabApi.Features.Wrappers;
 
 namespace CustomItemsAPI.EventHandlers;
 

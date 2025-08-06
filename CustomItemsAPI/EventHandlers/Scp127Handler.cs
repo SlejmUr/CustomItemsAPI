@@ -1,10 +1,8 @@
 using CustomItemsAPI.Helpers;
 using CustomItemsAPI.Items;
-using InventorySystem.Items.Firearms;
 using InventorySystem.Items.Firearms.Modules.Scp127;
 using LabApi.Events.Arguments.Scp127Events;
 using LabApi.Events.CustomHandlers;
-using LabApi.Features.Wrappers;
 
 namespace CustomItemsAPI.EventHandlers;
 
