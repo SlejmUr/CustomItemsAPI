@@ -33,10 +33,8 @@ internal sealed class Scp127Handler : CustomEventsHandler
         if (!CustomItems.TryGetCustomItem(ev.Scp127Item, out CustomScp127Base cur_item))
             return;
         TypeWrapper<bool> isAllowed = new(ev.IsAllowed);
-        TypeWrapper<Scp127Tier> tier = new(ev.Tier);
-        cur_item.OnLevellingUp(ev.Scp127Item, tier, isAllowed);
+        cur_item.OnLevellingUp(ev.Scp127Item, ev.Tier, isAllowed);
         ev.IsAllowed = isAllowed.Value;
-        ev.Tier = tier.Value;
     }
 
     public override void OnScp127LevelUp(Scp127LevelUpEventArgs ev)

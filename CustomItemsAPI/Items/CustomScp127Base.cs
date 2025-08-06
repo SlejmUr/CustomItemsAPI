@@ -34,7 +34,7 @@ public abstract class CustomScp127Base : CustomFirearmBase
 
     }
 
-    public virtual void OnLevellingUp(Scp127Firearm fierarm, TypeWrapper<Scp127Tier> tier, TypeWrapper<bool> isAllowed)
+    public virtual void OnLevellingUp(Scp127Firearm fierarm, Scp127Tier tier, TypeWrapper<bool> isAllowed)
     {
 
     }
