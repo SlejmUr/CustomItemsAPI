@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34607.119
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomItemsAPI", "CustomItemsAPI\CustomItemsAPI.csproj", "{7F54DC68-60EA-4541-8633-4376973F465D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomItemsAPI", "CustomItemsAPI/CustomItemsAPI.csproj", "{7F54DC68-60EA-4541-8633-4376973F465D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomItemsAPI.TestItems", "CustomItemsAPI.TestItems\CustomItemsAPI.TestItems.csproj", "{3FE3FDC4-A812-99EE-1E88-C81A31181CB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomItemsAPI.TestItems", "CustomItemsAPI.TestItems/CustomItemsAPI.TestItems.csproj", "{3FE3FDC4-A812-99EE-1E88-C81A31181CB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

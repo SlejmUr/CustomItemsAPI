@@ -12,11 +12,11 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     
     #LabAPI references
     env:
-      REFERENCES_URL: https://exslmod-team.github.io/SL-References/Dev.zip
+      REFERENCES_URL: https://exmod-team.github.io/SL-References/Dev.zip
       REFERENCES_PATH: ${{ github.workspace }}/References
       MAINPATH: CustomItemsAPI/CustomItemsAPI.csproj
       TESTPATH: CustomItemsAPI.TestItems/CustomItemsAPI.TestItems.csproj
@@ -31,15 +31,18 @@ jobs:
           dotnet-version: 9.0.x
           
       - name: Download References
-        shell: pwsh
         run: |
-          Invoke-WebRequest -Uri ${{ env.REFERENCES_URL }} -OutFile "${{ github.workspace }}/References.zip"
-          Expand-Archive -Path "${{ github.workspace }}/References.zip" -DestinationPath ${{ env.REFERENCES_PATH }}
+          wget -O "${{ github.workspace }}/References.zip" ${{ env.REFERENCES_URL }}
+          unzip -d ${{ env.REFERENCES_PATH }} "${{ github.workspace }}/References.zip"
+
+      - name: Rename Assembly-CSharp-Publicized to Assembly-CSharp
+        run: |
+          mv "${{ env.REFERENCES_PATH }}/Assembly-CSharp-Publicized.dll" "${{ env.REFERENCES_PATH }}/Assembly-CSharp.dll"
+
 
       - name: Build Main
         env:
           SL_REFERENCES: ${{ env.REFERENCES_PATH }}
-        shell: pwsh
         run: |
           dotnet build ${{ env.MAINPATH }} -c Release -o:Main
 
@@ -53,7 +56,6 @@ jobs:
       - name: Build Package
         env:
           SL_REFERENCES: ${{ env.REFERENCES_PATH }}
-        shell: pwsh
         run: |
           dotnet pack ${{ env.MAINPATH }} -c Release -o:PKG
 
@@ -67,7 +69,6 @@ jobs:
       - name: Build Test
         env:
           SL_REFERENCES: ${{ env.REFERENCES_PATH }}
-        shell: pwsh
         run: |
           dotnet build ${{ env.TESTPATH }} -c Release -o:Test
 

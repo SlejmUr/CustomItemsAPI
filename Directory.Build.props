@@ -1,7 +1,7 @@
 <Project>
     <!-- See https://aka.ms/dotnet/msbuild/customize for more details on customizing your build -->
     <PropertyGroup>
-        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
         <OutputType>Library</OutputType>
         <FileAlignment>512</FileAlignment>
@@ -17,37 +17,24 @@
         <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
         <Nullable>annotations</Nullable>
     </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-        <DebugSymbols>true</DebugSymbols>
-        <DebugType>full</DebugType>
-        <Optimize>false</Optimize>
-        <OutputPath>bin\Debug\</OutputPath>
-        <DefineConstants>DEBUG;TRACE</DefineConstants>
-    </PropertyGroup>
-    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-        <DebugType>none</DebugType>
-        <Optimize>true</Optimize>
-        <OutputPath>bin\Release\</OutputPath>
-        <DefineConstants>TRACE</DefineConstants>
-    </PropertyGroup>
     <ItemGroup>
 		  <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.3" PrivateAssets="all" ExcludeAssets="runtime" ReferenceOutputAssembly="false" Private="true" />
     </ItemGroup>
     <ItemGroup>
-	    <Reference Include="Assembly-CSharp" Publicize="true" Private="false" />
-      <Reference Include="Assembly-CSharp-firstpass" Private="false" />
-      <Reference Include="CommandSystem.Core" Private="false" />
-      <Reference Include="Mirror" Private="false" />
-      <Reference Include="Mirror.Components" Private="false" />
-      <Reference Include="Pooling" Private="false" />
-      <Reference Include="LabApi" Private="false" />
-      <Reference Include="Unity.TextMeshPro" Private="false" />
-      <Reference Include="UnityEngine" Private="false" />
-      <Reference Include="UnityEngine.AudioModule" Private="false" />
-      <Reference Include="UnityEngine.CoreModule" Private="false" />
-      <Reference Include="UnityEngine.ParticleSystemModule" Private="false" />
-      <Reference Include="UnityEngine.PhysicsModule" Private="false" />
-      <Reference Include="LabApiExtensions" Private="false" />
+        <Reference Include="Assembly-CSharp" Publicize="true" Private="false" />
+        <Reference Include="Assembly-CSharp-firstpass" Private="false" />
+        <Reference Include="CommandSystem.Core" Private="false" />
+        <Reference Include="Mirror" Private="false" />
+        <Reference Include="Mirror.Components" Private="false" />
+        <Reference Include="Pooling" Private="false" />
+        <Reference Include="LabApi" Private="false" />
+        <Reference Include="Unity.TextMeshPro" Private="false" />
+        <Reference Include="UnityEngine" Private="false" />
+        <Reference Include="UnityEngine.AudioModule" Private="false" />
+        <Reference Include="UnityEngine.CoreModule" Private="false" />
+        <Reference Include="UnityEngine.ParticleSystemModule" Private="false" />
+        <Reference Include="UnityEngine.PhysicsModule" Private="false" />
+        <Reference Include="LabApiExtensions" Private="false" />
     </ItemGroup>
     <!--  Usings -->
     <ItemGroup>
