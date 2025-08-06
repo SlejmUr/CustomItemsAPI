@@ -1,6 +1,6 @@
 using CustomItemsAPI.Helpers;
 using CustomItemsAPI.Items;
-using LabApi.Events.Arguments.PlayerEvents;
+using LabApi.Events.Arguments.Scp127Events;
 using LabApi.Events.CustomHandlers;
 using LabApi.Features.Wrappers;
 
