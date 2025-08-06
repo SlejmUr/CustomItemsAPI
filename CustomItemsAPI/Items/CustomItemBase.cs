@@ -16,6 +16,9 @@ namespace CustomItemsAPI.Items;
 public abstract class CustomItemBase
 {
     internal const float UnregisterTime = 0.3f; 
+    /// <summary>
+    /// Action to show custom hint. Can be used with any hint framework or even disabling it (null).
+    /// </summary>
     public Action<Player, string>? HintShow = (player, hint) => player.SendHint(hint);
 
     /// <summary>
