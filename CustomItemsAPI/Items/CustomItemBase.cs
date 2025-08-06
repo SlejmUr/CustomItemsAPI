@@ -15,7 +15,7 @@ namespace CustomItemsAPI.Items;
 /// </summary>
 public abstract class CustomItemBase
 {
-    internal const UnregisterTime = 0.3f; 
+    internal const float UnregisterTime = 0.3f; 
     public Action<Player, string>? HintShow = (player, hint) => player.SendHint(hint);
 
     /// <summary>
