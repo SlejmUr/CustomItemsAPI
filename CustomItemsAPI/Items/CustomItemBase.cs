@@ -27,7 +27,7 @@ public abstract class CustomItemBase
     public abstract string CustomItemName { get; set; }
 
     /// <summary>
-    /// Item description for admins.
+    /// Item description for admins/players.
     /// </summary>
     public abstract string Description { get; set; }
 
@@ -37,7 +37,7 @@ public abstract class CustomItemBase
     public abstract ItemType Type { get; }
 
     /// <summary>
-    /// Name of your custom item.
+    /// Name of your custom item to display to others.
     /// </summary>
     public virtual string DisplayName { get; set; }
 
@@ -62,7 +62,7 @@ public abstract class CustomItemBase
     public virtual bool OverrideShowSelectHint { get; set; } = Main.Instance.Config.ShowSelectedHint;
 
     /// <summary>
-    /// Overrides a to show a custom selected show details
+    /// Overrides the hint for showing custom selected details
     /// </summary>
     public virtual string OverrideSelectedHint { get; set; } = Main.Instance.Config.SelectedHint;
 
