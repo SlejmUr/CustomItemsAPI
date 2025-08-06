@@ -1,5 +1,4 @@
-﻿using CustomItemsAPI.Helpers;
-using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Items;
 using InventorySystem.Items.Jailbird;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;

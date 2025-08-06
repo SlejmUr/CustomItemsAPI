@@ -1,4 +1,3 @@
-using CustomItemsAPI.Helpers;
 using InventorySystem.Items.Firearms.Modules.Scp127;
 using LabApi.Features.Wrappers;
 

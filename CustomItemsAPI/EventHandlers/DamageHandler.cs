@@ -1,5 +1,4 @@
-﻿using CustomItemsAPI.Helpers;
-using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Items;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;
 using PlayerStatsSystem;

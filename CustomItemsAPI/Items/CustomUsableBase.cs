@@ -1,5 +1,4 @@
-﻿using CustomItemsAPI.Helpers;
-using LabApi.Features.Wrappers;
+﻿using LabApi.Features.Wrappers;
 
 namespace CustomItemsAPI.Items;
 

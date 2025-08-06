@@ -1,5 +1,4 @@
-﻿using CustomItemsAPI.Helpers;
-using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Items;
 using LabApi.Events.Arguments.Scp914Events;
 using LabApi.Events.CustomHandlers;
 using Scp914;

@@ -1,5 +1,4 @@
-﻿using CustomItemsAPI.Helpers;
-using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Items;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;
 
@@ -13,7 +12,7 @@ internal sealed class ArmorHandler : CustomEventsHandler
             return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
         cur_item.OnPicking(ev.Player, ev.BodyArmorPickup, isAllowedHelper);
-        ev.IsAllowed = isAllowedHelper.Value;
+        ev.IsAllowed = isAllowedHelper;
     }
 
     public override void OnPlayerPickedUpArmor(PlayerPickedUpArmorEventArgs ev)

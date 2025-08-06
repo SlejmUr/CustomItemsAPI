@@ -1,5 +1,4 @@
-﻿using CustomItemsAPI.Helpers;
-using Interactables.Interobjects.DoorUtils;
+﻿using Interactables.Interobjects.DoorUtils;
 using LabApi.Features.Wrappers;
 using UnityEngine;
 using IC = InventorySystem.Items.Keycards;

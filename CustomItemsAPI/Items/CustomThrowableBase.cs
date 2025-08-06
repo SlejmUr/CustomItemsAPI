@@ -1,5 +1,4 @@
-﻿using CustomItemsAPI.Helpers;
-using InventorySystem.Items.ThrowableProjectiles;
+﻿using InventorySystem.Items.ThrowableProjectiles;
 using LabApi.Features.Wrappers;
 using PSettings = InventorySystem.Items.ThrowableProjectiles.ThrowableItem.ProjectileSettings;
 
