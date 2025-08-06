@@ -84,16 +84,18 @@ internal sealed class KeyCardItemHandler : CustomEventsHandler
     #region Inspect Keycard
     public override void OnPlayerInspectingKeycard(PlayerInspectingKeycardEventArgs ev)
     {
+        if (!CustomItems.TryGetCustomItem(ev.KeycardItem, out CustomKeyCardBase cur_item))
+            return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        var cur_item = CustomItems.GetCustomItem<CustomKeyCardBase>(ev.KeycardItem);
-        cur_item?.OnInspectingKeycard(ev.Player, ev.KeycardItem, isAllowedHelper);
+        cur_item.OnInspectingKeycard(ev.Player, ev.KeycardItem, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
 
     public override void OnPlayerInspectedKeycard(PlayerInspectedKeycardEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomKeyCardBase>(ev.KeycardItem);
-        cur_item?.OnInspectedKeycard(ev.Player, ev.KeycardItem);
+        if (!CustomItems.TryGetCustomItem(ev.KeycardItem, out CustomKeyCardBase cur_item))
+            return;
+        cur_item.OnInspectedKeycard(ev.Player, ev.KeycardItem);
     }
     #endregion
 }

@@ -15,6 +15,9 @@ namespace CustomItemsAPI.Items;
 /// </summary>
 public abstract class CustomItemBase
 {
+    internal const UnregisterTime = 0.3f; 
+    public Action<Player, string>? HintShow = (player, hint) => player.SendHint(hint);
+
     /// <summary>
     /// Name of your custom item.
     /// </summary>
@@ -113,7 +116,7 @@ public abstract class CustomItemBase
     /// </summary>
     public virtual void OnDistribute()
     {
-        CL.Debug($"OnDistribute  {this.GetType()} {this.CustomItemName}", Main.Instance.Config.Debug);
+        CL.Debug($"OnDistribute {this.GetType()} {this.CustomItemName}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -127,7 +130,7 @@ public abstract class CustomItemBase
     {
         CL.Debug($"OnChanged {player.PlayerId} {oldItem?.Serial} {newItem?.Serial} {changedToThisItem}", Main.Instance.Config.Debug);
         if (changedToThisItem && OverrideShowSelectHint)
-            player.SendHint(string.Format(OverrideSelectedHint, DisplayName, Description));
+            HintShow?.Invoke(string.Format(OverrideSelectedHint, DisplayName, Description));
     }
 
     /// <summary>
@@ -205,7 +208,7 @@ public abstract class CustomItemBase
     {
         CL.Debug($"OnPicked {player.PlayerId} {item.Serial}", Main.Instance.Config.Debug);
         if (OverrideShowPickedUpHint)
-            player.SendHint(string.Format(OverridePickedUpHint, DisplayName, Description));
+            HintShow?.Invoke(string.Format(OverridePickedUpHint, DisplayName, Description));
     }
 
     /// <summary>
@@ -271,8 +274,8 @@ public abstract class CustomItemBase
         if (itemBase is not null && itemPickupBase is null)
         {
             ushort serial = itemBase.ItemSerial;
-            // Since we remove the item 0.1 delay we wait for 0.3 so all action runs before this item being destroyed
-            Timing.CallDelayed(0.3f, () => {
+            Timing.CallDelayed(UnregisterTime, () => 
+            {
                 CustomItems.SerialToCustomItem.Remove(serial);
             });
             

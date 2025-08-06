@@ -22,9 +22,10 @@ internal sealed class DamageHandler : CustomEventsHandler
             return;
         if (firearmDamageHandler.Firearm == null)
             return;
+        if (!CustomItems.TryGetCustomItem(firearmDamageHandler.Firearm.ItemSerial, out CustomFirearmBase cur_item))
+            return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        var citem = CustomItems.GetCustomItem<CustomFirearmBase>(firearmDamageHandler.Firearm.ItemSerial);
-        citem?.OnHurting(ev.Player, ev.Attacker, firearmDamageHandler, isAllowedHelper);
+        cur_item.OnHurting(ev.Player, ev.Attacker, firearmDamageHandler, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
 
@@ -42,7 +43,8 @@ internal sealed class DamageHandler : CustomEventsHandler
             return;
         if (firearmDamageHandler.Firearm == null)
             return;
-        var citem = CustomItems.GetCustomItem<CustomFirearmBase>(firearmDamageHandler.Firearm.ItemSerial);
-        citem?.OnHurt(ev.Player, ev.Attacker, firearmDamageHandler);
+        if (!CustomItems.TryGetCustomItem(firearmDamageHandler.Firearm.ItemSerial, out CustomFirearmBase cur_item))
+            return;
+        cur_item.OnHurt(ev.Player, ev.Attacker, firearmDamageHandler);
     }
 }

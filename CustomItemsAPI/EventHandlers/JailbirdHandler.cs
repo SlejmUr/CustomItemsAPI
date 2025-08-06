@@ -16,7 +16,7 @@ internal sealed class JailbirdHandler : CustomEventsHandler
         TypeWrapper<JailbirdMessageType> message = new(ev.Message);
         TypeWrapper<bool> allowInspectHelper = new(ev.AllowInspect);
         TypeWrapper<bool> allowAttackHelper = new(ev.AllowAttack);
-        cur_item?.ProcessingJailbirdMessage(ev.Player, ev.JailbirdItem, message, allowInspectHelper, allowAttackHelper, isAllowedHelper);
+        cur_item.ProcessingJailbirdMessage(ev.Player, ev.JailbirdItem, message, allowInspectHelper, allowAttackHelper, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
         ev.Message = message.Value;
         ev.AllowAttack = allowAttackHelper.Value;
@@ -27,6 +27,6 @@ internal sealed class JailbirdHandler : CustomEventsHandler
     {
         if (!CustomItems.TryGetCustomItem(ev.JailbirdItem, out CustomJailbirdBase cur_item))
             return;
-        cur_item?.ProcessedJailbirdMessage(ev.Player, ev.JailbirdItem, ev.Message);
+        cur_item.ProcessedJailbirdMessage(ev.Player, ev.JailbirdItem, ev.Message);
     }
 }

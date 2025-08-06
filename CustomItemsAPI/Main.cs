@@ -17,7 +17,7 @@ internal sealed class Main : Plugin<Config>
 
     public override string Author => "SlejmUr";
 
-    public override Version Version => new(0, 0, 5, 5);
+    public override Version Version => new(0, 0, 6, 0);
 
     public override Version RequiredApiVersion => LabApi.Features.LabApiProperties.CurrentVersion;
 
@@ -30,6 +30,8 @@ internal sealed class Main : Plugin<Config>
     private FirearmHandler firearmHandler = new();
     private Scp914Handler scp914Handler = new();
     private JailbirdHandler jailbirdHandler = new();
+    private RevolverHandler revolverHandler = new();
+    private Scp127Handler scp127Handler = new();
 
     public override void Enable()
     {
@@ -43,6 +45,8 @@ internal sealed class Main : Plugin<Config>
         CustomHandlersManager.RegisterEventsHandler(firearmHandler);
         CustomHandlersManager.RegisterEventsHandler(scp914Handler);
         CustomHandlersManager.RegisterEventsHandler(jailbirdHandler);
+        CustomHandlersManager.RegisterEventsHandler(revolverHandler);
+        CustomHandlersManager.RegisterEventsHandler(scp127Handler);
         InventoryExtensions.OnItemRemoved += Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned += Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged += Subscribed.PhaseChanged;
@@ -53,25 +57,17 @@ internal sealed class Main : Plugin<Config>
 
     public override void Disable()
     {
-        Instance = null;
         CustomHandlersManager.UnregisterEventsHandler(commonItemHandler);
-        commonItemHandler = null;
         CustomHandlersManager.UnregisterEventsHandler(keyCardItemHandler);
-        keyCardItemHandler = null;
         CustomHandlersManager.UnregisterEventsHandler(nonItemRelatedHandler);
-        nonItemRelatedHandler = null;
         CustomHandlersManager.UnregisterEventsHandler(usableItemHandler);
-        usableItemHandler = null;
         CustomHandlersManager.UnregisterEventsHandler(throwableItemHandler);
-        throwableItemHandler = null;
         CustomHandlersManager.UnregisterEventsHandler(damageHandler);
-        damageHandler = null;
         CustomHandlersManager.UnregisterEventsHandler(firearmHandler);
-        firearmHandler = null;
         CustomHandlersManager.UnregisterEventsHandler(scp914Handler);
-        scp914Handler = null;
         CustomHandlersManager.UnregisterEventsHandler(jailbirdHandler);
-        jailbirdHandler = null;
+        CustomHandlersManager.UnregisterEventsHandler(revolverHandler);
+        CustomHandlersManager.UnregisterEventsHandler(scp127Handler);
         InventoryExtensions.OnItemRemoved -= Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned -= Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged -= Subscribed.PhaseChanged;

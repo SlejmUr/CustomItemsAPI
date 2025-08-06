@@ -22,8 +22,9 @@ internal sealed class Subscribed
 
     internal static void ProjectileSpawned(ThrownProjectile projectile)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomThrowableBase>(Pickup.Get(projectile));
-        cur_item?.OnProjectileSpawned(projectile);
+        if (!CustomItems.TryGetCustomItem(Pickup.Get(projectile), out CustomThrowableBase cur_item))
+            return;
+        cur_item.OnProjectileSpawned(projectile);
     }
 
     internal static void PhaseChanged(ushort Serial, MicroHidPhase phase)

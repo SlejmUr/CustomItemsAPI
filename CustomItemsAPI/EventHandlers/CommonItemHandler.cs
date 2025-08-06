@@ -11,73 +11,81 @@ internal sealed class CommonItemHandler : CustomEventsHandler
     public override void OnPlayerChangingItem(PlayerChangingItemEventArgs ev)
     {
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        var prev_Item = CustomItems.GetCustomItem<CustomItemBase>(ev.OldItem);
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.NewItem);
-        prev_Item?.OnChanging(ev.Player, ev.OldItem, ev.NewItem, false, isAllowedHelper);
-        cur_item?.OnChanging(ev.Player, ev.OldItem, ev.NewItem, true, isAllowedHelper);
+        if (CustomItems.TryGetCustomItem(ev.Item, out CustomItemBase prev_Item))
+            prev_Item.OnChanging(ev.Player, ev.OldItem, ev.NewItem, false, isAllowedHelper);
+        if (CustomItems.TryGetCustomItem(ev.Item, out CustomItemBase cur_item))
+            cur_item.OnChanging(ev.Player, ev.OldItem, ev.NewItem, true, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerChangedItem(PlayerChangedItemEventArgs ev)
     {
-        var prev_Item = CustomItems.GetCustomItem<CustomItemBase>(ev.OldItem);
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.NewItem);
-        prev_Item?.OnChanged(ev.Player, ev.OldItem, ev.NewItem, false);
-        cur_item?.OnChanged(ev.Player, ev.OldItem, ev.NewItem, true);
+        if (CustomItems.TryGetCustomItem(ev.Item, out CustomItemBase prev_Item))
+            prev_Item.OnChanged(ev.Player, ev.OldItem, ev.NewItem, false);
+        if (CustomItems.TryGetCustomItem(ev.Item, out CustomItemBase cur_item))
+            cur_item.OnChanged(ev.Player, ev.OldItem, ev.NewItem, true);
     }
     #endregion
     #region Drop
     public override void OnPlayerDroppingItem(PlayerDroppingItemEventArgs ev)
     {
+        if (!CustomItems.TryGetCustomItem(ev.Item, out CustomItemBase cur_item))
+            return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.Item);
-        cur_item?.OnDropping(ev.Player, ev.Item, isAllowedHelper);
+        cur_item.OnDropping(ev.Player, ev.Item, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerDroppedItem(PlayerDroppedItemEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.Pickup);
-        cur_item?.OnDropped(ev.Player, ev.Pickup);
+        if (!CustomItems.TryGetCustomItem(ev.Pickup, out CustomItemBase cur_item))
+            return;
+        cur_item.OnDropped(ev.Player, ev.Pickup);
     }
     #endregion
     #region Pick
     public override void OnPlayerPickingUpItem(PlayerPickingUpItemEventArgs ev)
     {
+        if (!CustomItems.TryGetCustomItem(ev.Pickup, out CustomItemBase cur_item))
+            return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.Pickup);
-        cur_item?.OnPicking(ev.Player, ev.Pickup, isAllowedHelper);
+        cur_item.OnPicking(ev.Player, ev.Pickup, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerPickedUpItem(PlayerPickedUpItemEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.Item);
-        cur_item?.OnPicked(ev.Player, ev.Item);
+        if (!CustomItems.TryGetCustomItem(ev.Item, out CustomItemBase cur_item))
+            return;
+        cur_item.OnPicked(ev.Player, ev.Item);
     }
     #endregion
     #region Throw
     public override void OnPlayerThrowingItem(PlayerThrowingItemEventArgs ev)
     {
+        if (!CustomItems.TryGetCustomItem(ev.Pickup, out CustomItemBase cur_item))
+            return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.Pickup);
-        cur_item?.OnThrowing(ev.Player, ev.Pickup, ev.Rigidbody, isAllowedHelper);
+        cur_item.OnThrowing(ev.Player, ev.Pickup, ev.Rigidbody, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
 
     public override void OnPlayerThrewItem(PlayerThrewItemEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.Pickup);
-        cur_item?.OnThrew(ev.Player, ev.Pickup, ev.Rigidbody);
+        if (!CustomItems.TryGetCustomItem(ev.Pickup, out CustomItemBase cur_item))
+            return;
+        cur_item.OnThrew(ev.Player, ev.Pickup, ev.Rigidbody);
     }
     #endregion
     public override void OnPlayerSearchingPickup(PlayerSearchingPickupEventArgs ev)
     {
+        if (!CustomItems.TryGetCustomItem(ev.Pickup, out CustomItemBase cur_item))
+            return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.Pickup);
-        cur_item?.OnSearching(ev.Player, ev.Pickup, isAllowedHelper);
+        cur_item.OnSearching(ev.Player, ev.Pickup, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerSearchedPickup(PlayerSearchedPickupEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.Pickup);
-        cur_item?.OnSearched(ev.Player, ev.Pickup);
+        if (!CustomItems.TryGetCustomItem(ev.Pickup, out CustomItemBase cur_item))
+            return;
+        cur_item.OnSearched(ev.Player, ev.Pickup);
     }
 }
