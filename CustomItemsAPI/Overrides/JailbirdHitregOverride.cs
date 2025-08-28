@@ -1,11 +1,11 @@
 ﻿using InventorySystem.Items.Jailbird;
 
-namespace CustomItemsAPI.Classes;
+namespace CustomItemsAPI.Overrides;
 
 /// <summary>
-/// Changable values for <see cref="JailbirdHitreg"/>
+/// Override class for <see cref="JailbirdHitreg"/>
 /// </summary>
-public class JailbirdHitregClass
+public class JailbirdHitregOverride : IOverride<JailbirdHitreg>
 {
     /// <summary>
     /// Hitreg offset
@@ -37,11 +37,11 @@ public class JailbirdHitregClass
     /// </summary>
     public MathValueFloat FlashedDuration = new();
 
-    /// <summary>
-    /// Applying values to <paramref name="jailbirdHitreg"/>
-    /// </summary>
-    /// <param name="jailbirdHitreg"></param>
-    public void Apply(JailbirdHitreg jailbirdHitreg)
+    /// <inheritdoc/>
+    public Type OverrideType => typeof(JailbirdHitreg);
+
+    /// <inheritdoc/>
+    public void Apply(ref JailbirdHitreg jailbirdHitreg)
     {
         HitregOffset.MathCalculation(ref jailbirdHitreg._hitregOffset);
         HitregRadius.MathCalculation(ref jailbirdHitreg._hitregRadius);
@@ -49,5 +49,14 @@ public class JailbirdHitregClass
         DamageCharge.MathCalculation(ref jailbirdHitreg._damageCharge);
         ConcussionDuration.MathCalculation(ref jailbirdHitreg._concussionDuration);
         FlashedDuration.MathCalculation(ref jailbirdHitreg._flashedDuration);
+    }
+
+    /// <inheritdoc/>
+    public void Apply(ref object classToOverride)
+    {
+        if (classToOverride is not JailbirdHitreg)
+            return;
+        JailbirdHitreg overrides = (JailbirdHitreg)classToOverride;
+        Apply(ref overrides);
     }
 }

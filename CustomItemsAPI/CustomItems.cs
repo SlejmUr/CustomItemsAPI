@@ -527,6 +527,9 @@ public static class CustomItems
     {
         if (type == null)
             return;
+        if (type.Equals(null))
+            return;
+        CL.Debug(type, Main.Instance.Config.Debug);
         CustomItemBase customItem = (CustomItemBase)Activator.CreateInstance(type);
         RegisterCustomItem(customItem);
     }

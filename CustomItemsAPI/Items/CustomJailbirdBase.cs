@@ -1,4 +1,4 @@
-﻿using CustomItemsAPI.Classes;
+﻿using CustomItemsAPI.Overrides;
 using CustomItemsAPI.Helpers;
 using CustomItemsAPI.Interfaces;
 using LabApi.Features.Wrappers;
@@ -18,12 +18,12 @@ public abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
     /// <summary>
     /// Changable values for <see cref="InventorySystem.Items.Jailbird.JailbirdHitreg"/>
     /// </summary>
-    public JailbirdHitregClass JailbirdHitregClass = new();
+    public JailbirdHitregOverride JailbirdHitregOverride = new();
 
     /// <summary>
     /// Changable values for <see cref="InventorySystem.Items.Jailbird.JailbirdItem"/>
     /// </summary>
-    public JailbirdItemClass JailbirdItemClass = new();
+    public JailbirdItemOverride JailbirdItemOverride = new();
 
     /// <inheritdoc/>
     public override void Parse(Item item)
@@ -34,8 +34,9 @@ public abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
         if (item is not JailbirdItem jailbird)
             throw new ArgumentException("JailbirdItem must not be null!");
 
-        JailbirdHitregClass.Apply(jailbird.Base._hitreg);
-        JailbirdItemClass.Apply(jailbird.Base);
+        JailbirdHitregOverride.Apply(ref jailbird.Base._hitreg);
+        var jailbirdItemBase = jailbird.Base;
+        JailbirdItemOverride.Apply(ref jailbirdItemBase);
     }
 
     /// <summary>

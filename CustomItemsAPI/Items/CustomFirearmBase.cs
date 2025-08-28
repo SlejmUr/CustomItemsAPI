@@ -1,10 +1,10 @@
-﻿using CustomItemsAPI.Classes;
+﻿using CustomItemsAPI.Overrides;
 using CustomItemsAPI.Helpers;
 using CustomItemsAPI.Interfaces;
-using InventorySystem.Items.Firearms;
-using InventorySystem.Items.Firearms.Modules;
+using InventorySystem.Items.Firearms.Attachments;
 using LabApi.Features.Wrappers;
 using PlayerStatsSystem;
+using CustomItemsAPI.Extensions;
 
 namespace CustomItemsAPI.Items;
 
@@ -25,9 +25,14 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     public virtual MathValueFloat Damage { get; } = new();
 
     /// <summary>
-    /// Changer for <see cref="A7BurnEffectModule"/>.
+    /// Override certain Classes.
     /// </summary>
-    public virtual A7Burn A7Burn { get; } = new();
+    public virtual List<IOverride> Overrides { get; } = [];
+
+    /// <summary>
+    /// Sets the Attachment of the gun.
+    /// </summary>
+    public virtual List<AttachmentName> AttachmentNames { get; } = [];
 
     /// <inheritdoc/>
     public override void Parse(Item item)
@@ -35,21 +40,12 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
         base.Parse(item);
         if (item is not FirearmItem firearmItem)
             throw new ArgumentException("FirearmItem must not be null!");
-        if (TryGetModule(firearmItem, out A7BurnEffectModule a7BurnEffectModule))
-            A7Burn.Apply(ref a7BurnEffectModule);
-    }
-
-    /// <summary>
-    /// Trying to get a <see cref="FirearmSubcomponentBase"/> from a <see cref="Firearm"/>.
-    /// </summary>
-    /// <typeparam name="T">Any <see cref="FirearmSubcomponentBase"/>.</typeparam>
-    /// <param name="firearm"></param>
-    /// <param name="module">The Module <see cref="FirearmSubcomponentBase"/></param>
-    /// <param name="ignoreSubmodules">Ignore weapon SubModules.</param>
-    /// <returns>True if the <paramref name="module"/> found otherwise false.</returns>
-    public bool TryGetModule<T>(FirearmItem firearm, out T module, bool ignoreSubmodules = true) where T : FirearmSubcomponentBase
-    {
-        return firearm.Base.TryGetModule(out module, ignoreSubmodules);
+        firearmItem.AttachmentsCode = firearmItem.GetCodeFromAttachmentNamesRaw([..AttachmentNames]);
+        foreach (var @override in Overrides)
+        {
+            if (FirearmExtension.TryGetModule(firearmItem.Base, @override.OverrideType, out object module, false))
+                @override.Apply(ref module);
+        }
     }
 
     /// <summary>

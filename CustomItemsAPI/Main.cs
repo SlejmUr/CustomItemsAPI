@@ -16,21 +16,21 @@ internal sealed class Main : Plugin<Config>
 
     public override string Author => "SlejmUr";
 
-    public override Version Version => new(0, 0, 6, 0);
+    public override Version Version => new(0, 0, 7, 0);
 
     public override Version RequiredApiVersion => LabApi.Features.LabApiProperties.CurrentVersion;
 
-    private CommonItemHandler commonItemHandler = new();
-    private KeyCardItemHandler keyCardItemHandler = new();
-    private NonItemRelatedHandler nonItemRelatedHandler = new();
-    private UsableItemHandler usableItemHandler = new();
-    private ThrowableItemHandler throwableItemHandler = new();
-    private DamageHandler damageHandler = new();
-    private FirearmHandler firearmHandler = new();
-    private Scp914Handler scp914Handler = new();
-    private JailbirdHandler jailbirdHandler = new();
-    private RevolverHandler revolverHandler = new();
-    private Scp127Handler scp127Handler = new();
+    private readonly CommonItemHandler commonItemHandler = new();
+    private readonly KeyCardItemHandler keyCardItemHandler = new();
+    private readonly NonItemRelatedHandler nonItemRelatedHandler = new();
+    private readonly UsableItemHandler usableItemHandler = new();
+    private readonly ThrowableItemHandler throwableItemHandler = new();
+    private readonly DamageHandler damageHandler = new();
+    private readonly FirearmHandler firearmHandler = new();
+    private readonly Scp914Handler scp914Handler = new();
+    private readonly JailbirdHandler jailbirdHandler = new();
+    private readonly RevolverHandler revolverHandler = new();
+    private readonly Scp127Handler scp127Handler = new();
 
     public override void Enable()
     {
