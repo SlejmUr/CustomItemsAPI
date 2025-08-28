@@ -1,5 +1,4 @@
-﻿using CustomItemsAPI.Helpers;
-using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Items;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;
 
@@ -9,29 +8,33 @@ internal sealed class ArmorHandler : CustomEventsHandler
 {
     public override void OnPlayerPickingUpArmor(PlayerPickingUpArmorEventArgs ev)
     {
+        if (!CustomItems.TryGetCustomItem(ev.BodyArmorPickup, out CustomItemBase cur_item))
+            return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.BodyArmorPickup);
-        cur_item?.OnPicking(ev.Player, ev.BodyArmorPickup, isAllowedHelper);
-        ev.IsAllowed = isAllowedHelper.Value;
+        cur_item.OnPicking(ev.Player, ev.BodyArmorPickup, isAllowedHelper);
+        ev.IsAllowed = isAllowedHelper;
     }
 
     public override void OnPlayerPickedUpArmor(PlayerPickedUpArmorEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.BodyArmorItem);
-        cur_item?.OnPicked(ev.Player, ev.BodyArmorItem);
+        if (!CustomItems.TryGetCustomItem(ev.BodyArmorItem, out CustomItemBase cur_item))
+            return;
+        cur_item.OnPicked(ev.Player, ev.BodyArmorItem);
     }
 
     public override void OnPlayerSearchingArmor(PlayerSearchingArmorEventArgs ev)
     {
+        if (!CustomItems.TryGetCustomItem(ev.BodyArmorPickup, out CustomItemBase cur_item))
+            return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.BodyArmorPickup);
-        cur_item?.OnSearching(ev.Player, ev.BodyArmorPickup, isAllowedHelper);
+        cur_item.OnSearching(ev.Player, ev.BodyArmorPickup, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
 
     public override void OnPlayerSearchedArmor(PlayerSearchedArmorEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomItemBase>(ev.BodyArmorPickup);
-        cur_item?.OnSearched(ev.Player, ev.BodyArmorPickup);
+        if (!CustomItems.TryGetCustomItem(ev.BodyArmorPickup, out CustomItemBase cur_item))
+            return;
+        cur_item.OnSearched(ev.Player, ev.BodyArmorPickup);
     }
 }

@@ -1,15 +1,14 @@
-﻿using CustomItemsAPI.Helpers;
-using Interactables.Interobjects.DoorUtils;
-using IC = InventorySystem.Items.Keycards;
+﻿using Interactables.Interobjects.DoorUtils;
 using LabApi.Features.Wrappers;
 using UnityEngine;
+using IC = InventorySystem.Items.Keycards;
 
 namespace CustomItemsAPI.Items;
 
 /// <summary>
 /// Custom Item Base for <see cref="ItemCategory.Keycard"/>.
 /// </summary>
-public abstract class CustomKeyCardBase : CustomItemBase 
+public abstract class CustomKeyCardBase : CustomItemBase
 {
     /// <summary>
     /// Sets the permissions for custom keycard.
@@ -60,7 +59,7 @@ public abstract class CustomKeyCardBase : CustomItemBase
     {
         base.Parse(item);
         if (item.Category != ItemCategory.Keycard)
-                throw new ArgumentOutOfRangeException("Type", item.Type, "Invalid Keycard type.");
+            throw new ArgumentOutOfRangeException("Type", item.Type, "Invalid Keycard type.");
         if (item.Base is not IC.KeycardItem keycard)
             throw new ArgumentException($"keycard must not be null! {item.GetType()}");
 
@@ -112,6 +111,12 @@ public abstract class CustomKeyCardBase : CustomItemBase
         if (customSerialNumber != null && !string.IsNullOrEmpty(CustomSerial))
         {
             IC.CustomSerialNumberDetail._customVal = CustomSerial;
+        }
+
+        if (customLabel != null && !string.IsNullOrEmpty(CustomLabelText) && CustomLabelColor.HasValue)
+        {
+            IC.CustomLabelDetail._customText = CustomLabelText;
+            IC.CustomLabelDetail._customColor = CustomLabelColor.Value;
         }
 
         //This is getting called?
@@ -192,5 +197,26 @@ public abstract class CustomKeyCardBase : CustomItemBase
     public virtual void OnInteractedLocker(Player player, Item item, Locker locker, LockerChamber lockerChamber, bool canOpen)
     {
         CL.Debug($"OnInteractedLocker {player.PlayerId} {locker} {lockerChamber.Id} {canOpen}", Main.Instance.Config.Debug);
+    }
+
+    /// <summary>
+    /// Called when <paramref name="player"/> is inspecting the <paramref name="keycardItem"/>.
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="keycardItem"></param>
+    /// <param name="isAllowedHelper"></param>
+    public virtual void OnInspectingKeycard(Player player, KeycardItem keycardItem, TypeWrapper<bool> isAllowedHelper)
+    {
+        CL.Debug($"OnInspectingKeycard {player.PlayerId} {keycardItem.Serial}", Main.Instance.Config.Debug);
+    }
+
+    /// <summary>
+    /// Called when <paramref name="player"/> is inspected the <paramref name="keycardItem"/>.
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="keycardItem"></param>
+    public virtual void OnInspectedKeycard(Player player, KeycardItem keycardItem)
+    {
+        CL.Debug($"OnInspectingKeycard {player.PlayerId} {keycardItem.Serial}", Main.Instance.Config.Debug);
     }
 }

@@ -29,6 +29,6 @@ public static class ItemTypeExtension
     public static bool IsKeycard(this ItemType itemType) =>
     itemType is ItemType.KeycardJanitor or ItemType.KeycardScientist or ItemType.KeycardResearchCoordinator or ItemType.KeycardZoneManager
     or ItemType.KeycardGuard or ItemType.KeycardMTFPrivate or ItemType.KeycardContainmentEngineer or ItemType.KeycardMTFOperative
-    or ItemType.KeycardMTFCaptain or ItemType.KeycardFacilityManager or ItemType.KeycardChaosInsurgency or ItemType.KeycardO5 
+    or ItemType.KeycardMTFCaptain or ItemType.KeycardFacilityManager or ItemType.KeycardChaosInsurgency or ItemType.KeycardO5
     or ItemType.KeycardCustomManagement or ItemType.KeycardCustomMetalCase or ItemType.KeycardCustomSite02 or ItemType.KeycardCustomTaskForce;
 }

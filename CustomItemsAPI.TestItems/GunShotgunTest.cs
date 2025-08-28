@@ -1,6 +1,8 @@
 ﻿using CustomItemsAPI.Helpers;
 using CustomItemsAPI.Items;
 using LabApi.Features.Wrappers;
+using LabApiExtensions.Configs;
+using LabApiExtensions.Enums;
 using PlayerStatsSystem;
 
 namespace CustomItemsAPI.TestItems;

@@ -75,7 +75,7 @@ public static class CustomItems
     /// </summary>
     /// <param name="item">The Custom Item.</param>
     /// <param name="player">The <see cref="Player"/> to add item to.</param>
-    public static Item? AddCustomItem(CustomItemBase? item, Player player)
+    public static Item? AddCustomItem(this CustomItemBase? item, Player player)
     {
         if (item == null)
             return null;
@@ -93,7 +93,7 @@ public static class CustomItems
     /// </summary>
     /// <param name="item">The Custom Item.</param>
     /// <param name="hub">The <see cref="ReferenceHub"/> to add item to.</param>
-    public static Item? AddCustomItem(CustomItemBase? item, ReferenceHub hub)
+    public static Item? AddCustomItem(this CustomItemBase? item, ReferenceHub hub)
     {
         if (item == null)
             return null;
@@ -111,15 +111,15 @@ public static class CustomItems
     /// <summary>
     /// Spawns a <see cref="CustomItemBase"/> to specified parameters.
     /// </summary>
-    /// <param name="customItemame"></param>
+    /// <param name="customItemName"></param>
     /// <param name="position">The position the pickup should spawn.</param>
     /// <param name="rotation">The rotation the pickup should spawn.</param>
     /// <param name="scale">The scale the pickup should spawn.</param>
     /// <param name="shouldSpawn"></param>
     /// <returns>Returns <see langword="null"/> if pickup cannot be created otherwise it is a <see cref="Pickup"/>.</returns>
-    public static Pickup? Spawn(string customItemame, Vector3 position, Quaternion? rotation = null, Vector3? scale = null, bool shouldSpawn = true)
+    public static Pickup? Spawn(string customItemName, Vector3 position, Quaternion? rotation = null, Vector3? scale = null, bool shouldSpawn = true)
     {
-        CustomItemBase? item = CreateItem(customItemame);
+        CustomItemBase? item = CreateItem(customItemName);
         return Spawn(item, position, rotation, scale, shouldSpawn);
     }
 
@@ -147,7 +147,7 @@ public static class CustomItems
     /// <param name="scale">The scale the pickup should spawn.</param>
     /// <param name="shouldSpawn"></param>
     /// <returns>Returns <see langword="null"/> if pickup cannot be created or <paramref name="customItem"/> is <see langword="null"/> otherwise it is a <see cref="Pickup"/>.</returns>
-    public static Pickup? Spawn(CustomItemBase? customItem, Vector3 position, Quaternion? rotation = null, Vector3? scale = null, bool shouldSpawn = true)
+    public static Pickup? Spawn(this CustomItemBase? customItem, Vector3 position, Quaternion? rotation = null, Vector3? scale = null, bool shouldSpawn = true)
     {
         if (customItem == null)
             return null;
@@ -496,7 +496,7 @@ public static class CustomItems
         if (assembly == typeof(CustomItems).Assembly)
             return;
         List<Type> types = [.. assembly.GetTypes().
-            Where(item => 
+            Where(item =>
                 !item.IsAbstract &&
                 typeof(CustomItemBase).IsAssignableFrom(item))];
         foreach (Type type in types)
@@ -527,6 +527,9 @@ public static class CustomItems
     {
         if (type == null)
             return;
+        if (type.Equals(null))
+            return;
+        CL.Debug(type, Main.Instance.Config.Debug);
         CustomItemBase customItem = (CustomItemBase)Activator.CreateInstance(type);
         RegisterCustomItem(customItem);
     }
@@ -562,7 +565,7 @@ public static class CustomItems
     /// <param name="type">The <see cref="Type"/> of a <see cref="CustomItemBase"/>.</param>
     public static void UnRegisterCustomItem(Type type)
     {
-        CustomItemBaseList.RemoveWhere(x=>x.GetType() == type);
+        CustomItemBaseList.RemoveWhere(x => x.GetType() == type);
     }
 
     /// <summary>
@@ -584,7 +587,7 @@ public static class CustomItems
     {
         Assembly assembly = Assembly.GetCallingAssembly();
         List<Type> types = [.. assembly.GetTypes().Where(x => !x.IsAbstract).Where(item => item.BaseType == typeof(CustomItemBase) || item.BaseType.IsSubclassOf(typeof(CustomItemBase)))];
-        foreach (var item in CustomItemBaseList.Where(x=> types.Contains(x.GetType())).ToList())
+        foreach (var item in CustomItemBaseList.Where(x => types.Contains(x.GetType())).ToList())
         {
             UnRegisterCustomItem(item);
         }

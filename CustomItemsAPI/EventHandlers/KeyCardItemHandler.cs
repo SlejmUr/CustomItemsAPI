@@ -1,5 +1,4 @@
-﻿using CustomItemsAPI.Helpers;
-using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Items;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;
 using LabApi.Features.Wrappers;
@@ -79,6 +78,23 @@ internal sealed class KeyCardItemHandler : CustomEventsHandler
         if (!CustomItems.TryGetCustomItem(item, out CustomKeyCardBase customKeyCardBase))
             return;
         customKeyCardBase?.OnInteractedLocker(ev.Player, item, ev.Locker, ev.Chamber, ev.CanOpen);
+    }
+    #endregion
+    #region Inspect Keycard
+    public override void OnPlayerInspectingKeycard(PlayerInspectingKeycardEventArgs ev)
+    {
+        if (!CustomItems.TryGetCustomItem(ev.KeycardItem, out CustomKeyCardBase cur_item))
+            return;
+        TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
+        cur_item.OnInspectingKeycard(ev.Player, ev.KeycardItem, isAllowedHelper);
+        ev.IsAllowed = isAllowedHelper.Value;
+    }
+
+    public override void OnPlayerInspectedKeycard(PlayerInspectedKeycardEventArgs ev)
+    {
+        if (!CustomItems.TryGetCustomItem(ev.KeycardItem, out CustomKeyCardBase cur_item))
+            return;
+        cur_item.OnInspectedKeycard(ev.Player, ev.KeycardItem);
     }
     #endregion
 }

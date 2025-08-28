@@ -1,12 +1,12 @@
-﻿using InventorySystem.Items.Autosync;
-using InventorySystem.Items.Pickups;
-using InventorySystem.Items;
-using LabApi.Features.Wrappers;
-using UnityEngine;
-using CustomItemsAPI.Helpers;
+﻿using CustomItemsAPI.Helpers;
 using CustomItemsAPI.Interfaces;
-using Scp914;
+using InventorySystem.Items;
+using InventorySystem.Items.Autosync;
+using InventorySystem.Items.Pickups;
+using LabApi.Features.Wrappers;
 using MEC;
+using Scp914;
+using UnityEngine;
 
 namespace CustomItemsAPI.Items;
 
@@ -15,13 +15,19 @@ namespace CustomItemsAPI.Items;
 /// </summary>
 public abstract class CustomItemBase
 {
+    internal const float UnregisterTime = 0.3f;
+    /// <summary>
+    /// Action to show custom hint. Can be used with any hint framework or even disabling it (null).
+    /// </summary>
+    public Action<Player, string>? HintShow = (player, hint) => player.SendHint(hint);
+
     /// <summary>
     /// Name of your custom item.
     /// </summary>
     public abstract string CustomItemName { get; set; }
 
     /// <summary>
-    /// Item description for admins.
+    /// Item description for admins/players.
     /// </summary>
     public abstract string Description { get; set; }
 
@@ -31,7 +37,7 @@ public abstract class CustomItemBase
     public abstract ItemType Type { get; }
 
     /// <summary>
-    /// Name of your custom item.
+    /// Name of your custom item to display to others.
     /// </summary>
     public virtual string DisplayName { get; set; }
 
@@ -43,22 +49,22 @@ public abstract class CustomItemBase
     /// <summary>
     /// Overrides a to show a custom picked up show details
     /// </summary>
-    public virtual bool OverrideShowPickedUpHint { get; } = Main.Instance.Config.ShowPickedUpHint;
+    public virtual bool OverrideShowPickedUpHint { get; set; } = Main.Instance.Config.ShowPickedUpHint;
 
     /// <summary>
     /// Overrides the hint for showing custom picked up details
     /// </summary>
-    public virtual string OverridePickedUpHint { get; } = Main.Instance.Config.PickedUpHint;
+    public virtual string OverridePickedUpHint { get; set; } = Main.Instance.Config.PickedUpHint;
 
     /// <summary>
     /// Overrides a to show a custom selected show details
     /// </summary>
-    public virtual bool OverrideShowSelectHint { get; } = Main.Instance.Config.ShowSelectedHint;
+    public virtual bool OverrideShowSelectHint { get; set; } = Main.Instance.Config.ShowSelectedHint;
 
     /// <summary>
-    /// Overrides a to show a custom selected show details
+    /// Overrides the hint for showing custom selected details
     /// </summary>
-    public virtual string OverrideSelectedHint { get; } = Main.Instance.Config.SelectedHint;
+    public virtual string OverrideSelectedHint { get; set; } = Main.Instance.Config.SelectedHint;
 
     /// <summary>
     /// Called once when this instance is registered.
@@ -67,7 +73,7 @@ public abstract class CustomItemBase
     {
         CL.Debug($"OnRegistered {this.GetType()} {this.CustomItemName}", Main.Instance.Config.Debug);
     }
-    
+
     /// <summary>
     /// Called once when this instance is unregistered.
     /// </summary>
@@ -113,7 +119,7 @@ public abstract class CustomItemBase
     /// </summary>
     public virtual void OnDistribute()
     {
-        CL.Debug($"OnDistribute  {this.GetType()} {this.CustomItemName}", Main.Instance.Config.Debug);
+        CL.Debug($"OnDistribute {this.GetType()} {this.CustomItemName}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -127,7 +133,7 @@ public abstract class CustomItemBase
     {
         CL.Debug($"OnChanged {player.PlayerId} {oldItem?.Serial} {newItem?.Serial} {changedToThisItem}", Main.Instance.Config.Debug);
         if (changedToThisItem && OverrideShowSelectHint)
-            player.SendHint(string.Format(OverrideSelectedHint, DisplayName, Description));
+            HintShow?.Invoke(player, string.Format(OverrideSelectedHint, DisplayName, Description));
     }
 
     /// <summary>
@@ -205,7 +211,7 @@ public abstract class CustomItemBase
     {
         CL.Debug($"OnPicked {player.PlayerId} {item.Serial}", Main.Instance.Config.Debug);
         if (OverrideShowPickedUpHint)
-            player.SendHint(string.Format(OverridePickedUpHint, DisplayName, Description));
+            HintShow?.Invoke(player, string.Format(OverridePickedUpHint, DisplayName, Description));
     }
 
     /// <summary>
@@ -267,15 +273,15 @@ public abstract class CustomItemBase
     /// <param name="itemPickupBase">itemPickupBase</param>
     public virtual void OnRemoved(Player player, ItemBase? itemBase, ItemPickupBase? itemPickupBase)
     {
-        CL.Debug($"OnRemoved {player.PlayerId} {itemBase == null} {itemPickupBase == null}", Main.Instance.Config.Debug);
-        if (itemBase != null && itemPickupBase == null)
+        CL.Debug($"OnRemoved {player.PlayerId} {itemBase is null} {itemPickupBase is null}", Main.Instance.Config.Debug);
+        if (itemBase is not null && itemPickupBase is null)
         {
             ushort serial = itemBase.ItemSerial;
-            // Since we remove the item 0.1 delay we wait for 0.2 so all action runs before this item being destroyed
-            Timing.CallDelayed(0.2f, () => {
+            Timing.CallDelayed(UnregisterTime, () =>
+            {
                 CustomItems.SerialToCustomItem.Remove(serial);
             });
-            
+
         }
     }
 }

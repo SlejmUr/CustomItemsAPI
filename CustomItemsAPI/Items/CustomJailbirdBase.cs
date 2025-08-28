@@ -1,4 +1,4 @@
-﻿using CustomItemsAPI.Classes;
+﻿using CustomItemsAPI.Overrides;
 using CustomItemsAPI.Helpers;
 using CustomItemsAPI.Interfaces;
 using LabApi.Features.Wrappers;
@@ -18,12 +18,12 @@ public abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
     /// <summary>
     /// Changable values for <see cref="InventorySystem.Items.Jailbird.JailbirdHitreg"/>
     /// </summary>
-    public JailbirdHitregClass JailbirdHitregClass = new();
+    public JailbirdHitregOverride JailbirdHitregOverride = new();
 
     /// <summary>
     /// Changable values for <see cref="InventorySystem.Items.Jailbird.JailbirdItem"/>
     /// </summary>
-    public JailbirdItemClass JailbirdItemClass = new();
+    public JailbirdItemOverride JailbirdItemOverride = new();
 
     /// <inheritdoc/>
     public override void Parse(Item item)
@@ -34,17 +34,33 @@ public abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
         if (item is not JailbirdItem jailbird)
             throw new ArgumentException("JailbirdItem must not be null!");
 
-        JailbirdHitregClass.Apply(jailbird.Base._hitreg);
-        JailbirdItemClass.Apply(jailbird.Base);
+        JailbirdHitregOverride.Apply(ref jailbird.Base._hitreg);
+        var jailbirdItemBase = jailbird.Base;
+        JailbirdItemOverride.Apply(ref jailbirdItemBase);
     }
 
     /// <summary>
-    /// Called Server Receives a <paramref name="jailbirdMessageType"/> from <paramref name="jailbird"/>.
+    /// Called Server processing a <paramref name="message"/> from <paramref name="jailbirdItem"/>.
     /// </summary>
-    /// <param name="jailbird"></param>
-    /// <param name="jailbirdMessageType"></param>
-    public virtual void OnReceived(JailbirdItem jailbird, InventorySystem.Items.Jailbird.JailbirdMessageType jailbirdMessageType)
+    /// <param name="player"></param>
+    /// <param name="jailbirdItem"></param>
+    /// <param name="message"></param>
+    /// <param name="allowInspectHelper"></param>
+    /// <param name="allowAttackHelper"></param>
+    /// <param name="isAllowedHelper"></param>
+    public virtual void ProcessingJailbirdMessage(Player player, JailbirdItem jailbirdItem, TypeWrapper<InventorySystem.Items.Jailbird.JailbirdMessageType> message, TypeWrapper<bool> allowInspectHelper, TypeWrapper<bool> allowAttackHelper, TypeWrapper<bool> isAllowedHelper)
     {
+        CL.Debug($"ProcessingJailbirdMessage {player.PlayerId} {jailbirdItem.Serial} {message.Value} {allowAttackHelper.Value} {allowInspectHelper.Value}", Main.Instance.Config.Debug);
+    }
 
+    /// <summary>
+    /// Called Server processed a <paramref name="message"/> from <paramref name="jailbirdItem"/>.
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="jailbirdItem"></param>
+    /// <param name="message"></param>
+    public virtual void ProcessedJailbirdMessage(Player player, JailbirdItem jailbirdItem, InventorySystem.Items.Jailbird.JailbirdMessageType message)
+    {
+        CL.Debug($"ProcessedJailbirdMessage {player.PlayerId} {jailbirdItem.Serial} {message}", Main.Instance.Config.Debug);
     }
 }

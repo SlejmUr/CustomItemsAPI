@@ -1,8 +1,6 @@
-﻿using CustomItemsAPI.Helpers;
-using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Items;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;
-using LabApi.Features.Wrappers;
 
 namespace CustomItemsAPI.EventHandlers;
 
@@ -34,8 +32,9 @@ internal sealed class UsableItemHandler : CustomEventsHandler
     }
     public override void OnPlayerUsedItem(PlayerUsedItemEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomUsableBase>(ev.UsableItem);
-        cur_item?.OnUsed(ev.Player, ev.UsableItem);
+        if (!CustomItems.TryGetCustomItem(ev.UsableItem, out CustomUsableBase cur_item))
+            return;
+        cur_item.OnUsed(ev.Player, ev.UsableItem);
     }
     #endregion
 }
