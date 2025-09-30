@@ -26,6 +26,11 @@ public abstract class CustomKeyCardBase : CustomItemBase
     /// Sets the Wear Level of the keycard if exists.
     /// </summary>
     public virtual byte? WearLevel { get; }
+
+    /// <summary>
+    /// Sets the Rank Index of the keycard if exists.
+    /// </summary>
+    public virtual int RankIndex { get; }
     /// <summary>
     /// Sets the Custom Inventory Name of the keycard if exists.
     /// </summary>
@@ -77,41 +82,32 @@ public abstract class CustomKeyCardBase : CustomItemBase
         IC.CustomWearDetail? customWear = keycard.Details.OfType<IC.CustomWearDetail>().FirstOrDefault();
         IC.CustomItemNameDetail? customItemName = keycard.Details.OfType<IC.CustomItemNameDetail>().FirstOrDefault();
         IC.CustomSerialNumberDetail? customSerialNumber = keycard.Details.OfType<IC.CustomSerialNumberDetail>().FirstOrDefault();
-        IC.CustomLabelDetail customLabel = keycard.Details.OfType<IC.CustomLabelDetail>().FirstOrDefault();
+        IC.CustomLabelDetail? customLabel = keycard.Details.OfType<IC.CustomLabelDetail>().FirstOrDefault();
+        IC.CustomRankDetail? customRank = keycard.Details.OfType<IC.CustomRankDetail>().FirstOrDefault();
+
+        if (customRank != null)
+            IC.CustomRankDetail._index = RankIndex;
 
         if (Levels.HasValue && customPermsDetail != null)
-        {
             IC.CustomPermsDetail._customLevels = Levels.Value;
-        }
+
         if (PermissionColor.HasValue && customPermsDetail != null)
-        {
             IC.CustomPermsDetail._customColor = PermissionColor;
-        }
+
         if (TintColor.HasValue && customTint != null)
-        {
             IC.CustomTintDetail._customColor = TintColor.Value;
-        }
 
         if (WearLevel.HasValue && customWear != null)
-        {
             IC.CustomWearDetail._customWearLevel = WearLevel.Value;
-        }
 
         if (nametag != null && !string.IsNullOrEmpty(CustomNameTag))
-        {
             IC.NametagDetail._customNametag = CustomNameTag;
-        }
 
         if (customItemName != null && !string.IsNullOrEmpty(CustomName))
-        {
             IC.CustomItemNameDetail._customText = CustomName;
-            customItemName.Name = CustomName;
-        }
 
         if (customSerialNumber != null && !string.IsNullOrEmpty(CustomSerial))
-        {
             IC.CustomSerialNumberDetail._customVal = CustomSerial;
-        }
 
         if (customLabel != null && !string.IsNullOrEmpty(CustomLabelText) && CustomLabelColor.HasValue)
         {
