@@ -1,4 +1,5 @@
 ﻿using Interactables.Interobjects.DoorUtils;
+using InventorySystem;
 using LabApi.Features.Wrappers;
 using UnityEngine;
 using IC = InventorySystem.Items.Keycards;
@@ -60,6 +61,66 @@ public abstract class CustomKeyCardBase : CustomItemBase
     public virtual bool? OpenDoorsOnThrow { get; }
 
     /// <inheritdoc/>
+    public override void Parse(Pickup pickup)
+    {
+        base.Parse(pickup);
+        if (pickup is not KeycardPickup keycardPickup)
+            throw new Exception("Pickup is not a Keycard Pickup");
+        if (OpenDoorsOnThrow.HasValue)
+            keycardPickup.Base._openDoorsOnCollision = OpenDoorsOnThrow.Value;
+
+        if (!keycardPickup.Base.TryGetTemplate<IC.KeycardItem>(out var template))
+            throw new Exception("Cannot get a template for this item");
+
+        if (!template.Customizable)
+            return;
+
+        // getting all than later checking
+        // me when a keycard isnt customisable cant do shit with these.
+        IC.NametagDetail? nametag = template.Details.OfType<IC.NametagDetail>().FirstOrDefault();
+        IC.CustomPermsDetail? customPermsDetail = template.Details.OfType<IC.CustomPermsDetail>().FirstOrDefault();
+        IC.CustomTintDetail? customTint = template.Details.OfType<IC.CustomTintDetail>().FirstOrDefault();
+        IC.CustomWearDetail? customWear = template.Details.OfType<IC.CustomWearDetail>().FirstOrDefault();
+        IC.CustomItemNameDetail? customItemName = template.Details.OfType<IC.CustomItemNameDetail>().FirstOrDefault();
+        IC.CustomSerialNumberDetail? customSerialNumber = template.Details.OfType<IC.CustomSerialNumberDetail>().FirstOrDefault();
+        IC.CustomLabelDetail? customLabel = template.Details.OfType<IC.CustomLabelDetail>().FirstOrDefault();
+        IC.CustomRankDetail? customRank = template.Details.OfType<IC.CustomRankDetail>().FirstOrDefault();
+
+        if (customRank != null)
+            IC.CustomRankDetail._index = RankIndex;
+
+        if (Levels.HasValue && customPermsDetail != null)
+            IC.CustomPermsDetail._customLevels = Levels.Value;
+
+        if (PermissionColor.HasValue && customPermsDetail != null)
+            IC.CustomPermsDetail._customColor = PermissionColor;
+
+        if (TintColor.HasValue && customTint != null)
+            IC.CustomTintDetail._customColor = TintColor.Value;
+
+        if (WearLevel.HasValue && customWear != null)
+            IC.CustomWearDetail._customWearLevel = WearLevel.Value;
+
+        if (nametag != null && !string.IsNullOrEmpty(CustomNameTag))
+            IC.NametagDetail._customNametag = CustomNameTag;
+
+        if (customItemName != null && !string.IsNullOrEmpty(CustomName))
+            IC.CustomItemNameDetail._customText = CustomName;
+
+        if (customSerialNumber != null && !string.IsNullOrEmpty(CustomSerial))
+            IC.CustomSerialNumberDetail._customVal = CustomSerial;
+
+        if (customLabel != null && !string.IsNullOrEmpty(CustomLabelText) && CustomLabelColor.HasValue)
+        {
+            IC.CustomLabelDetail._customText = CustomLabelText;
+            IC.CustomLabelDetail._customColor = CustomLabelColor.Value;
+        }
+
+        IC.KeycardDetailSynchronizer.Database.Remove(keycardPickup.Base.Info.Serial);
+        IC.KeycardDetailSynchronizer.ServerProcessPickup(keycardPickup.Base);
+    }
+
+    /// <inheritdoc/>
     public override void Parse(Item item)
     {
         base.Parse(item);
@@ -115,7 +176,6 @@ public abstract class CustomKeyCardBase : CustomItemBase
             IC.CustomLabelDetail._customColor = CustomLabelColor.Value;
         }
 
-        //This is getting called?
         IC.KeycardDetailSynchronizer.Database.Remove(keycard.ItemSerial);
         IC.KeycardDetailSynchronizer.ServerProcessItem(keycard);
     }
