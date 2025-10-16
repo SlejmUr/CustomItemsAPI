@@ -155,6 +155,7 @@ public abstract class CustomItemBase
     /// <param name="player">The Player who called this function.</param>
     /// <param name="item"></param>
     /// <param name="isAllowed">Can allow this action.</param>
+    /// <param name="isThrow">Can allow throw item from inventory</param>
     public virtual void OnDropping(Player player, Item item, TypeWrapper<bool> isAllowed, TypeWrapper<bool> isThrow)
     {
         CL.Debug($"OnDropping {player.PlayerId} {item.Serial}", Main.Instance.Config.Debug);
