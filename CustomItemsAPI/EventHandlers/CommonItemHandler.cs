@@ -30,7 +30,8 @@ internal sealed class CommonItemHandler : CustomEventsHandler
         if (!CustomItems.TryGetCustomItem(ev.Item, out CustomItemBase cur_item))
             return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        cur_item.OnDropping(ev.Player, ev.Item, isAllowedHelper);
+        TypeWrapper<bool> isThrowHelper = new(ev.Throw);
+        cur_item.OnDropping(ev.Player, ev.Item, isAllowedHelper, isThrowHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
     public override void OnPlayerDroppedItem(PlayerDroppedItemEventArgs ev)
