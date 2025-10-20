@@ -150,18 +150,6 @@ public abstract class CustomItemBase
     }
 
     /// <summary>
-    /// This <paramref name="player"/> who currently dropping to Currect Custom Item.
-    /// </summary>
-    /// <param name="player">The Player who called this function.</param>
-    /// <param name="item"></param>
-    /// <param name="isAllowed">Can allow this action.</param>
-    /// <param name="isThrow">Can allow throw item from inventory</param>
-    public virtual void OnDropping(Player player, Item item, TypeWrapper<bool> isAllowed, TypeWrapper<bool> isThrow)
-    {
-        CL.Debug($"OnDropping {player.PlayerId} {item.Serial}", Main.Instance.Config.Debug);
-    }
-
-    /// <summary>
     /// This <paramref name="player"/> who currently dropped to Currect Custom Item.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
@@ -169,6 +157,28 @@ public abstract class CustomItemBase
     public virtual void OnDropped(Player player, Pickup pickup)
     {
         CL.Debug($"OnDropped {player.PlayerId} {pickup.Serial}", Main.Instance.Config.Debug);
+    }
+
+    /// <summary>
+    /// This <paramref name="player"/> who currently dropping to Currect Custom Item.
+    /// </summary>
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="item"></param>
+    /// <param name="isThrow">Can allow throw item from inventory.</param>
+    /// <param name="isAllowed">Can allow this action.</param>
+    public virtual void OnDropping(Player player, Item item, TypeWrapper<bool> isThrow, TypeWrapper<bool> isAllowed)
+    {
+        CL.Debug($"OnDropping {player.PlayerId} {item.Serial}", Main.Instance.Config.Debug);
+    }
+
+    /// <summary>
+    /// This <paramref name="player"/> who picked up the Currect Custom Item.
+    /// </summary>
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="pickup"></param>
+    public virtual void OnSearched(Player player, Pickup pickup)
+    {
+        CL.Debug($"OnSearched {player.PlayerId} {pickup.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -186,10 +196,12 @@ public abstract class CustomItemBase
     /// This <paramref name="player"/> who picked up the Currect Custom Item.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
-    /// <param name="pickup"></param>
-    public virtual void OnSearched(Player player, Pickup pickup)
+    /// <param name="item">The item has been picked up.</param>
+    public virtual void OnPicked(Player player, Item item)
     {
-        CL.Debug($"OnSearched {player.PlayerId} {pickup.Serial}", Main.Instance.Config.Debug);
+        CL.Debug($"OnPicked {player.PlayerId} {item.Serial}", Main.Instance.Config.Debug);
+        if (OverrideShowPickedUpHint)
+            HintShow?.Invoke(player, string.Format(OverridePickedUpHint, DisplayName, Description));
     }
 
     /// <summary>
@@ -204,15 +216,14 @@ public abstract class CustomItemBase
     }
 
     /// <summary>
-    /// This <paramref name="player"/> who picked up the Currect Custom Item.
+    /// This <paramref name="player"/> who threw up the Currect Custom Item.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
-    /// <param name="item">The item has been picked up.</param>
-    public virtual void OnPicked(Player player, Item item)
+    /// <param name="pickup"></param>
+    /// <param name="rigidbody">The rigidbody for the <see cref="Pickup"/></param>
+    public virtual void OnThrew(Player player, Pickup pickup, Rigidbody rigidbody)
     {
-        CL.Debug($"OnPicked {player.PlayerId} {item.Serial}", Main.Instance.Config.Debug);
-        if (OverrideShowPickedUpHint)
-            HintShow?.Invoke(player, string.Format(OverridePickedUpHint, DisplayName, Description));
+        CL.Debug($"OnThrew {player.PlayerId} {rigidbody}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -227,17 +238,6 @@ public abstract class CustomItemBase
         CL.Debug($"OnThrowing {player.PlayerId} {pickup.Serial} {rigidbody}", Main.Instance.Config.Debug);
         if (!float.IsNaN(Weight))
             pickup.Weight = Weight;
-    }
-
-    /// <summary>
-    /// This <paramref name="player"/> who threw up the Currect Custom Item.
-    /// </summary>
-    /// <param name="player">The Player who called this function.</param>
-    /// <param name="pickup"></param>
-    /// <param name="rigidbody">The rigidbody for the <see cref="Pickup"/></param>
-    public virtual void OnThrew(Player player, Pickup pickup, Rigidbody rigidbody)
-    {
-        CL.Debug($"OnThrew {player.PlayerId} {rigidbody}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -258,9 +258,9 @@ public abstract class CustomItemBase
     /// </summary>
     /// <param name="pickup">The currently processing pickup.</param>
     /// <param name="knobSetting">The know setting value.</param>
-    /// <param name="isAllowed">Can allow this action.</param>
     /// <param name="newPosition">New position for the pickup.</param>
-    public virtual void OnProcessingPickup(Pickup pickup, TypeWrapper<Scp914KnobSetting> knobSetting, TypeWrapper<bool> isAllowed, TypeWrapper<Vector3> newPosition)
+    /// <param name="isAllowed">Can allow this action.</param>
+    public virtual void OnProcessingPickup(Pickup pickup, TypeWrapper<Scp914KnobSetting> knobSetting, TypeWrapper<Vector3> newPosition, TypeWrapper<bool> isAllowed)
     {
         CL.Debug($"OnProcessingPickup {pickup.Serial} {knobSetting.Value}", Main.Instance.Config.Debug);
         isAllowed.Value = false;

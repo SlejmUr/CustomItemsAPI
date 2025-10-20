@@ -48,6 +48,15 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
         }
     }
 
+    /// <inheritdoc/>
+    public override void Parse(Pickup pickup)
+    {
+        base.Parse(pickup);
+        if (pickup is not FirearmPickup firearmPickup)
+            throw new ArgumentException("FirearmPickup must not be null!");
+        firearmPickup.AttachmentCode = FirearmItem.Get(firearmPickup.Base.Template).GetCodeFromAttachmentNamesRaw([.. AttachmentNames]);
+    }
+
     /// <summary>
     /// This <paramref name="player"/> who aimed.
     /// </summary>
@@ -102,6 +111,16 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     }
 
     /// <summary>
+    /// This <paramref name="player"/> who shot.
+    /// </summary>
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="weapon">The weapon</param>
+    public virtual void OnShot(Player player, FirearmItem weapon)
+    {
+        CL.Debug($"OnShot {player.PlayerId} {weapon.Serial}", Main.Instance.Config.Debug);
+    }
+
+    /// <summary>
     /// This <paramref name="player"/> who shooting.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
@@ -110,16 +129,6 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     public virtual void OnShooting(Player player, FirearmItem weapon, TypeWrapper<bool> isAllowedHelper)
     {
         CL.Debug($"OnShooting {player.PlayerId} {weapon.Serial}", Main.Instance.Config.Debug);
-    }
-
-    /// <summary>
-    /// This <paramref name="player"/> who shot.
-    /// </summary>
-    /// <param name="player">The Player who called this function.</param>
-    /// <param name="weapon">The weapon</param>
-    public virtual void OnShot(Player player, FirearmItem weapon)
-    {
-        CL.Debug($"OnShot {player.PlayerId} {weapon.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -172,6 +181,17 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     /// <param name="player">The Player who called this function.</param>
     /// <param name="attacker">The Player who attacker the <paramref name="player"/></param>
     /// <param name="firearmDamage">Firearm Damage</param>
+    public virtual void OnHurt(Player player, Player attacker, FirearmDamageHandler firearmDamage)
+    {
+        CL.Debug($"OnHurt {player.PlayerId} {attacker.PlayerId} {firearmDamage.Damage}", Main.Instance.Config.Debug);
+    }
+
+    /// <summary>
+    /// This <paramref name="player"/> who got hurt.
+    /// </summary>
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="attacker">The Player who attacker the <paramref name="player"/></param>
+    /// <param name="firearmDamage">Firearm Damage</param>
     /// <param name="isAllowedHelper">Can allow this action.</param>
     public virtual void OnHurting(Player player, Player attacker, FirearmDamageHandler firearmDamage, TypeWrapper<bool> isAllowedHelper)
     {
@@ -181,14 +201,15 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     }
 
     /// <summary>
-    /// This <paramref name="player"/> who got hurt.
+    /// This <paramref name="player"/> changed <paramref name="firearmItem"/> attachment from <paramref name="oldAttachments"/> to <paramref name="newAttachments"/>.
     /// </summary>
-    /// <param name="player">The Player who called this function.</param>
-    /// <param name="attacker">The Player who attacker the <paramref name="player"/></param>
-    /// <param name="firearmDamage">Firearm Damage</param>
-    public virtual void OnHurt(Player player, Player attacker, FirearmDamageHandler firearmDamage)
+    /// <param name="player"></param>
+    /// <param name="firearmItem"></param>
+    /// <param name="oldAttachments"></param>
+    /// <param name="newAttachments"></param>
+    public virtual void OnChangedAttachments(Player player, FirearmItem firearmItem, uint oldAttachments, uint newAttachments)
     {
-        CL.Debug($"OnHurt {player.PlayerId} {attacker.PlayerId} {firearmDamage.Damage}", Main.Instance.Config.Debug);
+        CL.Debug($"OnChangedAttachments {player.PlayerId} {firearmItem.Serial} {oldAttachments} {newAttachments}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -202,17 +223,5 @@ public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
     public virtual void OnChangingAttachments(Player player, FirearmItem firearmItem, uint oldAttachments, TypeWrapper<uint> newState, TypeWrapper<bool> isAllowedHelper)
     {
         CL.Debug($"OnChangedAttachments {player.PlayerId} {firearmItem.Serial} {oldAttachments} {newState.Value}", Main.Instance.Config.Debug);
-    }
-
-    /// <summary>
-    /// This <paramref name="player"/> changed <paramref name="firearmItem"/> attachment from <paramref name="oldAttachments"/> to <paramref name="newAttachments"/>.
-    /// </summary>
-    /// <param name="player"></param>
-    /// <param name="firearmItem"></param>
-    /// <param name="oldAttachments"></param>
-    /// <param name="newAttachments"></param>
-    public virtual void OnChangedAttachments(Player player, FirearmItem firearmItem, uint oldAttachments, uint newAttachments)
-    {
-        CL.Debug($"OnChangedAttachments {player.PlayerId} {firearmItem.Serial} {oldAttachments} {newAttachments}", Main.Instance.Config.Debug);
     }
 }

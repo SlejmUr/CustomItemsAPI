@@ -1,4 +1,5 @@
-﻿using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Events;
+using CustomItemsAPI.Items;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;
 
@@ -12,6 +13,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
         if (!CustomItems.TryGetCustomItem(ev.FirearmItem, out CustomFirearmBase cur_item))
             return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
+        CustomFirearmEvents.OnDryFiring(cur_item, ev.Player, ev.FirearmItem, isAllowedHelper);
         cur_item.OnDryFiring(ev.Player, ev.FirearmItem, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
@@ -19,6 +21,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
     {
         if (!CustomItems.TryGetCustomItem(ev.FirearmItem, out CustomFirearmBase cur_item))
             return;
+        CustomFirearmEvents.OnDryFired(cur_item, ev.Player, ev.FirearmItem);
         cur_item.OnDryFired(ev.Player, ev.FirearmItem);
     }
     #endregion
@@ -27,6 +30,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
     {
         if (!CustomItems.TryGetCustomItem(ev.FirearmItem, out CustomFirearmBase cur_item))
             return;
+        CustomFirearmEvents.OnAim(cur_item, ev.Player, ev.FirearmItem, ev.Aiming);
         cur_item.OnAim(ev.Player, ev.FirearmItem, ev.Aiming);
     }
     #endregion
@@ -36,6 +40,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
         if (!CustomItems.TryGetCustomItem(ev.FirearmItem, out CustomFirearmBase cur_item))
             return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
+        CustomFirearmEvents.OnReloading(cur_item, ev.Player, ev.FirearmItem, isAllowedHelper);
         cur_item.OnReloading(ev.Player, ev.FirearmItem, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
@@ -43,6 +48,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
     {
         if (!CustomItems.TryGetCustomItem(ev.FirearmItem, out CustomFirearmBase cur_item))
             return;
+        CustomFirearmEvents.OnReloaded(cur_item, ev.Player, ev.FirearmItem);
         cur_item.OnReloaded(ev.Player, ev.FirearmItem);
     }
     #endregion
@@ -52,6 +58,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
         if (!CustomItems.TryGetCustomItem(ev.FirearmItem, out CustomFirearmBase cur_item))
             return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
+        CustomFirearmEvents.OnShooting(cur_item, ev.Player, ev.FirearmItem, isAllowedHelper);
         cur_item.OnShooting(ev.Player, ev.FirearmItem, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
@@ -59,6 +66,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
     {
         if (!CustomItems.TryGetCustomItem(ev.FirearmItem, out CustomFirearmBase cur_item))
             return;
+        CustomFirearmEvents.OnShot(cur_item, ev.Player, ev.FirearmItem);
         cur_item.OnShot(ev.Player, ev.FirearmItem);
     }
     #endregion
@@ -68,6 +76,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
         if (!CustomItems.TryGetCustomItem(ev.FirearmItem, out CustomFirearmBase cur_item))
             return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
+        CustomFirearmEvents.OnUnloading(cur_item, ev.Player, ev.FirearmItem, isAllowedHelper);
         cur_item.OnUnloading(ev.Player, ev.FirearmItem, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
@@ -75,6 +84,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
     {
         if (!CustomItems.TryGetCustomItem(ev.FirearmItem, out CustomFirearmBase cur_item))
             return;
+        CustomFirearmEvents.OnUnloaded(cur_item, ev.Player, ev.FirearmItem);
         cur_item.OnUnloaded(ev.Player, ev.FirearmItem);
     }
     #endregion
@@ -85,6 +95,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
             return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
         TypeWrapper<bool> newState = new(ev.NewState);
+        CustomFirearmEvents.OnTogglingFlashlight(cur_item, ev.Player, ev.FirearmItem, newState, isAllowedHelper);
         cur_item.OnTogglingFlashlight(ev.Player, ev.FirearmItem, newState, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
         ev.NewState = newState.Value;
@@ -93,6 +104,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
     {
         if (!CustomItems.TryGetCustomItem(ev.FirearmItem, out CustomFirearmBase cur_item))
             return;
+        CustomFirearmEvents.OnToggledFlashlight(cur_item, ev.Player, ev.FirearmItem, ev.NewState);
         cur_item.OnToggledFlashlight(ev.Player, ev.FirearmItem, ev.NewState);
     }
     #endregion
@@ -103,6 +115,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
             return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
         TypeWrapper<uint> newState = new(ev.NewAttachments);
+        CustomFirearmEvents.OnChangingAttachments(cur_item, ev.Player, ev.FirearmItem, ev.OldAttachments, newState, isAllowedHelper);
         cur_item.OnChangingAttachments(ev.Player, ev.FirearmItem, ev.OldAttachments, newState, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
         ev.NewAttachments = newState.Value;
@@ -112,6 +125,7 @@ internal sealed class FirearmHandler : CustomEventsHandler
     {
         if (!CustomItems.TryGetCustomItem(ev.FirearmItem, out CustomFirearmBase cur_item))
             return;
+        CustomFirearmEvents.OnChangedAttachments(cur_item, ev.Player, ev.FirearmItem, ev.OldAttachments, ev.NewAttachments);
         cur_item.OnChangedAttachments(ev.Player, ev.FirearmItem, ev.OldAttachments, ev.NewAttachments);
     }
     #endregion

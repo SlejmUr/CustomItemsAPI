@@ -1,4 +1,5 @@
-﻿using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Events;
+using CustomItemsAPI.Items;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;
 using PlayerStatsSystem;
@@ -24,6 +25,7 @@ internal sealed class DamageHandler : CustomEventsHandler
         if (!CustomItems.TryGetCustomItem(firearmDamageHandler.Firearm.ItemSerial, out CustomFirearmBase cur_item))
             return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
+        CustomFirearmEvents.OnHurting(cur_item, ev.Player, ev.Attacker, firearmDamageHandler, isAllowedHelper);
         cur_item.OnHurting(ev.Player, ev.Attacker, firearmDamageHandler, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
@@ -44,6 +46,7 @@ internal sealed class DamageHandler : CustomEventsHandler
             return;
         if (!CustomItems.TryGetCustomItem(firearmDamageHandler.Firearm.ItemSerial, out CustomFirearmBase cur_item))
             return;
+        CustomFirearmEvents.OnHurt(cur_item, ev.Player, ev.Attacker, firearmDamageHandler);
         cur_item.OnHurt(ev.Player, ev.Attacker, firearmDamageHandler);
     }
 }

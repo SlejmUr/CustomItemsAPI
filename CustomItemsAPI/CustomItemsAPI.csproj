@@ -5,7 +5,7 @@
 		<RootNamespace>CustomItemsAPI</RootNamespace>
 		<Copyright>SlejmUr</Copyright>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<Version>0.0.7.1</Version>
+		<Version>0.0.8.0</Version>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Authors>SlejmUr</Authors>
 		<Company>SlejmUr</Company>
@@ -14,6 +14,7 @@
 		<PackageProjectUrl>https://github.com/SlejmUr/CustomItemsAPI</PackageProjectUrl>
 		<Description>LabAPI CustomItems implementation.</Description>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageTags>labapi-plugin</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>

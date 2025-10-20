@@ -1,4 +1,5 @@
-﻿using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Events;
+using CustomItemsAPI.Items;
 using LabApi.Events.Arguments.Scp914Events;
 using LabApi.Events.CustomHandlers;
 using Scp914;
@@ -14,6 +15,7 @@ internal sealed class Scp914Handler : CustomEventsHandler
             return;
         TypeWrapper<bool> isAllowed = new(ev.IsAllowed);
         TypeWrapper<Scp914KnobSetting> KnobSetting = new(ev.KnobSetting);
+        CustomItemEvents.OnProcessingItem(cur_item, ev.Player, ev.Item, KnobSetting, isAllowed);
         cur_item.OnProcessingItem(ev.Player, ev.Item, KnobSetting, isAllowed);
         ev.IsAllowed = isAllowed.Value;
         ev.KnobSetting = KnobSetting.Value;
@@ -26,7 +28,8 @@ internal sealed class Scp914Handler : CustomEventsHandler
         TypeWrapper<bool> isAllowed = new(ev.IsAllowed);
         TypeWrapper<Scp914KnobSetting> KnobSetting = new(ev.KnobSetting);
         TypeWrapper<Vector3> NewPosition = new(ev.NewPosition);
-        cur_item.OnProcessingPickup(ev.Pickup, KnobSetting, isAllowed, NewPosition);
+        CustomItemEvents.OnProcessingPickup(cur_item, ev.Pickup, KnobSetting, NewPosition, isAllowed);
+        cur_item.OnProcessingPickup(ev.Pickup, KnobSetting, NewPosition, isAllowed);
         ev.IsAllowed = isAllowed.Value;
         ev.KnobSetting = KnobSetting.Value;
         ev.NewPosition = NewPosition.Value;

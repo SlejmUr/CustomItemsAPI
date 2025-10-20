@@ -1,4 +1,5 @@
-﻿using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Events;
+using CustomItemsAPI.Items;
 using InventorySystem;
 using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
@@ -29,6 +30,7 @@ public static class CustomItems
         if (cib == null)
             return null;
         var newItem = (T)cib;
+        CustomItemEvents.OnNewCreated(newItem);
         newItem.OnNewCreated();
         return newItem;
     }
@@ -43,6 +45,7 @@ public static class CustomItems
         var cib = CustomItemBaseList.FirstOrDefault(x => x.CustomItemName == ItemName);
         if (cib == null)
             return null;
+        CustomItemEvents.OnNewCreated(cib);
         cib.OnNewCreated();
         return cib;
     }
@@ -82,6 +85,7 @@ public static class CustomItems
         var itemBase = player.AddItem(item.Type);
         if (itemBase == null)
             return null;
+        CustomItemEvents.OnParseItem(item, itemBase);
         item.Parse(itemBase);
         player.ReferenceHub.inventory.UserInventory.Items[itemBase.Serial] = itemBase.Base;
         SerialToCustomItem.Add(itemBase.Serial, item);
@@ -100,6 +104,7 @@ public static class CustomItems
         var itemBase = Item.Get(hub.inventory.ServerAddItem(item.Type, ItemAddReason.AdminCommand));
         if (itemBase == null)
             return null;
+        CustomItemEvents.OnParseItem(item, itemBase);
         item.Parse(itemBase);
         hub.inventory.UserInventory.Items[itemBase.Serial] = itemBase.Base;
         SerialToCustomItem.Add(itemBase.Serial, item);
@@ -160,6 +165,7 @@ public static class CustomItems
             return null;
         if (shouldSpawn)
             pickup.Spawn();
+        CustomItemEvents.OnParsePickup(customItem, pickup);
         customItem.Parse(pickup);
         SerialToCustomItem.Add(pickup.Serial, customItem);
         return pickup;
@@ -542,6 +548,7 @@ public static class CustomItems
     {
         if (customItemBase == null)
             return;
+        CustomItemEvents.OnRegistered(customItemBase);
         customItemBase.OnRegistered();
         CustomItemBaseList.Add(customItemBase);
     }
@@ -576,6 +583,7 @@ public static class CustomItems
     {
         if (customItemBase == null)
             return;
+        CustomItemEvents.OnUnregistered(customItemBase);
         customItemBase.OnUnRegistered();
         CustomItemBaseList.Remove(customItemBase);
     }

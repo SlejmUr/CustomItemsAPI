@@ -1,4 +1,5 @@
-﻿using LabApi.Events.CustomHandlers;
+﻿using CustomItemsAPI.Events;
+using LabApi.Events.CustomHandlers;
 using MEC;
 
 namespace CustomItemsAPI.EventHandlers;
@@ -13,6 +14,7 @@ internal sealed class NonItemRelatedHandler : CustomEventsHandler
             // Map should be generated at this point
             foreach (var item in CustomItems.CustomItemBaseList)
             {
+                CustomItemEvents.OnDistribute(item);
                 item.OnDistribute();
             }
         });

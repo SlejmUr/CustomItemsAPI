@@ -1,4 +1,5 @@
-﻿using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Events;
+using CustomItemsAPI.Items;
 using InventorySystem.Items;
 using InventorySystem.Items.MicroHID.Modules;
 using InventorySystem.Items.Pickups;
@@ -13,9 +14,15 @@ internal sealed class Subscribed
     {
         var customItem = CustomItems.GetCustomItem<CustomItemBase>(Item.Get(itemBase));
         var customItem2 = CustomItems.GetCustomItem<CustomItemBase>(Pickup.Get(itemPickupBase));
-        customItem?.OnRemoved(Player.Get(hub), itemBase, itemPickupBase);
+        Player player = Player.Get(hub);
+        CustomItemEvents.OnRemoved(customItem, player, itemBase, itemPickupBase);
+        customItem?.OnRemoved(player, itemBase, itemPickupBase);
         if (customItem != null && customItem != customItem2)
-            customItem2?.OnRemoved(Player.Get(hub), itemBase, itemPickupBase);
+        {
+            CustomItemEvents.OnRemoved(customItem2, player, itemBase, itemPickupBase);
+            customItem2?.OnRemoved(player, itemBase, itemPickupBase);
+        }
+            
     }
 
     internal static void ProjectileSpawned(ThrownProjectile projectile)
