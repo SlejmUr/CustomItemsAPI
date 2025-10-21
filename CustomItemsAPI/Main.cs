@@ -50,7 +50,6 @@ internal sealed class Main : Plugin<Config>
         ThrownProjectile.OnProjectileSpawned += Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged += Subscribed.PhaseChanged;
         BrokenSyncModule.OnBroken += Subscribed.BrokenSyncModule_OnBroken;
-        DrawAndInspectorModule.OnInspectRequested += Subscribed.DrawAndInspectorModule_OnInspectRequested;
         CustomItems.RegisterCustomItems();
     }
 
@@ -71,7 +70,6 @@ internal sealed class Main : Plugin<Config>
         ThrownProjectile.OnProjectileSpawned -= Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged -= Subscribed.PhaseChanged;
         BrokenSyncModule.OnBroken -= Subscribed.BrokenSyncModule_OnBroken;
-        DrawAndInspectorModule.OnInspectRequested -= Subscribed.DrawAndInspectorModule_OnInspectRequested;
         CustomItems.UnRegisterAllCustomItems();
     }
 }

@@ -7,7 +7,7 @@ namespace CustomItemsAPI.Items;
 /// <summary>
 /// Custom Item Base for <see cref="ItemCategory.Keycard"/> that is <see cref="ItemType.SurfaceAccessPass"/>.
 /// </summary>
-public abstract class CustomSingleUseKeyCardBase : CustomKeyCardBase
+public abstract class CustomSingleUseKeyCardBase : CustomKeycardBase
 {
     /// <summary>
     /// Sets the single usage <see cref="DoorPermissionFlags"/> for this keycard.

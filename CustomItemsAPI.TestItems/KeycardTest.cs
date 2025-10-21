@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CustomItemsAPI.TestItems;
 
-class KeycardTest : CustomKeyCardBase
+class KeycardTest : CustomKeycardBase
 {
     public override KeycardLevels? Levels => new(3, 3, 3);
 
@@ -30,7 +30,8 @@ class KeycardTest : CustomKeyCardBase
         canOpen.Value = true;
         isAllowed.Value = true;
     }
-    public override void OnInteractingGenerator(Player player, Item item, Generator generator, TypeWrapper<bool> isAllowed)
+
+    public override void OnInteractingGenerator(Player player, Item item, Generator generator, TypeWrapper<MapGeneration.Distributors.Scp079Generator.GeneratorColliderId> colliderIdHelper, TypeWrapper<bool> isAllowed)
     {
         isAllowed.Value = true;
     }

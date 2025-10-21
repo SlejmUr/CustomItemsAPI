@@ -17,6 +17,16 @@ public abstract class CustomUsableBase : CustomItemBase
     }
 
     /// <summary>
+    /// This <paramref name="player"/> who cancelled using this item.
+    /// </summary>
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="usableItem">The usable item.</param>
+    public virtual void OnCancelled(Player player, UsableItem usableItem)
+    {
+        CL.Debug($"OnCancelled {player.PlayerId} {usableItem.Serial}", Main.Instance.Config.Debug);
+    }
+
+    /// <summary>
     /// This <paramref name="player"/> who cancelling using this item.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
@@ -28,13 +38,13 @@ public abstract class CustomUsableBase : CustomItemBase
     }
 
     /// <summary>
-    /// This <paramref name="player"/> who cancelled using this item.
+    /// This <paramref name="player"/> who used this item.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
     /// <param name="usableItem">The usable item.</param>
-    public virtual void OnCancelled(Player player, UsableItem usableItem)
+    public virtual void OnUsed(Player player, UsableItem usableItem)
     {
-        CL.Debug($"OnCancelled {player.PlayerId} {usableItem.Serial}", Main.Instance.Config.Debug);
+        CL.Debug($"OnUsed {player.PlayerId} {usableItem.Serial}", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -46,15 +56,5 @@ public abstract class CustomUsableBase : CustomItemBase
     public virtual void OnUsing(Player player, UsableItem usableItem, TypeWrapper<bool> isAllowed)
     {
         CL.Debug($"OnUsing {player.PlayerId} {usableItem.Serial}", Main.Instance.Config.Debug);
-    }
-
-    /// <summary>
-    /// This <paramref name="player"/> who used this item.
-    /// </summary>
-    /// <param name="player">The Player who called this function.</param>
-    /// <param name="usableItem">The usable item.</param>
-    public virtual void OnUsed(Player player, UsableItem usableItem)
-    {
-        CL.Debug($"OnUsed {player.PlayerId} {usableItem.Serial}", Main.Instance.Config.Debug);
     }
 }

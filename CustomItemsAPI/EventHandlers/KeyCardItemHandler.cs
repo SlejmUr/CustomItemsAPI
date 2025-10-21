@@ -1,4 +1,5 @@
-﻿using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Events;
+using CustomItemsAPI.Items;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;
 using LabApi.Features.Wrappers;
@@ -13,10 +14,11 @@ internal sealed class KeyCardItemHandler : CustomEventsHandler
         Item? item = ev.Player.CurrentItem;
         if (item == null)
             return;
-        if (!CustomItems.TryGetCustomItem(item, out CustomKeyCardBase customKeyCardBase))
+        if (!CustomItems.TryGetCustomItem(item, out CustomKeycardBase customKeyCardBase))
             return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
         TypeWrapper<bool> canOpenHelper = new(ev.CanOpen);
+        CustomKeycardEvents.OnInteractingDoor(customKeyCardBase, ev.Player, item, ev.Door, canOpenHelper, isAllowedHelper);
         customKeyCardBase.OnInteractingDoor(ev.Player, item, ev.Door, canOpenHelper, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
         ev.CanOpen = canOpenHelper.Value;
@@ -27,8 +29,9 @@ internal sealed class KeyCardItemHandler : CustomEventsHandler
         Item? item = ev.Player.CurrentItem;
         if (item == null)
             return;
-        if (!CustomItems.TryGetCustomItem(item, out CustomKeyCardBase customKeyCardBase))
+        if (!CustomItems.TryGetCustomItem(item, out CustomKeycardBase customKeyCardBase))
             return;
+        CustomKeycardEvents.OnInteractedDoor(customKeyCardBase, ev.Player, item, ev.Door, ev.CanOpen);
         customKeyCardBase.OnInteractedDoor(ev.Player, item, ev.Door, ev.CanOpen);
     }
     #endregion
@@ -38,11 +41,14 @@ internal sealed class KeyCardItemHandler : CustomEventsHandler
         Item? item = ev.Player.CurrentItem;
         if (item == null)
             return;
-        if (!CustomItems.TryGetCustomItem(item, out CustomKeyCardBase customKeyCardBase))
+        if (!CustomItems.TryGetCustomItem(item, out CustomKeycardBase customKeyCardBase))
             return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
-        customKeyCardBase.OnInteractingGenerator(ev.Player, item, ev.Generator, isAllowedHelper);
+        TypeWrapper<MapGeneration.Distributors.Scp079Generator.GeneratorColliderId> colliderIdHelper = new(ev.ColliderId);
+        CustomKeycardEvents.OnInteractingGenerator(customKeyCardBase, ev.Player, item, ev.Generator, colliderIdHelper, isAllowedHelper);
+        customKeyCardBase.OnInteractingGenerator(ev.Player, item, ev.Generator, colliderIdHelper, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
+        ev.ColliderId = colliderIdHelper.Value;
     }
 
     public override void OnPlayerInteractedGenerator(PlayerInteractedGeneratorEventArgs ev)
@@ -50,9 +56,10 @@ internal sealed class KeyCardItemHandler : CustomEventsHandler
         Item? item = ev.Player.CurrentItem;
         if (item == null)
             return;
-        if (!CustomItems.TryGetCustomItem(item, out CustomKeyCardBase customKeyCardBase))
+        if (!CustomItems.TryGetCustomItem(item, out CustomKeycardBase customKeyCardBase))
             return;
-        customKeyCardBase.OnInteractedGenerator(ev.Player, item, ev.Generator);
+        CustomKeycardEvents.OnInteractedGenerator(customKeyCardBase, ev.Player, item, ev.Generator, ev.ColliderId);
+        customKeyCardBase.OnInteractedGenerator(ev.Player, item, ev.Generator, ev.ColliderId);
     }
     #endregion
     #region Interact Locker
@@ -61,10 +68,11 @@ internal sealed class KeyCardItemHandler : CustomEventsHandler
         Item? item = ev.Player.CurrentItem;
         if (item == null)
             return;
-        if (!CustomItems.TryGetCustomItem(item, out CustomKeyCardBase customKeyCardBase))
+        if (!CustomItems.TryGetCustomItem(item, out CustomKeycardBase customKeyCardBase))
             return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
         TypeWrapper<bool> canOpenHelper = new(ev.CanOpen);
+        CustomKeycardEvents.OnInteractingLocker(customKeyCardBase, ev.Player, item, ev.Locker, ev.Chamber, canOpenHelper, isAllowedHelper);
         customKeyCardBase.OnInteractingLocker(ev.Player, item, ev.Locker, ev.Chamber, canOpenHelper, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
         ev.CanOpen = canOpenHelper.Value;
@@ -75,25 +83,28 @@ internal sealed class KeyCardItemHandler : CustomEventsHandler
         Item? item = ev.Player.CurrentItem;
         if (item == null)
             return;
-        if (!CustomItems.TryGetCustomItem(item, out CustomKeyCardBase customKeyCardBase))
+        if (!CustomItems.TryGetCustomItem(item, out CustomKeycardBase customKeyCardBase))
             return;
+        CustomKeycardEvents.OnInteractedLocker(customKeyCardBase, ev.Player, item, ev.Locker, ev.Chamber, ev.CanOpen);
         customKeyCardBase?.OnInteractedLocker(ev.Player, item, ev.Locker, ev.Chamber, ev.CanOpen);
     }
     #endregion
     #region Inspect Keycard
     public override void OnPlayerInspectingKeycard(PlayerInspectingKeycardEventArgs ev)
     {
-        if (!CustomItems.TryGetCustomItem(ev.KeycardItem, out CustomKeyCardBase cur_item))
+        if (!CustomItems.TryGetCustomItem(ev.KeycardItem, out CustomKeycardBase cur_item))
             return;
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
+        CustomKeycardEvents.OnInspectingKeycard(cur_item, ev.Player, ev.KeycardItem, isAllowedHelper);
         cur_item.OnInspectingKeycard(ev.Player, ev.KeycardItem, isAllowedHelper);
         ev.IsAllowed = isAllowedHelper.Value;
     }
 
     public override void OnPlayerInspectedKeycard(PlayerInspectedKeycardEventArgs ev)
     {
-        if (!CustomItems.TryGetCustomItem(ev.KeycardItem, out CustomKeyCardBase cur_item))
+        if (!CustomItems.TryGetCustomItem(ev.KeycardItem, out CustomKeycardBase cur_item))
             return;
+        CustomKeycardEvents.OnInspectedKeycard(cur_item, ev.Player, ev.KeycardItem);
         cur_item.OnInspectedKeycard(ev.Player, ev.KeycardItem);
     }
     #endregion

@@ -1,4 +1,5 @@
-﻿using CustomItemsAPI.Items;
+﻿using CustomItemsAPI.Events;
+using CustomItemsAPI.Items;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;
 
@@ -12,13 +13,16 @@ internal sealed class UsableItemHandler : CustomEventsHandler
         if (!CustomItems.TryGetCustomItem(ev.UsableItem, out CustomUsableBase cur_item))
             return;
         TypeWrapper<bool> isAllowed = new(ev.IsAllowed);
+        CustomUsableEvents.OnCancelling(cur_item, ev.Player, ev.UsableItem, isAllowed);
         cur_item?.OnCancelling(ev.Player, ev.UsableItem, isAllowed);
         ev.IsAllowed = isAllowed.Value;
     }
     public override void OnPlayerCancelledUsingItem(PlayerCancelledUsingItemEventArgs ev)
     {
-        var cur_item = CustomItems.GetCustomItem<CustomUsableBase>(ev.UsableItem);
-        cur_item?.OnCancelled(ev.Player, ev.UsableItem);
+        if (!CustomItems.TryGetCustomItem(ev.UsableItem, out CustomUsableBase cur_item))
+            return;
+        CustomUsableEvents.OnCancelled(cur_item, ev.Player, ev.UsableItem);
+        cur_item.OnCancelled(ev.Player, ev.UsableItem);
     }
     #endregion
     #region Use
@@ -27,6 +31,7 @@ internal sealed class UsableItemHandler : CustomEventsHandler
         if (!CustomItems.TryGetCustomItem(ev.UsableItem, out CustomUsableBase cur_item))
             return;
         TypeWrapper<bool> isAllowed = new(ev.IsAllowed);
+        CustomUsableEvents.OnUsing(cur_item, ev.Player, ev.UsableItem, isAllowed);
         cur_item?.OnUsing(ev.Player, ev.UsableItem, isAllowed);
         ev.IsAllowed = isAllowed.Value;
     }
@@ -34,6 +39,7 @@ internal sealed class UsableItemHandler : CustomEventsHandler
     {
         if (!CustomItems.TryGetCustomItem(ev.UsableItem, out CustomUsableBase cur_item))
             return;
+        CustomUsableEvents.OnUsed(cur_item, ev.Player, ev.UsableItem);
         cur_item.OnUsed(ev.Player, ev.UsableItem);
     }
     #endregion

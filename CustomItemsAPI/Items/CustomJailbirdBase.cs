@@ -40,6 +40,17 @@ public abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
     }
 
     /// <summary>
+    /// Called Server processed a <paramref name="message"/> from <paramref name="jailbirdItem"/>.
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="jailbirdItem"></param>
+    /// <param name="message"></param>
+    public virtual void OnProcessedJailbirdMessage(Player player, JailbirdItem jailbirdItem, InventorySystem.Items.Jailbird.JailbirdMessageType message)
+    {
+        CL.Debug($"ProcessedJailbirdMessage {player.PlayerId} {jailbirdItem.Serial} {message}", Main.Instance.Config.Debug);
+    }
+
+    /// <summary>
     /// Called Server processing a <paramref name="message"/> from <paramref name="jailbirdItem"/>.
     /// </summary>
     /// <param name="player"></param>
@@ -48,19 +59,8 @@ public abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
     /// <param name="allowInspectHelper"></param>
     /// <param name="allowAttackHelper"></param>
     /// <param name="isAllowedHelper"></param>
-    public virtual void ProcessingJailbirdMessage(Player player, JailbirdItem jailbirdItem, TypeWrapper<InventorySystem.Items.Jailbird.JailbirdMessageType> message, TypeWrapper<bool> allowInspectHelper, TypeWrapper<bool> allowAttackHelper, TypeWrapper<bool> isAllowedHelper)
+    public virtual void OnProcessingJailbirdMessage(Player player, JailbirdItem jailbirdItem, TypeWrapper<InventorySystem.Items.Jailbird.JailbirdMessageType> message, TypeWrapper<bool> allowInspectHelper, TypeWrapper<bool> allowAttackHelper, TypeWrapper<bool> isAllowedHelper)
     {
         CL.Debug($"ProcessingJailbirdMessage {player.PlayerId} {jailbirdItem.Serial} {message.Value} {allowAttackHelper.Value} {allowInspectHelper.Value}", Main.Instance.Config.Debug);
-    }
-
-    /// <summary>
-    /// Called Server processed a <paramref name="message"/> from <paramref name="jailbirdItem"/>.
-    /// </summary>
-    /// <param name="player"></param>
-    /// <param name="jailbirdItem"></param>
-    /// <param name="message"></param>
-    public virtual void ProcessedJailbirdMessage(Player player, JailbirdItem jailbirdItem, InventorySystem.Items.Jailbird.JailbirdMessageType message)
-    {
-        CL.Debug($"ProcessedJailbirdMessage {player.PlayerId} {jailbirdItem.Serial} {message}", Main.Instance.Config.Debug);
     }
 }

@@ -27,9 +27,11 @@ internal sealed class Subscribed
 
     internal static void ProjectileSpawned(ThrownProjectile projectile)
     {
-        if (!CustomItems.TryGetCustomItem(Pickup.Get(projectile), out CustomThrowableBase cur_item))
+        Projectile labProjectile = Projectile.Get(projectile);
+        if (!CustomItems.TryGetCustomItem(labProjectile, out CustomThrowableBase cur_item))
             return;
-        cur_item.OnProjectileSpawned(projectile);
+        CustomThrowableEvents.OnProjectileSpawned(cur_item, labProjectile);
+        cur_item.OnProjectileSpawned(labProjectile);
     }
 
     internal static void PhaseChanged(ushort Serial, MicroHidPhase phase)
@@ -38,6 +40,7 @@ internal sealed class Subscribed
             return;
         if (Item.Get(Serial) is not MicroHIDItem microHIDItem)
             return;
+        CustomMicroHIDEvents.OnPhaseChanged(cur_item, microHIDItem, phase);
         cur_item.OnPhaseChanged(microHIDItem, phase);
     }
 
@@ -48,15 +51,7 @@ internal sealed class Subscribed
             return;
         if (Item.Get(Serial) is not MicroHIDItem microHIDItem)
             return;
+        CustomMicroHIDEvents.OnBroken(cur_item, microHIDItem);
         cur_item.OnBroken(microHIDItem);
-    }
-
-    internal static void DrawAndInspectorModule_OnInspectRequested(ushort Serial)
-    {
-        if (!CustomItems.TryGetCustomItem(Serial, out CustomMicroHIDBase cur_item))
-            return;
-        if (Item.Get(Serial) is not MicroHIDItem microHIDItem)
-            return;
-        cur_item.OnInspectRequested(microHIDItem);
     }
 }

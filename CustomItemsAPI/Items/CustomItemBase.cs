@@ -150,7 +150,7 @@ public abstract class CustomItemBase
     }
 
     /// <summary>
-    /// This <paramref name="player"/> who currently dropped to Currect Custom Item.
+    /// This <paramref name="player"/> who currently dropped to current Custom Item.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
     /// <param name="pickup"></param>
@@ -160,7 +160,7 @@ public abstract class CustomItemBase
     }
 
     /// <summary>
-    /// This <paramref name="player"/> who currently dropping to Currect Custom Item.
+    /// This <paramref name="player"/> who currently dropping to current Custom Item.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
     /// <param name="item"></param>
@@ -172,7 +172,7 @@ public abstract class CustomItemBase
     }
 
     /// <summary>
-    /// This <paramref name="player"/> who picked up the Currect Custom Item.
+    /// This <paramref name="player"/> who picked up the current Custom Item.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
     /// <param name="pickup"></param>
@@ -182,7 +182,7 @@ public abstract class CustomItemBase
     }
 
     /// <summary>
-    /// This <paramref name="player"/> who searching the Currect Custom Item.
+    /// This <paramref name="player"/> who searching the current Custom Item.
     /// </summary>
     /// <param name="player">Player who called this function.</param>
     /// <param name="pickup">The pickup searching.</param>
@@ -193,7 +193,7 @@ public abstract class CustomItemBase
     }
 
     /// <summary>
-    /// This <paramref name="player"/> who picked up the Currect Custom Item.
+    /// This <paramref name="player"/> who picked up the current Custom Item.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
     /// <param name="item">The item has been picked up.</param>
@@ -205,7 +205,7 @@ public abstract class CustomItemBase
     }
 
     /// <summary>
-    /// This <paramref name="player"/> who picking up the Currect Custom Item.
+    /// This <paramref name="player"/> who picking up the current Custom Item.
     /// </summary>
     /// <param name="player">Player who called this function.</param>
     /// <param name="pickup">The pickup picking up</param>
@@ -216,7 +216,7 @@ public abstract class CustomItemBase
     }
 
     /// <summary>
-    /// This <paramref name="player"/> who threw up the Currect Custom Item.
+    /// This <paramref name="player"/> who threw up the current Custom Item.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
     /// <param name="pickup"></param>
@@ -227,7 +227,7 @@ public abstract class CustomItemBase
     }
 
     /// <summary>
-    /// This <paramref name="player"/> who throwing the Currect Custom Item.
+    /// This <paramref name="player"/> who throwing the current Custom Item.
     /// </summary>
     /// <param name="player">Player who called this function.</param>
     /// <param name="pickup">The pickup to throw.</param>
@@ -267,7 +267,7 @@ public abstract class CustomItemBase
     }
 
     /// <summary>
-    /// This <paramref name="player"/> who removed the Currect Custom Item.
+    /// This <paramref name="player"/> who removed the current Custom Item.
     /// </summary>
     /// <param name="player">The Player who called this function.</param>
     /// <param name="itemBase">ItemBase</param>
