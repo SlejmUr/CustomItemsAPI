@@ -16,11 +16,6 @@ public abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
     public virtual List<ModuleChanger> AddModules { get; } = [];
 
     /// <summary>
-    /// Changable values for <see cref="InventorySystem.Items.Jailbird.JailbirdHitreg"/>
-    /// </summary>
-    public JailbirdHitregOverride JailbirdHitregOverride = new();
-
-    /// <summary>
     /// Changable values for <see cref="InventorySystem.Items.Jailbird.JailbirdItem"/>
     /// </summary>
     public JailbirdItemOverride JailbirdItemOverride = new();
@@ -34,7 +29,6 @@ public abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
         if (item is not JailbirdItem jailbird)
             throw new ArgumentException("JailbirdItem must not be null!");
 
-        JailbirdHitregOverride.Apply(ref jailbird.Base._hitreg);
         var jailbirdItemBase = jailbird.Base;
         JailbirdItemOverride.Apply(ref jailbirdItemBase);
     }

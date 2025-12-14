@@ -57,12 +57,36 @@ public class JailbirdItemOverride : IOverride<JailbirdItem>
     /// </summary>
     public MathValueFloat BrokenRemoveTime = new();
 
+    /// <summary>
+    /// How much damage should the melee attack deal
+    /// </summary>
+    public MathValueFloat DamageMelee = new();
+
+    /// <summary>
+    /// How much damage should the charge attack deal
+    /// </summary>
+    public MathValueFloat DamageCharge = new();
+
+    /// <summary>
+    /// How long in seconds the 'concussed' effect is applied for on attacked targets
+    /// </summary>
+    public MathValueFloat ConcussionDuration = new();
+
+    /// <summary>
+    /// How long in seconds the 'flashed' effect is applied for on attacked targets
+    /// </summary>
+    public MathValueFloat FlashedDuration = new();
+
     /// <inheritdoc/>
     public Type OverrideType => typeof(JailbirdItem);
 
     /// <inheritdoc/>
     public void Apply(ref JailbirdItem jailbirdItem)
     {
+        DamageMelee.MathCalculation(ref jailbirdItem.MeleeDamage);
+        DamageCharge.MathCalculation(ref jailbirdItem._chargeDamage);
+        ConcussionDuration.MathCalculation(ref jailbirdItem._concussionDuration);
+        FlashedDuration.MathCalculation(ref jailbirdItem._flashedDuration);
         MeleeDelay.MathCalculation(ref jailbirdItem._meleeDelay);
         MeleeCooldown.MathCalculation(ref jailbirdItem._meleeCooldown);
         ChargeDuration.MathCalculation(ref jailbirdItem._chargeDuration);
