@@ -3,6 +3,7 @@ using InventorySystem;
 using InventorySystem.Items.MicroHID.Modules;
 using InventorySystem.Items.ThrowableProjectiles;
 using LabApi.Events.CustomHandlers;
+using LabApi.Loader;
 using LabApi.Loader.Features.Plugins;
 
 namespace CustomItemsAPI;
@@ -74,5 +75,16 @@ internal sealed class Main : Plugin<Config>
         CycleController.OnPhaseChanged -= Subscribed.PhaseChanged;
         BrokenSyncModule.OnBroken -= Subscribed.BrokenSyncModule_OnBroken;
         CustomItems.UnRegisterAllCustomItems();
+    }
+
+    public override void LoadConfigs()
+    {
+        if (!this.TryLoadConfig(ConfigFileName, out Config config))
+        {
+            CL.Warn("Failed to load the configuration file, using default values.");
+            config = new();
+        }
+
+        Config = config;
     }
 }
