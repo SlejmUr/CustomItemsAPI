@@ -1,7 +1,11 @@
-﻿using CustomItemsAPI.Extensions;
+﻿using CustomItemsAPI.EventHandlers;
+using CustomItemsAPI.Extensions;
 using InventorySystem.Items.Armor;
+using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Wrappers;
+using PlayerStatsSystem;
 using System.ComponentModel;
+using UnityEngine;
 
 namespace CustomItemsAPI.Items;
 
@@ -67,5 +71,16 @@ public abstract class CustomArmorBase : CustomItemBase
         }
         if (CategoryLimits != null)
             body.Base.CategoryLimits = [.. CategoryLimits];
+    }
+
+    /// <summary>
+    /// Triggers when user is damaged.
+    /// </summary>
+    /// <param name="reciever">Reciever of the damage.</param>
+    /// <param name="attacker">Damage dealer.</param>
+    /// <param name="damageHandler">Damage Handler.</param>
+    public virtual void OnTakingDamage(Player reciever, Player attacker, FirearmDamageHandler damageHandler)
+    {
+        CL.Debug($"OnTakingDamage {reciever.DisplayName} from {attacker.DisplayName}", Main.Instance.Config.Debug);
     }
 }
