@@ -83,4 +83,16 @@ public abstract class CustomArmorBase : CustomItemBase
     {
         CL.Debug($"OnTakingDamage {reciever.DisplayName} from {attacker.DisplayName}", Main.Instance.Config.Debug);
     }
+
+    /// <summary>
+    /// This <paramref name="player"/> who picked up the current Custom Item (Armour).
+    /// </summary>
+    /// <param name="player">The Player who called this function.</param>
+    /// <param name="pickup">The armour has been equiped.</param>
+    public override void OnSearched(Player player, Pickup pickup)
+    {
+        CL.Debug($"OnSearched (Armour) {player.PlayerId} {pickup.Serial}", Main.Instance.Config.Debug);
+        if (OverrideShowPickedUpHint)
+            HintShow?.Invoke(player, string.Format(OverridePickedUpHint, DisplayName, Description));
+    }
 }
