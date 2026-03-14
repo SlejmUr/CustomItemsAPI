@@ -37,10 +37,8 @@ internal sealed class DamageHandler : CustomEventsHandler
         if (!ev.Player.Inventory.TryGetBodyArmor(out _))
             return;
 
-        CL.Debug($"OnPlayerHurting {ev.Player.DisplayName} ARMOUR");
         if (CustomItems.TryGetCustomItem(item: ev.Player.Items.Where(x => x.Type.IsArmor()).FirstOrDefault(), out CustomArmorBase cur_armor))
         {
-            CL.Debug($"OnPlayerHurting {ev.Player.DisplayName} CUSTOM ITEM {cur_armor}");
             CustomItemEvents.OnTakingDamage(cur_armor, ev.Player, ev.Attacker, ev.DamageHandler);
             cur_armor.OnTakingDamage(ev.Player, ev.Attacker, firearmDamageHandler);
             return;
