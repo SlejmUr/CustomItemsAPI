@@ -11,15 +11,22 @@ internal sealed class KeyCardItemHandler : CustomEventsHandler
     #region Interact Door
     public override void OnPlayerInteractingDoor(PlayerInteractingDoorEventArgs ev)
     {
-        Item? item = ev.Player.CurrentItem;
-        if (item == null)
+        var keycardItem = ev.Player.Items.FirstOrDefault(x => x.Category == ItemCategory.Keycard);
+
+        if (keycardItem == null)
             return;
-        if (!CustomItems.TryGetCustomItem(item, out CustomKeycardBase customKeyCardBase))
+
+        if (!CustomItems.TryGetCustomItem(keycardItem, out CustomKeycardBase customKeyCardBase))
             return;
+
         TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
         TypeWrapper<bool> canOpenHelper = new(ev.CanOpen);
-        CustomKeycardEvents.OnInteractingDoor(customKeyCardBase, ev.Player, item, ev.Door, canOpenHelper, isAllowedHelper);
-        customKeyCardBase.OnInteractingDoor(ev.Player, item, ev.Door, canOpenHelper, isAllowedHelper);
+
+        bool isHeld = ev.Player.CurrentItem == keycardItem;
+
+        CustomKeycardEvents.OnInteractingDoor(customKeyCardBase, ev.Player, keycardItem, ev.Door, canOpenHelper, isAllowedHelper, isHeld);
+        customKeyCardBase.OnInteractingDoor(ev.Player, keycardItem, ev.Door, canOpenHelper, isAllowedHelper);
+
         ev.IsAllowed = isAllowedHelper.Value;
         ev.CanOpen = canOpenHelper.Value;
     }
