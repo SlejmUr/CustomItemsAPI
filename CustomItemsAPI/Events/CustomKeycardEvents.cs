@@ -7,7 +7,7 @@ namespace CustomItemsAPI.Events;
 public static class CustomKeycardEvents
 {
     public static event Action<CustomKeycardBase, Player, Item, Door, bool>? InteractedDoor;
-    public static event Action<CustomKeycardBase, Player, Item, Door, TypeWrapper<bool>, TypeWrapper<bool>>? InteractingDoor;
+    public static event Action<CustomKeycardBase, Player, Item, Door, TypeWrapper<bool>, TypeWrapper<bool>, bool>? InteractingDoor;
     public static event Action<CustomKeycardBase, Player, Item, Generator, GeneratorColliderId>? InteractedGenerator;
     public static event Action<CustomKeycardBase, Player, Item, Generator, TypeWrapper<GeneratorColliderId>, TypeWrapper<bool>>? InteractingGenerator;
     public static event Action<CustomKeycardBase, Player, Item, Locker, LockerChamber, bool>? InteractedLocker;
