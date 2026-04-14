@@ -79,9 +79,10 @@ public abstract class CustomArmorBase : CustomItemBase
     /// <param name="reciever">Reciever of the damage.</param>
     /// <param name="attacker">Damage dealer.</param>
     /// <param name="damageHandler">Damage Handler.</param>
-    public virtual void OnTakingDamage(Player reciever, Player attacker, FirearmDamageHandler damageHandler)
+    /// /// <param name="isAllowed">Whether or not the action is allowed to perform.</param>
+    public virtual void OnTakingDamage(Player reciever, Player attacker, FirearmDamageHandler damageHandler, TypeWrapper<bool> isAllowed)
     {
-        CL.Debug($"OnTakingDamage {reciever.DisplayName} from {attacker.DisplayName}", Main.Instance.Config.Debug);
+        CL.Debug($"OnTakingDamage {reciever.DisplayName} from {attacker.DisplayName} dealing {damageHandler.Damage} damage", Main.Instance.Config.Debug);
     }
 
     /// <summary>
@@ -91,7 +92,7 @@ public abstract class CustomArmorBase : CustomItemBase
     /// <param name="pickup">The armour has been equiped.</param>
     public override void OnSearched(Player player, Pickup pickup)
     {
-        CL.Debug($"OnSearched (Armour) {player.PlayerId} {pickup.Serial}", Main.Instance.Config.Debug);
+        CL.Debug($"OnSearched (Armor) {player.PlayerId} {pickup.Serial}", Main.Instance.Config.Debug);
         if (OverrideShowPickedUpHint)
             HintShow?.Invoke(player, string.Format(OverridePickedUpHint, DisplayName, Description));
     }

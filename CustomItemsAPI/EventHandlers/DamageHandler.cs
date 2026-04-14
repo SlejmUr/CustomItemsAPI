@@ -4,6 +4,7 @@ using CustomItemsAPI.Items;
 using InventorySystem.Items.Armor;
 using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Events.CustomHandlers;
+using LabApi.Features.Wrappers;
 using PlayerStatsSystem;
 
 namespace CustomItemsAPI.EventHandlers;
@@ -31,17 +32,17 @@ internal sealed class DamageHandler : CustomEventsHandler
             CustomFirearmEvents.OnHurting(cur_item, ev.Player, ev.Attacker, firearmDamageHandler, isAllowedHelper);
             cur_item.OnHurting(ev.Player, ev.Attacker, firearmDamageHandler, isAllowedHelper);
             ev.IsAllowed = isAllowedHelper.Value;
-            return;
         }
 
-        if (!ev.Player.Inventory.TryGetBodyArmor(out _))
+        if (!ev.Player.Inventory.TryGetBodyArmor(out BodyArmor equipedArmor))
             return;
 
-        if (CustomItems.TryGetCustomItem(item: ev.Player.Items.Where(x => x.Type.IsArmor()).FirstOrDefault(), out CustomArmorBase cur_armor))
+        if (CustomItems.TryGetCustomItem(item: Item.Get(equipedArmor), out CustomArmorBase cur_armor))
         {
-            CustomItemEvents.OnTakingDamage(cur_armor, ev.Player, ev.Attacker, ev.DamageHandler);
-            cur_armor.OnTakingDamage(ev.Player, ev.Attacker, firearmDamageHandler);
-            return;
+            TypeWrapper<bool> isAllowedHelper = new(ev.IsAllowed);
+            CustomItemEvents.OnTakingDamage(cur_armor, ev.Player, ev.Attacker, ev.DamageHandler, isAllowedHelper);
+            cur_armor.OnTakingDamage(ev.Player, ev.Attacker, firearmDamageHandler, isAllowedHelper);
+            ev.IsAllowed = isAllowedHelper.Value;
         }
     }
 

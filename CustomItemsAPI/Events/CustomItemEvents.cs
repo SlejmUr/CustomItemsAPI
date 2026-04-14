@@ -32,7 +32,7 @@ public static class CustomItemEvents
     public static event Action<CustomItemBase, Player, Item, TypeWrapper<Scp914KnobSetting>, TypeWrapper<bool>>? ProcessingItem;
     public static event Action<CustomItemBase, Pickup, TypeWrapper<Scp914KnobSetting>, TypeWrapper<Vector3>, TypeWrapper<bool>>? ProcessingPickup;
     public static event Action<CustomItemBase, Player, ItemBase?, ItemPickupBase>? Removed;
-    public static event Action<CustomItemBase, Player, Player, DamageHandlerBase>? TakingDamage;
+    public static event Action<CustomItemBase, Player, Player, DamageHandlerBase, TypeWrapper<bool>>? TakingDamage;
 
     public static void OnRegistered(CustomItemBase customItem)
         => Registered?.Invoke(customItem);
@@ -72,6 +72,6 @@ public static class CustomItemEvents
         => ProcessingPickup?.Invoke(customItem, pickup, knobSetting, newPosition, isAllowed);
     public static void OnRemoved(CustomItemBase customItem, Player player, ItemBase? itemBase, ItemPickupBase? itemPickupBase)
         => Removed?.Invoke(customItem, player, itemBase, itemPickupBase);
-    public static void OnTakingDamage(CustomItemBase customItem, Player player, Player attacker, DamageHandlerBase damageHandler)
-        => TakingDamage?.Invoke(customItem, player, attacker, damageHandler);
+    public static void OnTakingDamage(CustomItemBase customItem, Player player, Player attacker, DamageHandlerBase damageHandler, TypeWrapper<bool> isAllowed)
+        => TakingDamage?.Invoke(customItem, player, attacker, damageHandler, isAllowed);
 }
