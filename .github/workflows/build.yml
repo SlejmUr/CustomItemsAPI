@@ -1,74 +1,26 @@
-name: Build CustomItemsAPI
+name: Build
 
 on:
   push:
+    tags-ignore:
+      - "release-*"
+      - "latest"
     paths-ignore:
-      - '**/*.md'
+      - '.github/*'
+      - '*.md'
+      - "*.yml"
   pull_request:
     paths-ignore:
-      - '**/*.md'
+      - '.github/*'
+      - '*.md'
+      - "*.yml"
   workflow_dispatch:
-    # allows manual trigger
+    # allow manual trigger
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    
-    #LabAPI references
-    env:
-      REFERENCES_URL: https://exmod-team.github.io/SL-References/Dev.zip
-      REFERENCES_PATH: ${{ github.workspace }}/References
-      MAINPATH: CustomItemsAPI/CustomItemsAPI.csproj
-      TESTPATH: CustomItemsAPI.TestItems/CustomItemsAPI.TestItems.csproj
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Dotnet
-        uses: actions/setup-dotnet@v4.0.1
-        with:
-          dotnet-version: 9.0.x
-          
-      - name: Download References
-        run: |
-          wget -O "${{ github.workspace }}/References.zip" ${{ env.REFERENCES_URL }}
-          unzip -d ${{ env.REFERENCES_PATH }} "${{ github.workspace }}/References.zip"
-
-      - name: Rename Assembly-CSharp-Publicized to Assembly-CSharp
-        run: |
-          mv "${{ env.REFERENCES_PATH }}/Assembly-CSharp-Publicized.dll" "${{ env.REFERENCES_PATH }}/Assembly-CSharp.dll"
-
-
-      - name: Build Main
-        env:
-          SL_REFERENCES: ${{ env.REFERENCES_PATH }}
-        run: |
-          dotnet build ${{ env.MAINPATH }} -c Release -o:Main
-
-      - name: Upload Main artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: CustomItemsAPI
-          path: Main
-          if-no-files-found: error
-
-      - name: Upload Nuget package artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: CustomItemsAPI Nuget package
-          path: Main/*.nupkg
-          if-no-files-found: error
-
-      - name: Build Test
-        env:
-          SL_REFERENCES: ${{ env.REFERENCES_PATH }}
-        run: |
-          dotnet build ${{ env.TESTPATH }} -c Release -o:Test
-
-      - name: Upload Test artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: CustomItemsAPI.TestItems
-          path: Test
-          if-no-files-found: error
+    permissions:
+      contents: write
+    uses: KadavasKingdom/workflows/.github/workflows/build.yml@main
+    secrets:
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
