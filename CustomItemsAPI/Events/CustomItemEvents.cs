@@ -2,6 +2,7 @@
 using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
 using LabApi.Features.Wrappers;
+using PlayerStatsSystem;
 using Scp914;
 using UnityEngine;
 
@@ -31,43 +32,46 @@ public static class CustomItemEvents
     public static event Action<CustomItemBase, Player, Item, TypeWrapper<Scp914KnobSetting>, TypeWrapper<bool>>? ProcessingItem;
     public static event Action<CustomItemBase, Pickup, TypeWrapper<Scp914KnobSetting>, TypeWrapper<Vector3>, TypeWrapper<bool>>? ProcessingPickup;
     public static event Action<CustomItemBase, Player, ItemBase?, ItemPickupBase>? Removed;
+    public static event Action<CustomItemBase, Player, Player, DamageHandlerBase, TypeWrapper<bool>>? TakingDamage;
 
-    public static void OnRegistered(CustomItemBase customItem) 
+    public static void OnRegistered(CustomItemBase customItem)
         => Registered?.Invoke(customItem);
-    public static void OnUnregistered(CustomItemBase customItem) 
+    public static void OnUnregistered(CustomItemBase customItem)
         => Unregistered?.Invoke(customItem);
-    public static void OnNewCreated(CustomItemBase customItem) 
+    public static void OnNewCreated(CustomItemBase customItem)
         => NewCreated?.Invoke(customItem);
-    public static void OnParsePickup(CustomItemBase customItem, Pickup pickup) 
+    public static void OnParsePickup(CustomItemBase customItem, Pickup pickup)
         => ParsePickup?.Invoke(customItem, pickup);
-    public static void OnParseItem(CustomItemBase customItem, Item item) 
+    public static void OnParseItem(CustomItemBase customItem, Item item)
         => ParseItem?.Invoke(customItem, item);
-    public static void OnDistribute(CustomItemBase customItem) 
+    public static void OnDistribute(CustomItemBase customItem)
         => Distribute?.Invoke(customItem);
-    public static void OnChanged(CustomItemBase customItem, Player player, Item? oldItem, Item? newItem, bool changedToThisItem) 
+    public static void OnChanged(CustomItemBase customItem, Player player, Item? oldItem, Item? newItem, bool changedToThisItem)
         => Changed?.Invoke(customItem, player, oldItem, newItem, changedToThisItem);
     public static void OnChanging(CustomItemBase customItem, Player player, Item? oldItem, Item? newItem, bool changedToThisItem, TypeWrapper<bool> isAllowed)
         => Changing?.Invoke(customItem, player, oldItem, newItem, changedToThisItem, isAllowed);
-    public static void OnDropped(CustomItemBase customItem, Player player, Pickup pickup) 
+    public static void OnDropped(CustomItemBase customItem, Player player, Pickup pickup)
         => Dropped?.Invoke(customItem, player, pickup);
     public static void OnDropping(CustomItemBase customItem, Player player, Item item, TypeWrapper<bool> isThrow, TypeWrapper<bool> isAllowed)
         => Dropping?.Invoke(customItem, player, item, isThrow, isAllowed);
-    public static void OnSearched(CustomItemBase customItem, Player player, Pickup pickup) 
+    public static void OnSearched(CustomItemBase customItem, Player player, Pickup pickup)
         => Searched?.Invoke(customItem, player, pickup);
-    public static void OnSearching(CustomItemBase customItem, Player player, Pickup pickup, TypeWrapper<bool> isAllowed) 
+    public static void OnSearching(CustomItemBase customItem, Player player, Pickup pickup, TypeWrapper<bool> isAllowed)
         => Searching?.Invoke(customItem, player, pickup, isAllowed);
-    public static void OnPicked(CustomItemBase customItem, Player player, Item item) 
+    public static void OnPicked(CustomItemBase customItem, Player player, Item item)
         => Picked?.Invoke(customItem, player, item);
-    public static void OnPicking(CustomItemBase customItem, Player player, Pickup pickup, TypeWrapper<bool> isAllowed) 
+    public static void OnPicking(CustomItemBase customItem, Player player, Pickup pickup, TypeWrapper<bool> isAllowed)
         => Picking?.Invoke(customItem, player, pickup, isAllowed);
-    public static void OnThrew(CustomItemBase customItem, Player player, Pickup pickup, Rigidbody rigidbody) 
+    public static void OnThrew(CustomItemBase customItem, Player player, Pickup pickup, Rigidbody rigidbody)
         => Threw?.Invoke(customItem, player, pickup, rigidbody);
-    public static void OnThrowing(CustomItemBase customItem, Player player, Pickup pickup, Rigidbody rigidbody, TypeWrapper<bool> isAllowed) 
+    public static void OnThrowing(CustomItemBase customItem, Player player, Pickup pickup, Rigidbody rigidbody, TypeWrapper<bool> isAllowed)
         => Throwing?.Invoke(customItem, player, pickup, rigidbody, isAllowed);
-    public static void OnProcessingItem(CustomItemBase customItem, Player player, Item item, TypeWrapper<Scp914KnobSetting> knobSetting, TypeWrapper<bool> isAllowed) 
+    public static void OnProcessingItem(CustomItemBase customItem, Player player, Item item, TypeWrapper<Scp914KnobSetting> knobSetting, TypeWrapper<bool> isAllowed)
         => ProcessingItem?.Invoke(customItem, player, item, knobSetting, isAllowed);
-    public static void OnProcessingPickup(CustomItemBase customItem, Pickup pickup, TypeWrapper<Scp914KnobSetting> knobSetting, TypeWrapper<Vector3> newPosition, TypeWrapper<bool> isAllowed) 
-        => ProcessingPickup?.Invoke(customItem,  pickup, knobSetting, newPosition, isAllowed);
-    public static void OnRemoved(CustomItemBase customItem, Player player, ItemBase? itemBase, ItemPickupBase? itemPickupBase) 
+    public static void OnProcessingPickup(CustomItemBase customItem, Pickup pickup, TypeWrapper<Scp914KnobSetting> knobSetting, TypeWrapper<Vector3> newPosition, TypeWrapper<bool> isAllowed)
+        => ProcessingPickup?.Invoke(customItem, pickup, knobSetting, newPosition, isAllowed);
+    public static void OnRemoved(CustomItemBase customItem, Player player, ItemBase? itemBase, ItemPickupBase? itemPickupBase)
         => Removed?.Invoke(customItem, player, itemBase, itemPickupBase);
+    public static void OnTakingDamage(CustomItemBase customItem, Player player, Player attacker, DamageHandlerBase damageHandler, TypeWrapper<bool> isAllowed)
+        => TakingDamage?.Invoke(customItem, player, attacker, damageHandler, isAllowed);
 }
