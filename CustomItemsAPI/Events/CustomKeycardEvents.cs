@@ -7,7 +7,7 @@ namespace CustomItemsAPI.Events;
 public static class CustomKeycardEvents
 {
     public static event Action<CustomKeycardBase, Player, Item, Door, bool>? InteractedDoor;
-    public static event Action<CustomKeycardBase, Player, Item, Door, TypeWrapper<bool>, TypeWrapper<bool>>? InteractingDoor;
+    public static event Action<CustomKeycardBase, Player, Item, Door, TypeWrapper<bool>, TypeWrapper<bool>, bool>? InteractingDoor;
     public static event Action<CustomKeycardBase, Player, Item, Generator, GeneratorColliderId>? InteractedGenerator;
     public static event Action<CustomKeycardBase, Player, Item, Generator, TypeWrapper<GeneratorColliderId>, TypeWrapper<bool>>? InteractingGenerator;
     public static event Action<CustomKeycardBase, Player, Item, Locker, LockerChamber, bool>? InteractedLocker;
@@ -17,8 +17,8 @@ public static class CustomKeycardEvents
 
     public static void OnInteractedDoor(CustomKeycardBase customItem, Player player, Item item, Door door, bool canOpen)
         => InteractedDoor?.Invoke(customItem, player, item, door, canOpen);
-    public static void OnInteractingDoor(CustomKeycardBase customItem, Player player, Item item, Door door, TypeWrapper<bool> canOpen, TypeWrapper<bool> isAllowed)
-        => InteractingDoor?.Invoke(customItem, player, item, door, canOpen, isAllowed);
+    public static void OnInteractingDoor(CustomKeycardBase customItem, Player player, Item item, Door door, TypeWrapper<bool> canOpen, TypeWrapper<bool> isAllowed, bool isHeld)
+        => InteractingDoor?.Invoke(customItem, player, item, door, canOpen, isAllowed, isHeld);
     public static void OnInteractedGenerator(CustomKeycardBase customItem, Player player, Item item, Generator generator, GeneratorColliderId colliderId)
         => InteractedGenerator?.Invoke(customItem, player, item, generator, colliderId);
     public static void OnInteractingGenerator(CustomKeycardBase customItem, Player player, Item item, Generator generator, TypeWrapper<GeneratorColliderId> colliderId, TypeWrapper<bool> isAllowed)
