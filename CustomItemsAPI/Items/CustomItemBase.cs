@@ -1,7 +1,4 @@
-﻿using CustomItemsAPI.Helpers;
-using CustomItemsAPI.Interfaces;
-using InventorySystem.Items;
-using InventorySystem.Items.Autosync;
+﻿using InventorySystem.Items;
 using InventorySystem.Items.Pickups;
 using LabApi.Features.Wrappers;
 using MEC;
@@ -97,10 +94,6 @@ public abstract class CustomItemBase
     public virtual void Parse(Item item)
     {
         CL.Debug($"Parse {item.Serial}", Main.Instance.Config.Debug);
-        CL.Debug(item.Base.gameObject.PrintComponentTree(), Main.Instance.Config.PrintComponentOnChange);
-        if (this is IModuleChangable changable && changable != null && item.Base is ModularAutosyncItem modularAutosync && modularAutosync != null)
-            modularAutosync.ApplyChange(changable);
-        CL.Debug(item.Base.gameObject.PrintComponentTree(), Main.Instance.Config.PrintComponentOnChange);
     }
 
     /// <summary>

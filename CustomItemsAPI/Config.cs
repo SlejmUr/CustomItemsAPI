@@ -15,17 +15,6 @@ internal sealed class Config
     = true;
 #endif
 
-    /// <summary>
-    /// Printing component on before and after
-    /// </summary>
-    public bool PrintComponentOnChange { get; set; }
-
-    /// <summary>
-    /// Whenever getting/spawning the item should ignore the case of it.
-    /// </summary>
-    public bool EasyCompare { get; set; } = true;
-
-
     public bool ShowPickedUpHint { get; set; } = true;
 
     [Description("Hint when you picked up the custom item. {0}: DisplayName {1}: Description.")]

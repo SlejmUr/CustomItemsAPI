@@ -1,6 +1,4 @@
-﻿using CustomItemsAPI.Helpers;
-using CustomItemsAPI.Interfaces;
-using InventorySystem.Items.MicroHID.Modules;
+﻿using InventorySystem.Items.MicroHID.Modules;
 using LabApi.Features.Wrappers;
 
 namespace CustomItemsAPI.Items;
@@ -8,13 +6,8 @@ namespace CustomItemsAPI.Items;
 /// <summary>
 /// Custom <see cref="MicroHIDItem"/> base.
 /// </summary>
-public abstract class CustomMicroHIDBase : CustomItemBase, IModuleChangable
+public abstract class CustomMicroHIDBase : CustomItemBase
 {
-    /// <inheritdoc/>
-    public virtual Dictionary<ModuleChanger, Type> ReplaceModules { get; } = [];
-    /// <inheritdoc/>
-    public virtual List<ModuleChanger> AddModules { get; } = [];
-
     /// <inheritdoc/>
     public override void Parse(Item item)
     {

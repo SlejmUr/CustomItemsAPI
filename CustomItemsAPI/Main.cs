@@ -12,14 +12,10 @@ internal sealed class Main : Plugin<Config>
 {
     public static Main Instance;
     public override string Name => "CustomItemsAPI";
-
     public override string Description => "Enabling creating custom items";
-
     public override string Author => "SlejmUr";
-
-    public override Version Version => new(0, 0, 8, 0);
-
-    public override Version RequiredApiVersion => LabApi.Features.LabApiProperties.CurrentVersion;
+    public override Version Version => new(0, 0, 10, 0);
+    public override Version RequiredApiVersion => new(LabApi.Features.LabApiProperties.CompiledVersion);
 
     private readonly CommonItemHandler commonItemHandler = new();
     private readonly KeyCardItemHandler keyCardItemHandler = new();

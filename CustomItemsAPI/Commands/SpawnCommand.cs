@@ -34,8 +34,7 @@ public sealed class SpawnCommand : ICommand, IUsageProvider
             return false;
         }
         string itemname = arguments.At(0);
-        StringComparison comparison = Main.Instance.Config.EasyCompare ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase;
-        if (!CustomItems.IsItemNameExist(itemname, comparison))
+        if (!CustomItems.IsItemNameExist(itemname, StringComparison.InvariantCultureIgnoreCase))
         {
             response = "ItemName not exists!";
             return false;

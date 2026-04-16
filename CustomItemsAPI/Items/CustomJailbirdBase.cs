@@ -1,6 +1,4 @@
 ﻿using CustomItemsAPI.Overrides;
-using CustomItemsAPI.Helpers;
-using CustomItemsAPI.Interfaces;
 using LabApi.Features.Wrappers;
 
 namespace CustomItemsAPI.Items;
@@ -8,13 +6,8 @@ namespace CustomItemsAPI.Items;
 /// <summary>
 /// Custom <see cref="JailbirdItem"/> base.
 /// </summary>
-public abstract class CustomJailbirdBase : CustomItemBase, IModuleChangable
+public abstract class CustomJailbirdBase : CustomItemBase
 {
-    /// <inheritdoc/>
-    public virtual Dictionary<ModuleChanger, Type> ReplaceModules { get; } = [];
-    /// <inheritdoc/>
-    public virtual List<ModuleChanger> AddModules { get; } = [];
-
     /// <summary>
     /// Changable values for <see cref="InventorySystem.Items.Jailbird.JailbirdItem"/>
     /// </summary>

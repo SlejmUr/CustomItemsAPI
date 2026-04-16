@@ -1,11 +1,8 @@
-﻿using CustomItemsAPI.EventHandlers;
-using CustomItemsAPI.Extensions;
+﻿using CustomItemsAPI.Extensions;
 using InventorySystem.Items.Armor;
-using LabApi.Events.Arguments.PlayerEvents;
 using LabApi.Features.Wrappers;
 using PlayerStatsSystem;
 using System.ComponentModel;
-using UnityEngine;
 
 namespace CustomItemsAPI.Items;
 

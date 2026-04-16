@@ -1,6 +1,4 @@
 ﻿using CustomItemsAPI.Overrides;
-using CustomItemsAPI.Helpers;
-using CustomItemsAPI.Interfaces;
 using InventorySystem.Items.Firearms.Attachments;
 using LabApi.Features.Wrappers;
 using PlayerStatsSystem;
@@ -11,14 +9,8 @@ namespace CustomItemsAPI.Items;
 /// <summary>
 /// Custom <see cref="FirearmItem"/> base.
 /// </summary>
-public abstract class CustomFirearmBase : CustomItemBase, IModuleChangable
+public abstract class CustomFirearmBase : CustomItemBase
 {
-    /// <inheritdoc/>
-    public virtual Dictionary<ModuleChanger, Type> ReplaceModules { get; } = [];
-
-    /// <inheritdoc/>
-    public virtual List<ModuleChanger> AddModules { get; } = [];
-
     /// <summary>
     /// The <see cref="FirearmItem"/>'s Damage.
     /// </summary>

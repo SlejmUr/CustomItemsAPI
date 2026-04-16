@@ -7,7 +7,6 @@ namespace CustomItemsAPI.Items;
 /// </summary>
 public abstract class CustomUsableBase : CustomItemBase
 {
-
     /// <inheritdoc/>
     public override void Parse(Item item)
     {
