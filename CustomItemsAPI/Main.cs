@@ -14,7 +14,7 @@ internal sealed class Main : Plugin<Config>
     public override string Name => "CustomItemsAPI";
     public override string Description => "Enabling creating custom items";
     public override string Author => "SlejmUr";
-    public override Version Version => new(0, 0, 10, 0);
+    public override Version Version => new(0, 0, 11, 0);
     public override Version RequiredApiVersion => new(LabApi.Features.LabApiProperties.CompiledVersion);
 
     private readonly CommonItemHandler commonItemHandler = new();
@@ -29,6 +29,7 @@ internal sealed class Main : Plugin<Config>
     private readonly RevolverHandler revolverHandler = new();
     private readonly Scp127Handler scp127Handler = new();
     private readonly CoinHandler coinHandler = new();
+    private readonly Scp1509Handler scp1509Handler = new();
 
     public override void Enable()
     {
@@ -45,6 +46,7 @@ internal sealed class Main : Plugin<Config>
         CustomHandlersManager.RegisterEventsHandler(revolverHandler);
         CustomHandlersManager.RegisterEventsHandler(scp127Handler);
         CustomHandlersManager.RegisterEventsHandler(coinHandler);
+        CustomHandlersManager.RegisterEventsHandler(scp1509Handler);
         InventoryExtensions.OnItemRemoved += Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned += Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged += Subscribed.PhaseChanged;
@@ -66,6 +68,7 @@ internal sealed class Main : Plugin<Config>
         CustomHandlersManager.UnregisterEventsHandler(revolverHandler);
         CustomHandlersManager.UnregisterEventsHandler(scp127Handler);
         CustomHandlersManager.UnregisterEventsHandler(coinHandler);
+        CustomHandlersManager.UnregisterEventsHandler(scp1509Handler);
         InventoryExtensions.OnItemRemoved -= Subscribed.OnItemRemoved;
         ThrownProjectile.OnProjectileSpawned -= Subscribed.ProjectileSpawned;
         CycleController.OnPhaseChanged -= Subscribed.PhaseChanged;

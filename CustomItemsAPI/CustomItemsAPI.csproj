@@ -5,7 +5,7 @@
 		<RootNamespace>CustomItemsAPI</RootNamespace>
 		<Copyright>SlejmUr</Copyright>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<Version>0.0.10.0</Version>
+		<Version>0.0.11.0</Version>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Authors>SlejmUr</Authors>
 		<Company>SlejmUr</Company>
@@ -20,6 +20,10 @@
 	<ItemGroup>
 		<None Include="..\LICENSE.txt" Pack="true" PackagePath="\" />
 		<None Include="..\README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Northwood.LabAPI" Version="1.1.6.1" />
 	</ItemGroup>
 
 </Project>

@@ -19,6 +19,7 @@ public abstract class CustomKeycardBase : CustomItemBase
     /// Sets the Color of the Permisson if exists.
     /// </summary>
     public virtual Color? PermissionColor { get; } = Color.black;
+
     /// <summary>
     /// Sets the Color of the Tint if exists.
     /// </summary>
@@ -32,14 +33,17 @@ public abstract class CustomKeycardBase : CustomItemBase
     /// Sets the Rank Index of the keycard if exists.
     /// </summary>
     public virtual int RankIndex { get; }
+
     /// <summary>
     /// Sets the Custom Inventory Name of the keycard if exists.
     /// </summary>
     public virtual string CustomName { get; } = string.Empty;
+
     /// <summary>
     /// Sets the Custom Serial Id of the keycard if exists.
     /// </summary>
     public virtual string CustomSerial { get; } = string.Empty;
+
     /// <summary>
     /// Sets the Custom Name Tag of the keycard if exists.
     /// </summary>

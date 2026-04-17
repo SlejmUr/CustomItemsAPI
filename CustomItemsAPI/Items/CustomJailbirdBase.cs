@@ -17,8 +17,6 @@ public abstract class CustomJailbirdBase : CustomItemBase
     public override void Parse(Item item)
     {
         base.Parse(item);
-        if (item.Type != ItemType.Jailbird)
-            throw new ArgumentOutOfRangeException("Type", item.Type, "Invalid Jailbird type.");
         if (item is not JailbirdItem jailbird)
             throw new ArgumentException("JailbirdItem must not be null!");
 
