@@ -53,6 +53,21 @@ public abstract class CustomScp1509Base : CustomItemBase
     /// </summary>
     public virtual MathValueFloat RevivedPlayerAOEBonusAHPDistance { get; } = new();
 
+    /// <summary>
+    /// Sets the melee damage value for SCP-1509.
+    /// </summary>
+    public virtual MathValueFloat MeleeDamage { get; } = new();
+
+    /// <summary>
+    /// Sets the melee delay value for SCP-1509.
+    /// </summary>
+    public virtual MathValueFloat MeleeDelay { get; } = new();
+
+    /// <summary>
+    /// Sets the melee cooldown value for SCP-1509.
+    /// </summary>
+    public virtual MathValueFloat MeleeCooldown { get; } = new();
+
     /// <inheritdoc/>
     public override void Parse(Item item)
     {
@@ -69,14 +84,9 @@ public abstract class CustomScp1509Base : CustomItemBase
         scp1509.RevivedPlayerBlurTime = RevivedPlayerBlurTime.MathCalculation(scp1509.RevivedPlayerBlurTime);
         scp1509.RevivedPlayerAOEBonusAHP = RevivedPlayerAOEBonusAHP.MathCalculation(scp1509.RevivedPlayerAOEBonusAHP);
         scp1509.RevivedPlayerAOEBonusAHPDistance = RevivedPlayerAOEBonusAHPDistance.MathCalculation(scp1509.RevivedPlayerAOEBonusAHPDistance);
-    }
-
-    /// <inheritdoc/>
-    public override void Parse(Pickup pickup)
-    {
-        base.Parse(pickup);
-        if (pickup is not Scp1509Pickup scp1509)
-            throw new ArgumentException("Pickup must be Scp1509Item!");
+        scp1509.Base.MeleeDamage = MeleeDamage.MathCalculation(scp1509.Base.MeleeDamage);
+        scp1509.Base._meleeDelay = MeleeDelay.MathCalculation(scp1509.Base._meleeDelay);
+        scp1509.Base._meleeCooldown = MeleeCooldown.MathCalculation(scp1509.Base._meleeCooldown);
     }
 
     /// <see cref="LabApi.Events.Handlers.PlayerEvents.ProcessedScp1509Message"/>
